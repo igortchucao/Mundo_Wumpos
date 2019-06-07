@@ -1,0 +1,1 @@
+__all__ = ['Retangulo', 'Wumpos2', 'main']
