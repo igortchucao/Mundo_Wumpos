@@ -61,7 +61,7 @@ retangulo = Retangulo.Rect(200)
 view = False
 ambiente = Wumpos2.gerar_ambiente()
 
-sel = vert = hor = 0
+vert = hor = 0
 while 1:
     clock.tick(30)
 
@@ -73,6 +73,9 @@ while 1:
                 Wumpos2.Resultado_bot(ambiente)
             if event.key == pygame.K_F2:
                 view = True
+                pygame.mixer.music.stop()
+                pygame.mixer.music.load("Musicas/GameOver.mp3")
+                pygame.mixer.music.play(-1)
             if event.key == pygame.K_UP:
                 if 0 <= vert - 1:
                     vert -= 1
