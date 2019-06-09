@@ -32,8 +32,9 @@ class Rect():
 
         pygame.draw.rect(screen, WHITE, pygame.Rect(x + 8, y + 8, self.tm - 15, self.tm - 15), 5)
 
-
+    '''FUNÇÃO QUE MOSTRA UM DETERMINADO QUADRADO'''
     def view_rect(self, ref, ambiente):
+        '''99 É A REFERENCIA PARA PRINTAR TODO TABULEIRO'''
         if(ref == 99):
             for i in range(0, 16, +1):
                 if ambiente[i]['Wumpos']:
@@ -66,6 +67,15 @@ class Rect():
                     y_Fedor = ((i // 4) * self.tm) + 20
                     screen.blit(Fedor_text, [x_Fedor, y_Fedor])
 
+                screen.blit(pygame.font.SysFont(None, 150).render('G', True, BLACK), [970, 100])
+                screen.blit(pygame.font.SysFont(None, 150).render('A', True, BLACK), [970, 180])
+                screen.blit(pygame.font.SysFont(None, 150).render('M', True, BLACK), [970, 260])
+                screen.blit(pygame.font.SysFont(None, 150).render('E', True, BLACK), [970, 340])
+                screen.blit(pygame.font.SysFont(None, 150).render('O', True, BLACK), [970, 450])
+                screen.blit(pygame.font.SysFont(None, 150).render('V', True, BLACK), [970, 530])
+                screen.blit(pygame.font.SysFont(None, 150).render('E', True, BLACK), [970, 610])
+                screen.blit(pygame.font.SysFont(None, 150).render('R', True, BLACK), [970, 690])
+
         else:
             x = ((ref % 4) * self.tm) + 100
             y = ((ref // 4) * self.tm) + 100
@@ -73,8 +83,10 @@ class Rect():
             pygame.draw.circle(screen, BLACK, (x, y), 88, 1)
             pygame.draw.circle(screen, BLACK, (x, y), 85, 2)
 
-            text = font.render(ambiente[ref]['Estado'], True, BLACK)
+            '''INICIA OS TEXTOS DO MENU LATERAL'''
             text1 = text2 = text3 = text4 = text5 = font.render('Nada', True, BLACK)
+
+            '''CRIA OS TEXTOS A PARTIR DA VARIAVEL'''
             if ambiente[ref]['Brisa']:
                 text1 = font.render('Brisa', True, BLACK)
             if ambiente[ref]['Fedor']:
@@ -86,10 +98,11 @@ class Rect():
             if ambiente[ref]['Wumpos']:
                 text5 = font.render('Wumpos', True, BLACK)
 
-            alt = 950
-            screen.blit(text, [x - 30, y - 20])
-            screen.blit(text1, [alt, 100])
-            screen.blit(text2, [alt, 150])
-            screen.blit(text3, [alt, 200])
-            screen.blit(text4, [alt, 250])
-            screen.blit(text5, [alt, 350])
+            '''CORREÇÃO DE ALTURA DO MENU'''
+            lat = 950
+
+            screen.blit(text1, [lat, 100])
+            screen.blit(text2, [lat, 150])
+            screen.blit(text3, [lat, 200])
+            screen.blit(text4, [lat, 250])
+            screen.blit(text5, [lat, 350])
