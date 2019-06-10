@@ -1,1 +1,1 @@
-__all__ = ['Retangulo', 'Wumpos2', 'main']
+__all__ = ['View', 'Gerador', 'Musics, ''main']
