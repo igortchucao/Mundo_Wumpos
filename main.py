@@ -1,5 +1,4 @@
-'''oi familia'''
-import pygame, sys, os, Retangulo, Wumpos2
+import pygame, sys, os, View, Gerador, Musics
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -35,70 +34,71 @@ UP = 1
 DOWN = 2
 LEFT = 3
 RIGHT = 4
-loop = True
 
-def menu():
-    pygame.draw.rect(screen, WHITE, pygame.Rect(805, 0, 395, 800), 5)
-    pygame.draw.rect(screen, WHITE, pygame.Rect(815, 10, 375, 780))
-    text = font.render('MUNDO DO WUMPOS ', True, BLACK)
-    screen.blit(text, [832, 40])
+def main():
+    loop = True
+    pygame.mixer.music.play(-1)
+    '''TELA DE INICIO'''
+    while loop:
+        screen.fill(BLACK)
+        screen.blit(Imagem_menu, (0,0))
+        text = font2.render('ESPAÇO PARA COMECAR', True, WHITE)
+        screen.blit(text, [650, 750])
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    loop = False
+        pygame.display.update()
+    '''CRIA O OBJETO DO MENU'''
+    MenuWump = View.Menu(200)
+    TheEnd = False
+    ambiente = Gerador.gerar_ambiente()
 
-pygame.mixer.music.play(-1)
+    vert = hor = 0
+    while 1:
+        clock.tick(30)
 
-while loop:
-    screen.fill(BLACK)
-    screen.blit(Imagem_menu, (0,0))
-    text = font2.render('ESPAÇO PARA COMECAR', True, WHITE)
-    screen.blit(text, [650, 750])
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                loop = False
-    pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_F1:
+                    print("algo")
+                    '''CODIGO AQUI'''
+                if event.key == pygame.K_F2:
+                    TheEnd = True
+                    Musics.music(99, ambiente)
+                if event.key == pygame.K_F3:
+                    TheEnd = False
+                    Musics.music(100, ambiente)
+                if event.key == pygame.K_UP:
+                    if 0 <= vert - 1:
+                        vert -= 1
+                elif event.key == pygame.K_DOWN:
+                    if vert + 1 < 4:
+                        vert += 1
+                elif event.key == pygame.K_LEFT:
+                    if 0 <= hor - 1:
+                        hor -= 1
+                elif event.key == pygame.K_RIGHT:
+                    if hor + 1 < 4:
+                        hor += 1
 
-retangulo = Retangulo.Rect(200)
-view = False
-ambiente = Wumpos2.gerar_ambiente()
+        #Musics.music((4 * vert) + (hor), ambiente)
+        screen.fill(BLACK)
+        View.menu()
+        if (TheEnd):
+            MenuWump.view_rect(99, ambiente)
+        else :
+            MenuWump.view_rect((4 * vert) + (hor), ambiente)
 
-vert = hor = 0
-while 1:
-    clock.tick(30)
+        for j in range(0, 16, +1):
+            MenuWump.draw(j, ambiente, False)
+        pygame.display.update()
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_F1:
-                Wumpos2.Resultado_bot(ambiente)
-            if event.key == pygame.K_F2:
-                view = True
-                pygame.mixer.music.stop()
-                pygame.mixer.music.load("Musicas/GameOver.mp3")
-                pygame.mixer.music.play(-1)
-            if event.key == pygame.K_UP:
-                if 0 <= vert - 1:
-                    vert -= 1
-            elif event.key == pygame.K_DOWN:
-                if vert + 1 < 4:
-                    vert += 1
-            elif event.key == pygame.K_LEFT:
-                if 0 <= hor - 1:
-                    hor -= 1
-            elif event.key == pygame.K_RIGHT:
-                if hor + 1 < 4:
-                    hor += 1
+    pygame.mixer.music.stop()
 
-    screen.fill(BLACK)
-    menu()
-    if (view):
-        retangulo.view_rect(99, ambiente)
-    else :
-        retangulo.view_rect((4 * vert) + (hor), ambiente)
-
-    for j in range(0, 16, +1):
-        retangulo.draw(j, ambiente, False)
-    pygame.display.update()
-
-pygame.mixer.music.stop()
+if __name__ == '__main__':
+    main()
