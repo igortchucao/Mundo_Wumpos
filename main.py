@@ -1,3 +1,4 @@
+'''oi familia'''
 import pygame, sys, os, Retangulo, Wumpos2
 
 pygame.init()
