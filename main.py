@@ -105,9 +105,10 @@ def main():
                 elif event.key == pygame.K_RIGHT:
                     if hor + 1 < 4:
                         hor += 1
+        pos = (4 * vert) + (hor)
         if(iaKey):
-            pos = (4 * vert) + (hor)
-            pos = ai.jogo(pos, ambiente, percepcoes)
+            posIa = (4 * vert) + (hor)
+            posIa = ai.jogo(posIa, ambiente, percepcoes)
             time.sleep(1)
 
         screen.fill(BLACK)
