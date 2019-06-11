@@ -1,4 +1,4 @@
-import sys, os, View, Gerador, Musics, time
+import sys, os, View, Gerador, time
 import ArtificialIntelligence as ai
 import pygame 
 
@@ -91,10 +91,8 @@ def main():
                     iaKey = True
                 if event.key == pygame.K_F2:
                     TheEnd = True
-                    Musics.music(99, ambiente)
                 if event.key == pygame.K_F3:
                     TheEnd = False
-                    Musics.music(100, ambiente)
                 if event.key == pygame.K_UP:
                     if 0 <= vert - 1:
                         vert -= 1
