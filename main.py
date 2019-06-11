@@ -9,7 +9,7 @@ font = pygame.font.SysFont(None, 49)
 font2 = pygame.font.SysFont(None, 30)
 
 '''Imagens'''
-Imagem_menu = pygame.image.load(os.path.join('Imagens', 'Wumpos.png'))
+Imagem_menu = pygame.image.load(os.path.join('Imagens', 'Wumpus.png'))
 
 '''Sons'''
 pygame.mixer.music.load("Musicas/DarkSouls3.mp3")

@@ -3,7 +3,7 @@ import pygame
 def music(ref, ambiente):
     pygame.mixer.music.stop()
     if ref < 99:
-        if ambiente[ref]["Wumpos"]:
+        if ambiente[ref]["Wumpus"]:
             pygame.mixer.music.load("Musicas/Wumpus.mp3")
             pygame.mixer.music.play(-1)
         elif ambiente[ref]["Poço"]:
