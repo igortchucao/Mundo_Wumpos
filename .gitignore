@@ -1,0 +1,6 @@
+#ignora todos os arquivos cache do python
+__pycache__
+*.pyc
+
+#ignora os arquivos xml criados
+*.xml
