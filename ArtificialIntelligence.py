@@ -1,6 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import random
 
-arq = open('/Arquivos/Menu.txt', 'w')
+arq = open('Arquivos/Menu.txt', 'w')
 
 def gera_ambiente():
 	# Cada quadrado do ambiente tem 0,2 prob de ter um poço, menos o quadrado 0
@@ -244,6 +246,7 @@ def percepcao_ambiente(ambiente, percepcoes, posicao):
 
         if(ambiente[posicao]['Brisa'] == True):
                 print('Contém Brisa na posição ', posicao)
+                arq.write('Contém Brisa na posição\n')
                 percepcoes[posicao]['Poço'] = False
                 percepcoes = infere_conhecimento(ambiente, percepcoes, posicao)
         else:
@@ -252,16 +255,19 @@ def percepcao_ambiente(ambiente, percepcoes, posicao):
 
         if(ambiente[posicao]['Ouro'] == True):
                 print('O personagem achou o Ouro')
+                arq.write('Você achou o Ouro\n')
                 percepcoes[posicao]['Ouro'] = True
         else:
                 percepcoes[posicao]['Ouro'] = False
         
         if(ambiente[posicao]['Poço'] == True):
-                print('O personagem caiu num poço')
+                print('O personagem caiu no poço')
+                arq.write('O personagem caiu no poço\n')
                 percepcoes[posicao]['Ouro'] = True
         
         if(ambiente[posicao]['Wumpus'] == posicao):
                 print('O personagem foi devorado pelo Wumpus')
+                arq.write('O personagem foi devorado pelo Wumpos\n')
                 percepcoes[posicao]['Wumpus'] = True
         
         return percepcoes
@@ -379,7 +385,6 @@ def jogo(posicao_atual, ambiente, perc_do_ambiente):
         # imprimindo informações do ambiente
         #show_info(ambiente, perc_do_ambiente)
 
-arq.close()
 #main()
 """
  12 13 14 15

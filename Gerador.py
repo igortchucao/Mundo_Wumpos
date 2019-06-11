@@ -30,7 +30,7 @@ def gerar_ambiente():
             y = random.randrange(0, 3)
             pos = (4 * y) + x
 
-            if pos > 0 and tabuleiro[pos]['Poço'] == False:
+            if pos != 0 and pos !=1 and pos != 4 and tabuleiro[pos]['Poço'] == False:
                 tabuleiro[pos]['Poço'] = True
 
                 if x + 1 < 4:
@@ -50,7 +50,7 @@ def gerar_ambiente():
         y = random.randrange(0, 4)
         pos = (4 * y) + x
 
-        if tabuleiro[x]['Poço'] == False and pos > 0:
+        if tabuleiro[x]['Poço'] == False and pos != 0 and pos !=1 and pos != 4:
             tabuleiro[pos]['Wumpus'] = True
             if x + 1 < 4:
                 tabuleiro[pos + 1]['Fedor'] = True

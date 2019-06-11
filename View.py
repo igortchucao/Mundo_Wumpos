@@ -29,7 +29,9 @@ screen = pygame.display.set_mode(size)
 class Menu():
     def __init__(self, tm):
         self.tm = tm
+        self.menu = open('Arquivos/Menu.txt', 'r')
     
+    '''FUNÇÃO QUE DESENHA O TABULEIRO'''
     def draw(self, ref, ambiente, show_amb):
         x = ((ref % 4) * self.tm)
         y = ((ref // 4) * self.tm)
@@ -100,6 +102,12 @@ class Menu():
                     screen.blit(font.render('Brisa', True, BLACK), [x - 42, y])
                 if ambiente[ref]['Fedor']:
                     screen.blit(font.render('Fedor', True, MARROM_c), [x - 42, y - 40])
+
+    def menu_lateral(self):
+        texto = self.menu.readlines()
+        for linha in texto :
+            print(linha, "afsafasfas")
+            screen.blit(font.render(linha, True, BLACK), [950, 200])
 
 def menu():
     pygame.draw.rect(screen, WHITE, pygame.Rect(805, 0, 395, 800), 5)

@@ -114,6 +114,7 @@ def main():
 
         screen.fill(BLACK)
         View.menu()
+        MenuWump.menu_lateral()
         if (TheEnd):
             MenuWump.view_rect(99, ambiente)
         else :
@@ -127,3 +128,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    arq.close()
