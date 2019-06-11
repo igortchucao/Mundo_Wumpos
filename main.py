@@ -1,4 +1,4 @@
-import pygame, sys, os, View, Gerador, Musics
+import pygame, sys, os, View, Gerador, Musics, time
 import ArtificialIntelligence as ai
 
 pygame.init()
@@ -8,6 +8,26 @@ width = 1200
 height = 800
 font = pygame.font.SysFont(None, 49)
 font2 = pygame.font.SysFont(None, 30)
+
+# Percepções do ambiente
+percepcoes = {
+        0: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+        1: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+        2: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+        3: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+        4: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+        5: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+        6: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+        7: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+        8: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+        9: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+        10: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+        11: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+        12: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+        13: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+        14: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+        15: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None}
+}
 
 '''Imagens'''
 Imagem_menu = pygame.image.load(os.path.join('Imagens', 'Wumpos.png'))
@@ -88,6 +108,8 @@ def main():
                         hor += 1
 
         pos = (4 * vert) + (hor)
+        pos = ai.jogo(pos, ambiente, percepcoes)
+        time.sleep(1)
         screen.fill(BLACK)
         View.menu()
         if (TheEnd):

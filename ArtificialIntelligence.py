@@ -370,7 +370,7 @@ def jogo(posicao_atual, ambiente, perc_do_ambiente):
         if(validade == True):
                 #print('Indo para', string_movimento, 'da posição', posicao_atual,'\n')
                 posicao_atual = prox_posicao(get_coord(posicao_atual), tu_prox_mov)
-        return posicao_atual, ouro, wumpus, buraco
+        return posicao_atual
         
         #end_game(perc_do_ambiente, posicao_atual)
         # imprimindo informações do ambiente
