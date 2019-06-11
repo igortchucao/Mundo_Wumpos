@@ -44,7 +44,6 @@ def gerar_ambiente():
                 loop = False
 
     '''FUNÇÃO QUE ADICIONA O WUMPUS AO TABULEIRO'''
-    #comment
     loop = True
     while loop:
         x = random.randrange(0, 4)

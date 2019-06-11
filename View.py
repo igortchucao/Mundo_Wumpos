@@ -1,5 +1,5 @@
 import pygame, os
-#comment
+
 pygame.init()
 clock = pygame.time.Clock()
 pygame.display.set_caption('Mundo do Wumpos')
