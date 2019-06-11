@@ -75,6 +75,7 @@ def main():
     '''CRIA O OBJETO DO MENU'''
     MenuWump = View.Menu(200)
     TheEnd = False
+    iaKey = False
     ambiente = Gerador.gerar_ambiente()
 
     pos = vert = hor = 0
@@ -86,8 +87,7 @@ def main():
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_F1:
-                    print("algo")
-                    '''CODIGO AQUI'''
+                    iaKey = True
                 if event.key == pygame.K_F2:
                     TheEnd = True
                     Musics.music(99, ambiente)
@@ -106,10 +106,11 @@ def main():
                 elif event.key == pygame.K_RIGHT:
                     if hor + 1 < 4:
                         hor += 1
-
-        pos = (4 * vert) + (hor)
-        pos = ai.jogo(pos, ambiente, percepcoes)
-        time.sleep(1)
+        if(iaKey)
+            pos = (4 * vert) + (hor)
+            pos = ai.jogo(pos, ambiente, percepcoes)
+            time.sleep(1)
+            
         screen.fill(BLACK)
         View.menu()
         if (TheEnd):
