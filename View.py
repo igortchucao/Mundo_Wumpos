@@ -2,7 +2,7 @@ import pygame, os
 
 pygame.init()
 clock = pygame.time.Clock()
-pygame.display.set_caption('Mundo do Wumpos')
+pygame.display.set_caption('Mundo do Wumpus')
 width = 1200
 height = 800
 font = pygame.font.SysFont(None, 49)
@@ -40,9 +40,9 @@ class Menu():
     '''FUNÇÃO QUE MOSTRA UM DETERMINADO QUADRADO'''
     def view_rect(self, ref, ambiente):
         '''99 É A REFERENCIA PARA PRINTAR TODO TABULEIRO'''
-        if(ref == 99) or ambiente[ref]['Wumpos']:
+        if(ref == 99) or ambiente[ref]['Wumpus']:
             for i in range(0, 16, +1):
-                if ambiente[i]['Wumpos']:
+                if ambiente[i]['Wumpus']:
                     x_wumpos = ((i % 4) * self.tm) + 100
                     y_wumpos = ((i // 4) * self.tm) + 100
                     screen.blit(Imagem_wumpus, (x_wumpos - 74, y_wumpos - 74))
@@ -90,7 +90,7 @@ class Menu():
             pygame.draw.circle(screen, BLACK, (x, y), 85, 2)
 
             '''CRIA OS TEXTOS A PARTIR DA VARIAVEL'''
-            if ambiente[ref]['Wumpos']:
+            if ambiente[ref]['Wumpus']:
                 screen.blit(Imagem_wumpus, (x - 74, y - 74))
             elif ambiente[ref]['Ouro']:
                 screen.blit(Imagem_Ouro, (x - 74, y - 74))
@@ -105,5 +105,5 @@ class Menu():
 def menu():
     pygame.draw.rect(screen, WHITE, pygame.Rect(805, 0, 395, 800), 5)
     pygame.draw.rect(screen, WHITE, pygame.Rect(815, 10, 375, 780))
-    text = font.render('MUNDO DO WUMPOS ', True, BLACK)
+    text = font.render('MUNDO DO WUMPUS ', True, BLACK)
     screen.blit(text, [832, 40])
