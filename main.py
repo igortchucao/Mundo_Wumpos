@@ -1,4 +1,5 @@
 import pygame, sys, os, View, Gerador, Musics
+import ArtificialIntelligence as ai
 
 pygame.init()
 clock = pygame.time.Clock()
