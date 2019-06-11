@@ -106,7 +106,6 @@ class Menu():
     def menu_lateral(self):
         texto = self.menu.readlines()
         for linha in texto :
-            print(linha, "afsafasfas")
             screen.blit(font.render(linha, True, BLACK), [950, 200])
 
 def menu():
