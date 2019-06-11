@@ -86,7 +86,6 @@ def main():
                     if hor + 1 < 4:
                         hor += 1
 
-        
         pos = (4 * vert) + (hor)
         screen.fill(BLACK)
         View.menu()
