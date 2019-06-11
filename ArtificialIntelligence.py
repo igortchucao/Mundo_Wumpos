@@ -1,5 +1,7 @@
 import random
 
+arq = open('/Arquivos/Menu.txt', 'w')
+
 def gera_ambiente():
 	# Cada quadrado do ambiente tem 0,2 prob de ter um poço, menos o quadrado 0
 	# Os quadrados adjacentes ao '0', no caso '1' e '4', também não são inclusos
@@ -233,6 +235,7 @@ def percepcao_ambiente(ambiente, percepcoes, posicao):
         
         if(ambiente[posicao]['Fedor'] == True):
                 print('Contém fedor na posição ', posicao)
+                arq.write('Contém fedor na posição\n')
                 percepcoes[posicao]['Wumpus'] = False
                 percepcoes = infere_conhecimento(ambiente, percepcoes, posicao)
         else:
@@ -376,7 +379,7 @@ def jogo(posicao_atual, ambiente, perc_do_ambiente):
         # imprimindo informações do ambiente
         #show_info(ambiente, perc_do_ambiente)
 
-
+arq.close()
 #main()
 """
  12 13 14 15
