@@ -1,7 +1,7 @@
 import random
 
 def gerar_ambiente():
-    '''BRISA, FEDOR, OURO, BURACO, WUMPOS'''
+    '''BRISA, FEDOR, OURO, BURACO, WUMPUS'''
 
     tabuleiro = {
         0: {'Poço': False, 'Brisa': False, 'Wumpos': False, 'Fedor': False, 'Ouro': False},
