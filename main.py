@@ -56,7 +56,7 @@ def main():
     TheEnd = False
     ambiente = Gerador.gerar_ambiente()
 
-    vert = hor = 0
+    pos = vert = hor = 0
     while 1:
         clock.tick(30)
 
@@ -87,12 +87,13 @@ def main():
                         hor += 1
 
         #Musics.music((4 * vert) + (hor), ambiente)
+        pos = (4 * vert) + (hor)
         screen.fill(BLACK)
         View.menu()
         if (TheEnd):
             MenuWump.view_rect(99, ambiente)
         else :
-            MenuWump.view_rect((4 * vert) + (hor), ambiente)
+            MenuWump.view_rect(pos, ambiente)
 
         for j in range(0, 16, +1):
             MenuWump.draw(j, ambiente, False)
