@@ -1,8 +1,6 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import random
 
-arq = open('Arquivos/Menu.txt', 'w')
+#arq = open('Arquivos/Menu.txt', 'w')
 
 def gera_ambiente():
 	# Cada quadrado do ambiente tem 0,2 prob de ter um poço, menos o quadrado 0
@@ -119,49 +117,49 @@ def infere_aux(percepcoes, posicao):
                 nova_pos = coord_pos[1]*4 + (coord_pos[0]-1)
                 if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Brisa'] == False):
                         percepcoes[posicao]['Poço'] = False
-                        print('Não tem um poço em', posicao)
+                        #print('Não tem um poço em', posicao)
         
         if(coord_pos[0]+1 < 5):
                 nova_pos = coord_pos[1]*4 + (coord_pos[0]+1)
                 if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Brisa'] == False):
                         percepcoes[posicao]['Poço'] = False
-                        print('Não tem um poço em', posicao)
+                        #print('Não tem um poço em', posicao)
 
         if(coord_pos[1]-1 > -1):
                 nova_pos = (coord_pos[1]-1)*4 + coord_pos[0]
                 if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Brisa'] == False):
                         percepcoes[posicao]['Poço'] = False
-                        print('Não tem um poço em', posicao)
+                        #print('Não tem um poço em', posicao)
 
         if(coord_pos[1]+1 < 5):
                 nova_pos = (coord_pos[1]+1)*4 + coord_pos[0]
                 if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Brisa'] == False):
                         percepcoes[posicao]['Poço'] = False
-                        print('Não tem um poço em', posicao)
+                        #print('Não tem um poço em', posicao)
 
         if(coord_pos[0]-1 > -1):
                 nova_pos = coord_pos[1]*4 + (coord_pos[0]-1)
                 if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Fedor'] == False):
                         percepcoes[posicao]['Poço'] = False
-                        print('Não tem um wumpus em', posicao)
+                        #print('Não tem um wumpus em', posicao)
         
         if(coord_pos[0]+1 < 5):
                 nova_pos = coord_pos[1]*4 + (coord_pos[0]+1)
                 if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Fedor'] == False):
                         percepcoes[posicao]['Poço'] = False
-                        print('Não tem um wumpus em', posicao)
+                        #print('Não tem um wumpus em', posicao)
 
         if(coord_pos[1]-1 > -1):
                 nova_pos = (coord_pos[1]-1)*4 + coord_pos[0]
                 if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Fedor'] == False):
                         percepcoes[posicao]['Poço'] = False
-                        print('Não tem um wumpus em', posicao)
+                        #print('Não tem um wumpus em', posicao)
 
         if(coord_pos[1]+1 < 5):
                 nova_pos = (coord_pos[1]+1)*4 + coord_pos[0]
                 if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Fedor'] == False):
                         percepcoes[posicao]['Poço'] = False
-                        print('Não tem um wumpus em', posicao)
+                        #print('Não tem um wumpus em', posicao)
         
         
         return percepcoes
@@ -226,39 +224,45 @@ def percepcao_ambiente(ambiente, percepcoes, posicao):
         # A mesma coisa para Brisa/Poço
         
         if(ambiente[posicao]['Fedor'] == True):
-                print('Contém fedor na posição ', posicao)
-                arq.write('Contém fedor na posição\n')
+                #print('Contém fedor na posição ', posicao)
+                #arq.write('Contém fedor na posição\n')
                 percepcoes[posicao]['Wumpus'] = False
+                percepcoes[posicao]['Fedor'] = True
                 percepcoes = infere_conhecimento(ambiente, percepcoes, posicao)
         else:
                 percepcoes[posicao]['Fedor'] = False
                 percepcoes[posicao]['Wumpus'] = False
 
         if(ambiente[posicao]['Brisa'] == True):
-                print('Contém Brisa na posição ', posicao)
-                arq.write('Contém Brisa na posição\n')
+                #print('Contém Brisa na posição ', posicao)
+                #arq.write('Contém Brisa na posição\n')
                 percepcoes[posicao]['Poço'] = False
+                percepcoes[posicao]['Brisa'] = True
                 percepcoes = infere_conhecimento(ambiente, percepcoes, posicao)
         else:
                 percepcoes[posicao]['Poço'] = False
                 percepcoes[posicao]['Brisa'] = False
 
         if(ambiente[posicao]['Ouro'] == True):
-                print('O personagem achou o Ouro')
-                arq.write('Você achou o Ouro\n')
+                #print('O personagem achou o Ouro')
+                #arq.write('Você achou o Ouro\n')
                 percepcoes[posicao]['Ouro'] = True
         else:
                 percepcoes[posicao]['Ouro'] = False
         
         if(ambiente[posicao]['Poço'] == True):
-                print('O personagem caiu no poço')
-                arq.write('O personagem caiu no poço\n')
-                percepcoes[posicao]['Ouro'] = True
+                #print('O personagem caiu no poço')
+                #arq.write('O personagem caiu no poço\n')
+                percepcoes[posicao]['Poço'] = True
         
-        if(ambiente[posicao]['Wumpus'] == posicao):
-                print('O personagem foi devorado pelo Wumpus')
-                arq.write('O personagem foi devorado pelo Wumpos\n')
+        if(ambiente[posicao]['Wumpus'] == True):
+                #print('O personagem foi devorado pelo Wumpus')
+                #arq.write('O personagem foi devorado pelo Wumpos\n')
                 percepcoes[posicao]['Wumpus'] = True
+        
+        #print('\nPosição:', posicao)
+        #print('Percepção:', percepcoes[posicao])
+        #print('Ambiente:', ambiente[posicao])
         
         return percepcoes
 
@@ -345,6 +349,12 @@ def jogo(posicao_atual, ambiente, percepcoes):
         
         # Verificando posição atual se existe algum problema
         percepcoes = percepcao_ambiente(ambiente, percepcoes, posicao_atual)
+        if(percepcoes[posicao_atual]['Wumpus'] == True):
+                wumpus = True
+        if(percepcoes[posicao_atual]['Poço'] == True):
+                buraco = True
+        if(percepcoes[posicao_atual]['Ouro'] == True):
+                ouro = True
         
         # Escolhe aleatoriamente um movimento todos com probabilidades iguais
         movimento = random.choice(li_movimentos)     
@@ -354,13 +364,9 @@ def jogo(posicao_atual, ambiente, percepcoes):
 
         # Verifica se o movimento é possível
         validade = mov_valido(coord_porx_mov, posicao_atual, percepcoes)
-        if(validade == True):
+        if(ouro == True or buraco == True or wumpus == True):
+                print('true')
+        elif(validade == True):
                 posicao_atual = coord_to_pos(get_coord(posicao_atual), coord_porx_mov)
-                if(percepcoes[posicao_atual]['Wumpus'] == True):
-                        wumpus = True
-                if(percepcoes[posicao_atual]['Poço'] == True):
-                        buraco = True
-                if(percepcoes[posicao_atual]['Ouro'] == True):
-                        ouro = True
         
-        return posicao_atual
+        return posicao_atual, ouro, buraco, wumpus

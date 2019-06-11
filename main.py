@@ -60,6 +60,7 @@ RIGHT = 4
 def main():
     loop = True
     pygame.mixer.music.play(-1)
+    
     '''TELA DE INICIO'''
     while loop:
         screen.fill(BLACK)
@@ -73,6 +74,7 @@ def main():
                 if event.key == pygame.K_SPACE:
                     loop = False
         pygame.display.update()
+    
     '''CRIA O OBJETO DO MENU'''
     MenuWump = View.Menu(200)
     TheEnd = False
@@ -80,7 +82,8 @@ def main():
     ambiente = Gerador.gerar_ambiente()
 
     pos = vert = hor = 0
-    while 1:
+    ouro = wumpus = poco = False
+    while(ouro == False and wumpus == False and poco == False):
         clock.tick(30)
 
         for event in pygame.event.get():
@@ -93,6 +96,7 @@ def main():
                     TheEnd = True
                 if event.key == pygame.K_F3:
                     TheEnd = False
+                # Comandos para usuário jogar
                 if event.key == pygame.K_UP:
                     if 0 <= vert - 1:
                         vert -= 1
@@ -105,15 +109,18 @@ def main():
                 elif event.key == pygame.K_RIGHT:
                     if hor + 1 < 4:
                         hor += 1
-        pos = (4 * vert) + (hor)
+        
+        # Se 'iaKey' == True, a posição depende do ai.jogo()
         if(iaKey):
-            posIa = (4 * vert) + (hor)
-            posIa = ai.jogo(posIa, ambiente, percepcoes)
+            pos, ouro, buraco, wumpus = ai.jogo(pos, ambiente, percepcoes)
+            print('Ouro:', ouro, '\nWumpus:', wumpus, '\nPoço:', poco)
             time.sleep(1)
+        else:
+            pos = (4 * vert) + (hor)
 
         screen.fill(BLACK)
         View.menu()
-        MenuWump.menu_lateral()
+        #MenuWump.menu_lateral()
         if (TheEnd):
             MenuWump.view_rect(99, ambiente)
         else :
@@ -123,8 +130,14 @@ def main():
             MenuWump.draw(j, ambiente, False)
         pygame.display.update()
 
+    if ouro == True:
+        print('Achou o ouro')
+    if poco == True:
+        print('Caiu num buraco')
+    if wumpus == True:
+        print('Wumpus devorou')
     pygame.mixer.music.stop()
 
 if __name__ == '__main__':
     main()
-    arq.close()
+    #arq.close()
