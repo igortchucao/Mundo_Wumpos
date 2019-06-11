@@ -55,7 +55,6 @@ class Menu():
                     else:
 
                         if ambiente[i]['Ouro']:
-                            ouro_text = font.render('Ouro', True, YELLOW)
                             x_ouro = ((i % 4) * self.tm) + 100
                             y_ouro = ((i // 4) * self.tm) + 100
                             screen.blit(Imagem_Ouro, (x_ouro - 74, y_ouro - 74))

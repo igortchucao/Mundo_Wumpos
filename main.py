@@ -1,5 +1,6 @@
-import pygame, sys, os, View, Gerador, Musics, time
+import sys, os, View, Gerador, Musics, time
 import ArtificialIntelligence as ai
+import pygame 
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -106,11 +107,11 @@ def main():
                 elif event.key == pygame.K_RIGHT:
                     if hor + 1 < 4:
                         hor += 1
-        if(iaKey)
+        if(iaKey):
             pos = (4 * vert) + (hor)
             pos = ai.jogo(pos, ambiente, percepcoes)
             time.sleep(1)
-            
+
         screen.fill(BLACK)
         View.menu()
         if (TheEnd):
