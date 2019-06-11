@@ -86,7 +86,7 @@ def main():
                     if hor + 1 < 4:
                         hor += 1
 
-        #Musics.music((4 * vert) + (hor), ambiente)
+        
         pos = (4 * vert) + (hor)
         screen.fill(BLACK)
         View.menu()
