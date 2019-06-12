@@ -1,4 +1,4 @@
-import sys, os, View, Gerador, time
+import sys, os, View, time
 import ArtificialIntelligence as ai
 import pygame 
 
@@ -58,10 +58,13 @@ LEFT = 3
 RIGHT = 4
 
 def main():
+    # Definições de variáveis
+    ouro = poco = wumpus = False
     loop = True
-    pygame.mixer.music.play(-1)
     
     '''TELA DE INICIO'''
+    pygame.mixer.music.play(-1)
+    
     while loop:
         screen.fill(BLACK)
         screen.blit(Imagem_menu, (0,0))
@@ -79,13 +82,14 @@ def main():
     MenuWump = View.Menu(200)
     TheEnd = False
     iaKey = False
-    ambiente = Gerador.gerar_ambiente()
+    ambiente = ai.gera_ambiente()
+    #ai.print_ambiente(ambiente)
 
     pos = vert = hor = 0
-    ouro = wumpus = poco = False
     while(ouro == False and wumpus == False and poco == False):
-        clock.tick(30)
+        clock.tick(1)
 
+        # Keyboard events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -112,11 +116,12 @@ def main():
         
         # Se 'iaKey' == True, a posição depende do ai.jogo()
         if(iaKey):
-            pos, ouro, buraco, wumpus = ai.jogo(pos, ambiente, percepcoes)
-            print('Ouro:', ouro, '\nWumpus:', wumpus, '\nPoço:', poco)
-            time.sleep(1)
+            pos, ouro, poco, wumpus = ai.jogo(pos, ambiente, percepcoes)
+            #print('\nOuro:', ouro, '\nWumpus:', wumpus, '\nPoço:', poco)
+            time.sleep(0.25)
         else:
             pos = (4 * vert) + (hor)
+            pos, ouro, poco, wumpus = ai.jogo(pos, ambiente, percepcoes)
 
         screen.fill(BLACK)
         View.menu()
@@ -130,14 +135,8 @@ def main():
             MenuWump.draw(j, ambiente, False)
         pygame.display.update()
 
-    if ouro == True:
-        print('Achou o ouro')
-    if poco == True:
-        print('Caiu num buraco')
-    if wumpus == True:
-        print('Wumpus devorou')
+    ai.end_game(percepcoes, pos)
     pygame.mixer.music.stop()
 
 if __name__ == '__main__':
     main()
-    #arq.close()

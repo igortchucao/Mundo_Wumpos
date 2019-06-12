@@ -35,10 +35,10 @@ def gera_ambiente():
         pos_pocos = []		# posições dos poços
         
         while c < 3:
-                posicao = random.choices(quadrado, weights=probabilidade, cum_weights=None, k=1)
-                if(ambiente[posicao[0]]['Poço'] == False):
-                        ambiente[posicao[0]]['Poço'] == True
-                        pos_pocos.append(posicao.pop(0))
+                posicao = random.choices(quadrado, probabilidade).pop(0)
+                if(ambiente[posicao]['Poço'] == None):
+                        #ambiente[posicao]['Poço'] = True
+                        pos_pocos.append(posicao)
                         c += 1
                         
         for i in range(0, len(pos_pocos)):
@@ -52,28 +52,28 @@ def gera_ambiente():
                 if(elem[0]+1 < 4):
                         tupla = (elem[0]+1, elem[1])
                         posicao = tupla[1]*4+tupla[0]
-                        ambiente[posicao]['Brisa'] = True
+                        #ambiente[posicao]['Brisa'] = True
                         
                 if(elem[0]-1 > -1):
                         tupla = (elem[0]-1, elem[1])
                         posicao = tupla[1]*4+tupla[0]
-                        ambiente[posicao]['Brisa'] = True
+                        #ambiente[posicao]['Brisa'] = True
                         
                 if(elem[1]+1 < 4):
                         tupla = (elem[0], elem[1]+1)
                         posicao = tupla[1]*4+tupla[0]
-                        ambiente[posicao]['Brisa'] = True
+                        #ambiente[posicao]['Brisa'] = True
                 
                 if(elem[1]-1 > -1):
                         tupla = (elem[0], elem[1]-1)
                         posicao = tupla[1]*4+tupla[0]
-                        ambiente[posicao]['Brisa'] = True
+                        #ambiente[posicao]['Brisa'] = True
         
         #gerando a posição do wumpus
         while True:
-                posicao = random.choices(quadrado, None, k=1)
-                if(ambiente[posicao[0]]['Poço'] == False):
-                        ambiente[posicao[0]]['Wumpus'] == True
+                posicao = random.choices(quadrado, None).pop(0)
+                if(ambiente[posicao]['Poço'] == None or False):
+                        #ambiente[posicao]['Wumpus'] = True
                         wumpus = posicao
                         break
                         
@@ -103,119 +103,71 @@ def gera_ambiente():
 
         # Gerando a posição do ouro
         while True:
-                posicao = random.choices(quadrado, None, k=1)
-                if(ambiente[posicao[0]]['Poço'] == False):
+                posicao = random.choices(quadrado, None).pop(0)
+                if(ambiente[posicao]['Poço'] == None):
                 #Caso Wumpus e Ouro não puderem ocupar mesmo espaço 'and ambiente[posicao[0]]['Wumpus'] == False'
-                        ambiente[posicao]['Ouro'] = True
+                        #ambiente[posicao]['Ouro'] = True
                         break
         
         return ambiente
 
 def infere_aux(percepcoes, posicao):
         coord_pos = get_coord(posicao)
+        print('Posição atual', posicao)
+        verificador_wumpus = 0
         if(coord_pos[0]-1 > -1):
                 nova_pos = coord_pos[1]*4 + (coord_pos[0]-1)
+                print('Esquerda', nova_pos)
                 if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Brisa'] == False):
                         percepcoes[posicao]['Poço'] = False
-                        #print('Não tem um poço em', posicao)
+                if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Fedor'] == False):
+                        percepcoes[posicao]['Wumpus'] = False
+                        verificador_wumpus -= 1
+                else:
+                        verificador_wumpus += 1
         
         if(coord_pos[0]+1 < 5):
                 nova_pos = coord_pos[1]*4 + (coord_pos[0]+1)
+                print('Direita', nova_pos)
                 if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Brisa'] == False):
                         percepcoes[posicao]['Poço'] = False
-                        #print('Não tem um poço em', posicao)
+                if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Fedor'] == False):
+                        percepcoes[posicao]['Wumpus'] = False
+                        verificador_wumpus -= 1
+                else:
+                        verificador_wumpus += 1
 
         if(coord_pos[1]-1 > -1):
                 nova_pos = (coord_pos[1]-1)*4 + coord_pos[0]
+                print('Baixo', nova_pos)
                 if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Brisa'] == False):
                         percepcoes[posicao]['Poço'] = False
-                        #print('Não tem um poço em', posicao)
+                if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Fedor'] == False):
+                        percepcoes[posicao]['Wumpus'] = False
+                        verificador_wumpus -= 1
+                else:
+                        verificador_wumpus += 1
 
         if(coord_pos[1]+1 < 5):
                 nova_pos = (coord_pos[1]+1)*4 + coord_pos[0]
+                print('Cima', nova_pos)
                 if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Brisa'] == False):
                         percepcoes[posicao]['Poço'] = False
-                        #print('Não tem um poço em', posicao)
-
-        if(coord_pos[0]-1 > -1):
-                nova_pos = coord_pos[1]*4 + (coord_pos[0]-1)
                 if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Fedor'] == False):
-                        percepcoes[posicao]['Poço'] = False
-                        #print('Não tem um wumpus em', posicao)
+                        percepcoes[posicao]['Wumpus'] = False
+                        verificador_wumpus -= 1
+                else:
+                        verificador_wumpus += 1
         
-        if(coord_pos[0]+1 < 5):
-                nova_pos = coord_pos[1]*4 + (coord_pos[0]+1)
-                if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Fedor'] == False):
-                        percepcoes[posicao]['Poço'] = False
-                        #print('Não tem um wumpus em', posicao)
-
-        if(coord_pos[1]-1 > -1):
-                nova_pos = (coord_pos[1]-1)*4 + coord_pos[0]
-                if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Fedor'] == False):
-                        percepcoes[posicao]['Poço'] = False
-                        #print('Não tem um wumpus em', posicao)
-
-        if(coord_pos[1]+1 < 5):
-                nova_pos = (coord_pos[1]+1)*4 + coord_pos[0]
-                if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Fedor'] == False):
-                        percepcoes[posicao]['Poço'] = False
-                        #print('Não tem um wumpus em', posicao)
-        
+        if verificador_wumpus >= 3:
+                #percepcoes[posicao]['Wumpus'] == True
+                print('verificador de wumpus', verificador_wumpus)
         
         return percepcoes
 
 def infere_conhecimento(ambiente, percepcoes, posicao):
         coord_pos = get_coord(posicao)
-        
-        if(ambiente[posicao]['Brisa'] == True):
-                if(coord_pos[0]-1 > -1):
-                        nova_pos = coord_pos[1]*4 + (coord_pos[0]-1)
-                        if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Poço'] == None):
-                                percepcoes[nova_pos]['Poço'] = 'Talvez'
-                                percepcoes = infere_aux(percepcoes, nova_pos)
-                
-                if(coord_pos[0]+1 < 5):
-                        nova_pos = coord_pos[1]*4 + (coord_pos[0]+1)
-                        if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Poço'] == None):
-                                percepcoes[nova_pos]['Poço'] = 'Talvez'
-                                percepcoes = infere_aux(percepcoes, nova_pos)
-
-                if(coord_pos[1]-1 > -1):
-                        nova_pos = (coord_pos[1]-1)*4 + coord_pos[0]
-                        if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Poço'] == None):
-                                percepcoes[nova_pos]['Poço'] = 'Talvez'
-                                percepcoes = infere_aux(percepcoes, nova_pos)
-
-                if(coord_pos[1]+1 < 5):
-                        nova_pos = (coord_pos[1]+1)*4 + coord_pos[0]
-                        if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Poço'] == None):
-                                percepcoes[nova_pos]['Poço'] = 'Talvez'
-                                percepcoes = infere_aux(percepcoes, nova_pos)
-                        
-        if(ambiente[posicao]['Fedor'] == True):
-                if(coord_pos[0]-1 > -1):
-                        nova_pos = coord_pos[1]*4 + (coord_pos[0]-1)
-                        if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Wumpus'] == None):
-                                percepcoes[nova_pos]['Wumpus'] = 'Talvez'
-                                percepcoes = infere_aux(percepcoes, nova_pos)
-                                
-                if(coord_pos[0]+1 < 5):
-                        nova_pos = coord_pos[1]*4 + (coord_pos[0]+1)
-                        if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Wumpus'] == None):
-                                percepcoes[nova_pos]['Wumpus'] = 'Talvez'
-                                percepcoes = infere_aux(percepcoes, nova_pos)
-
-                if(coord_pos[1]-1 > -1):
-                        nova_pos = (coord_pos[1]-1)*4 + coord_pos[0]
-                        if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Wumpus'] == None):
-                                percepcoes[nova_pos]['Wumpus'] = 'Talvez'
-                                percepcoes = infere_aux(percepcoes, nova_pos)
-
-                if(coord_pos[1]+1 < 5):
-                        nova_pos = (coord_pos[1]+1)*4 + coord_pos[0]
-                        if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Wumpus'] == None):
-                                percepcoes[nova_pos]['Wumpus'] = 'Talvez'
-                                percepcoes = infere_aux(percepcoes, nova_pos)
+        '''CORREÇÃO DA FUNÇÃO DE INFERÊNCIA'''
         
         return percepcoes
 
@@ -224,18 +176,15 @@ def percepcao_ambiente(ambiente, percepcoes, posicao):
         # A mesma coisa para Brisa/Poço
         
         if(ambiente[posicao]['Fedor'] == True):
-                #print('Contém fedor na posição ', posicao)
-                #arq.write('Contém fedor na posição\n')
                 percepcoes[posicao]['Wumpus'] = False
                 percepcoes[posicao]['Fedor'] = True
+                print('Fedor na posição', posicao, 'wumpus', percepcoes[posicao]['Wumpus'])
                 percepcoes = infere_conhecimento(ambiente, percepcoes, posicao)
         else:
                 percepcoes[posicao]['Fedor'] = False
                 percepcoes[posicao]['Wumpus'] = False
 
         if(ambiente[posicao]['Brisa'] == True):
-                #print('Contém Brisa na posição ', posicao)
-                #arq.write('Contém Brisa na posição\n')
                 percepcoes[posicao]['Poço'] = False
                 percepcoes[posicao]['Brisa'] = True
                 percepcoes = infere_conhecimento(ambiente, percepcoes, posicao)
@@ -244,25 +193,15 @@ def percepcao_ambiente(ambiente, percepcoes, posicao):
                 percepcoes[posicao]['Brisa'] = False
 
         if(ambiente[posicao]['Ouro'] == True):
-                #print('O personagem achou o Ouro')
-                #arq.write('Você achou o Ouro\n')
                 percepcoes[posicao]['Ouro'] = True
         else:
                 percepcoes[posicao]['Ouro'] = False
         
         if(ambiente[posicao]['Poço'] == True):
-                #print('O personagem caiu no poço')
-                #arq.write('O personagem caiu no poço\n')
                 percepcoes[posicao]['Poço'] = True
         
         if(ambiente[posicao]['Wumpus'] == True):
-                #print('O personagem foi devorado pelo Wumpus')
-                #arq.write('O personagem foi devorado pelo Wumpos\n')
                 percepcoes[posicao]['Wumpus'] = True
-        
-        #print('\nPosição:', posicao)
-        #print('Percepção:', percepcoes[posicao])
-        #print('Ambiente:', ambiente[posicao])
         
         return percepcoes
 
@@ -339,6 +278,13 @@ def show_info(ambiente, perc_do_ambiente):
                         print('{}: {} '.format(k.upper(), l), end=' ')
                 print()
 
+def print_ambiente(ambiente):
+    for pos, pos_dict in ambiente.items():
+        print(pos,':\n{', end='')
+        for att, value in pos_dict.items():
+            print(att, value, ' ',end='')
+        print('}')
+
 def jogo(posicao_atual, ambiente, percepcoes):
         ouro = False
         buraco = False
@@ -365,8 +311,13 @@ def jogo(posicao_atual, ambiente, percepcoes):
         # Verifica se o movimento é possível
         validade = mov_valido(coord_porx_mov, posicao_atual, percepcoes)
         if(ouro == True or buraco == True or wumpus == True):
-                print('true')
-        elif(validade == True):
-                posicao_atual = coord_to_pos(get_coord(posicao_atual), coord_porx_mov)
+                validade = False
+        #if(validade == True):
+                #posicao_atual = coord_to_pos(get_coord(posicao_atual), coord_porx_mov)
         
         return posicao_atual, ouro, buraco, wumpus
+
+if __name__ == '__main__':
+    amb = gera_ambiente()
+    print_ambiente(amb)
+

@@ -1,6 +1,6 @@
 import random
 
-def gerar_ambiente():
+def gera_ambiente():
     '''BRISA, FEDOR, OURO, BURACO, WUMPUS'''
 
     tabuleiro = {

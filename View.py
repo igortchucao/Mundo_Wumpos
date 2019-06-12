@@ -45,9 +45,9 @@ class Menu():
         if(ref == 99) or ambiente[ref]['Wumpus']:
             for i in range(0, 16, +1):
                 if ambiente[i]['Wumpus']:
-                    x_wumpos = ((i % 4) * self.tm) + 100
-                    y_wumpos = ((i // 4) * self.tm) + 100
-                    screen.blit(Imagem_wumpus, (x_wumpos - 74, y_wumpos - 74))
+                    x_wumpus = ((i % 4) * self.tm) + 100
+                    y_wumpus = ((i // 4) * self.tm) + 100
+                    screen.blit(Imagem_wumpus, (x_wumpus - 74, y_wumpus - 74))
                 else:
 
                     if ambiente[i]['Poço']:
