@@ -111,75 +111,108 @@ def gera_ambiente():
         
         return ambiente
 
-def infere_aux(percepcoes, posicao):
-        coord_pos = get_coord(posicao)
-        print('Posição atual', posicao)
-        verificador_wumpus = 0
-        if(coord_pos[0]-1 > -1):
-                nova_pos = coord_pos[1]*4 + (coord_pos[0]-1)
-                print('Esquerda', nova_pos)
-                if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Brisa'] == False):
-                        percepcoes[posicao]['Poço'] = False
-                if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Fedor'] == False):
-                        percepcoes[posicao]['Wumpus'] = False
-                        verificador_wumpus -= 1
-                else:
-                        verificador_wumpus += 1
+def TELL_aux(percepcoes, posicao):
+        xy_pos = get_coord(posicao)
         
-        if(coord_pos[0]+1 < 5):
-                nova_pos = coord_pos[1]*4 + (coord_pos[0]+1)
-                print('Direita', nova_pos)
-                if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Brisa'] == False):
-                        percepcoes[posicao]['Poço'] = False
-                if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Fedor'] == False):
-                        percepcoes[posicao]['Wumpus'] = False
-                        verificador_wumpus -= 1
-                else:
-                        verificador_wumpus += 1
+        # Direita da posição
+        nova_pos = coord_to_pos(xy_pos, (1,0))
+        xy_nova_pos = get_coord(nova_pos)
+        if(xy_nova_pos[0]+1 <= 4 and nova_pos >= 0 and nova_pos <= 15):
+                print('Direita da pos',posicao,'=', nova_pos)
+                if(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == False):
+                        percepcoes[nova_pos]['Poço'] = False
+                if(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == False):
+                        percepcoes[nova_pos]['Wumpus'] = False   
+        # Esquerda da posição
+        nova_pos = coord_to_pos(xy_pos, (-1,0))
+        xy_nova_pos = get_coord(nova_pos)
+        if(xy_nova_pos[0]-1 >= 0 and nova_pos >= 0 and nova_pos <= 15):
+                print('Esquerda da pos',posicao,'=', nova_pos)
+                if(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == False):
+                        percepcoes[nova_pos]['Poço'] = False
+                if(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == False):
+                        percepcoes[nova_pos]['Wumpus'] = False
+        # Abaixo da posição
+        nova_pos = coord_to_pos(xy_pos, (0,1))
+        xy_nova_pos = get_coord(nova_pos)
+        if(xy_nova_pos[1]+1 <= 4 and nova_pos >= 0 and nova_pos <= 15):
+                print('Abaixo da pos',posicao,'=', nova_pos)
+                if(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == False):
+                        percepcoes[nova_pos]['Poço'] = False
+                if(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == False):
+                        percepcoes[nova_pos]['Wumpus'] = False
+        # Acima da posição
+        nova_pos = coord_to_pos(xy_pos, (0, -1))
+        xy_nova_pos = get_coord(nova_pos)
+        if(xy_nova_pos[1]-1 >= 0 and nova_pos >= 0 and nova_pos <= 15):
+                print('Acima da pos',posicao,'=', nova_pos)
+                if(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == False):
+                        percepcoes[nova_pos]['Poço'] = False
+                if(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == False):
+                        percepcoes[nova_pos]['Wumpus'] = False
 
-        if(coord_pos[1]-1 > -1):
-                nova_pos = (coord_pos[1]-1)*4 + coord_pos[0]
-                print('Baixo', nova_pos)
-                if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Brisa'] == False):
-                        percepcoes[posicao]['Poço'] = False
-                if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Fedor'] == False):
-                        percepcoes[posicao]['Wumpus'] = False
-                        verificador_wumpus -= 1
-                else:
-                        verificador_wumpus += 1
-
-        if(coord_pos[1]+1 < 5):
-                nova_pos = (coord_pos[1]+1)*4 + coord_pos[0]
-                print('Cima', nova_pos)
-                if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Brisa'] == False):
-                        percepcoes[posicao]['Poço'] = False
-                if(nova_pos < 16 and nova_pos > -1 and percepcoes[nova_pos]['Fedor'] == False):
-                        percepcoes[posicao]['Wumpus'] = False
-                        verificador_wumpus -= 1
-                else:
-                        verificador_wumpus += 1
-        
-        if verificador_wumpus >= 3:
-                #percepcoes[posicao]['Wumpus'] == True
-                print('verificador de wumpus', verificador_wumpus)
-        
         return percepcoes
 
-def infere_conhecimento(ambiente, percepcoes, posicao):
-        coord_pos = get_coord(posicao)
-        '''CORREÇÃO DA FUNÇÃO DE INFERÊNCIA'''
+def TELL(ambiente, percepcoes, posicao):
+        xy_pos = get_coord(posicao)
         
+        # Direita da posição
+        nova_pos = coord_to_pos(xy_pos, (1,0))
+        xy_nova_pos = get_coord(nova_pos)
+        if(xy_nova_pos[0]+1 <= 4 and nova_pos >= 0 and nova_pos <= 15):
+                print('Direita da pos',posicao,'=', nova_pos)
+                if(percepcoes[posicao]['Brisa'] == True):
+                        percepcoes[nova_pos]['Poço'] = 'Talvez'
+                        percepcoes = TELL_aux(percepcoes, nova_pos)
+                if(percepcoes[posicao]['Fedor'] == True):
+                        percepcoes[nova_pos]['Wumpus'] = 'Talvez'
+                        percepcoes = TELL_aux(percepcoes, nova_pos)  
+        # Esquerda da posição
+        nova_pos = coord_to_pos(xy_pos, (-1,0))
+        xy_nova_pos = get_coord(nova_pos)
+        if(xy_nova_pos[0]-1 >= 0 and nova_pos >= 0 and nova_pos <= 15):
+                print('Esquerda da pos',posicao,'=', nova_pos)
+                if(percepcoes[posicao]['Brisa'] == True):
+                        percepcoes[nova_pos]['Poço'] = 'Talvez'
+                        percepcoes = TELL_aux(percepcoes, nova_pos)
+                if(percepcoes[posicao]['Fedor'] == True):
+                        percepcoes[nova_pos]['Wumpus'] = 'Talvez'
+                        percepcoes = TELL_aux(percepcoes, nova_pos)
+        # Abaixo da posição
+        nova_pos = coord_to_pos(xy_pos, (0,1))
+        xy_nova_pos = get_coord(nova_pos)
+        if(xy_nova_pos[1]+1 <= 4 and nova_pos >= 0 and nova_pos <= 15):
+                print('Abaixo da pos',posicao,'=', nova_pos)
+                if(percepcoes[posicao]['Brisa'] == True):
+                        percepcoes[nova_pos]['Poço'] = 'Talvez'
+                        percepcoes = TELL_aux(percepcoes, nova_pos)
+                if(percepcoes[posicao]['Fedor'] == True):
+                        percepcoes[nova_pos]['Wumpus'] = 'Talvez'
+                        percepcoes = TELL_aux(percepcoes, nova_pos)
+        # Acima da posição
+        nova_pos = coord_to_pos(xy_pos, (0, -1))
+        xy_nova_pos = get_coord(nova_pos)
+        if(xy_nova_pos[1]-1 >= 0 and nova_pos >= 0 and nova_pos <= 15):
+                print('Acima da pos',posicao,'=', nova_pos)
+                if(percepcoes[posicao]['Brisa'] == True):
+                        percepcoes[nova_pos]['Poço'] = 'Talvez'
+                        percepcoes = TELL_aux(percepcoes, nova_pos)
+                if(percepcoes[posicao]['Fedor'] == True):
+                        percepcoes[nova_pos]['Wumpus'] = 'Talvez'
+                        percepcoes = TELL_aux(percepcoes, nova_pos)
+
         return percepcoes
 
-def percepcao_ambiente(ambiente, percepcoes, posicao):
-        # Se em uma determinada posição houver Fedor, não existe Wumpus nela.
+def ASK(ambiente, percepcoes, posicao):
+        # Consultando a base de conhecimento sobre as informações
+        #a cerca do ambiente
         # A mesma coisa para Brisa/Poço
         
         if(ambiente[posicao]['Fedor'] == True):
                 percepcoes[posicao]['Wumpus'] = False
                 percepcoes[posicao]['Fedor'] = True
-                print('Fedor na posição', posicao, 'wumpus', percepcoes[posicao]['Wumpus'])
-                percepcoes = infere_conhecimento(ambiente, percepcoes, posicao)
+                print('Fedor na posição', posicao)
+                percepcoes = TELL(ambiente, percepcoes, posicao)
         else:
                 percepcoes[posicao]['Fedor'] = False
                 percepcoes[posicao]['Wumpus'] = False
@@ -187,7 +220,7 @@ def percepcao_ambiente(ambiente, percepcoes, posicao):
         if(ambiente[posicao]['Brisa'] == True):
                 percepcoes[posicao]['Poço'] = False
                 percepcoes[posicao]['Brisa'] = True
-                percepcoes = infere_conhecimento(ambiente, percepcoes, posicao)
+                percepcoes = TELL(ambiente, percepcoes, posicao)
         else:
                 percepcoes[posicao]['Poço'] = False
                 percepcoes[posicao]['Brisa'] = False
@@ -294,7 +327,7 @@ def jogo(posicao_atual, ambiente, percepcoes):
         li_movimentos = [-1, 1, 4, -4] # esquerda, direita, cima, baixo
         
         # Verificando posição atual se existe algum problema
-        percepcoes = percepcao_ambiente(ambiente, percepcoes, posicao_atual)
+        percepcoes = ASK(ambiente, percepcoes, posicao_atual)
         if(percepcoes[posicao_atual]['Wumpus'] == True):
                 wumpus = True
         if(percepcoes[posicao_atual]['Poço'] == True):
