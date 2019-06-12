@@ -113,12 +113,13 @@ def gera_ambiente():
 
 def TELL_aux(percepcoes, posicao):
         xy_pos = get_coord(posicao)
+        print('Posição =', posicao, 'coordenadas = ', xy_pos)
         
         # Direita da posição
         nova_pos = coord_to_pos(xy_pos, (1,0))
         xy_nova_pos = get_coord(nova_pos)
-        if(xy_nova_pos[0]+1 <= 4 and nova_pos >= 0 and nova_pos <= 15):
-                print('Direita da pos',posicao,'=', nova_pos)
+        if(xy_nova_pos[0]+1 <= 3 and nova_pos >= 0 and nova_pos <= 15):
+                print('AUX::> Direita da pos',posicao,'=', nova_pos, ' coordenadas:',  xy_nova_pos)
                 if(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == False):
                         percepcoes[nova_pos]['Poço'] = False
                 if(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == False):
@@ -127,7 +128,7 @@ def TELL_aux(percepcoes, posicao):
         nova_pos = coord_to_pos(xy_pos, (-1,0))
         xy_nova_pos = get_coord(nova_pos)
         if(xy_nova_pos[0]-1 >= 0 and nova_pos >= 0 and nova_pos <= 15):
-                print('Esquerda da pos',posicao,'=', nova_pos)
+                print('AUX::> Esquerda da pos',posicao,'=', nova_pos, ' coordenadas:',  xy_nova_pos)
                 if(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == False):
                         percepcoes[nova_pos]['Poço'] = False
                 if(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == False):
@@ -135,17 +136,17 @@ def TELL_aux(percepcoes, posicao):
         # Abaixo da posição
         nova_pos = coord_to_pos(xy_pos, (0,1))
         xy_nova_pos = get_coord(nova_pos)
-        if(xy_nova_pos[1]+1 <= 4 and nova_pos >= 0 and nova_pos <= 15):
-                print('Abaixo da pos',posicao,'=', nova_pos)
+        if(xy_nova_pos[1]+1 <= 3 and nova_pos >= 0 and nova_pos <= 15):
+                print('AUX::> Abaixo da pos',posicao,'=', nova_pos, ' coordenadas:',  xy_nova_pos)
                 if(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == False):
                         percepcoes[nova_pos]['Poço'] = False
                 if(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == False):
                         percepcoes[nova_pos]['Wumpus'] = False
         # Acima da posição
-        nova_pos = coord_to_pos(xy_pos, (0, -1))
+        nova_pos = coord_to_pos(xy_pos, (0,-1))
         xy_nova_pos = get_coord(nova_pos)
         if(xy_nova_pos[1]-1 >= 0 and nova_pos >= 0 and nova_pos <= 15):
-                print('Acima da pos',posicao,'=', nova_pos)
+                print('AUX::> Acima da pos',posicao,'=', nova_pos, ' coordenadas:',  xy_nova_pos)
                 if(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == False):
                         percepcoes[nova_pos]['Poço'] = False
                 if(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == False):
@@ -159,11 +160,11 @@ def TELL(ambiente, percepcoes, posicao):
         # Direita da posição
         nova_pos = coord_to_pos(xy_pos, (1,0))
         xy_nova_pos = get_coord(nova_pos)
-        if(xy_nova_pos[0]+1 <= 4 and nova_pos >= 0 and nova_pos <= 15):
-                print('Direita da pos',posicao,'=', nova_pos)
+        if(xy_nova_pos[0]+1 <= 3 and nova_pos >= 0 and nova_pos <= 15):
+                print('Direita da pos',posicao,'=', nova_pos, ' coordenadas:',  xy_nova_pos)
                 if(percepcoes[posicao]['Brisa'] == True):
                         percepcoes[nova_pos]['Poço'] = 'Talvez'
-                        percepcoes = TELL_aux(percepcoes, nova_pos)
+                        #percepcoes = TELL_aux(percepcoes, nova_pos)
                 if(percepcoes[posicao]['Fedor'] == True):
                         percepcoes[nova_pos]['Wumpus'] = 'Talvez'
                         percepcoes = TELL_aux(percepcoes, nova_pos)  
@@ -171,21 +172,21 @@ def TELL(ambiente, percepcoes, posicao):
         nova_pos = coord_to_pos(xy_pos, (-1,0))
         xy_nova_pos = get_coord(nova_pos)
         if(xy_nova_pos[0]-1 >= 0 and nova_pos >= 0 and nova_pos <= 15):
-                print('Esquerda da pos',posicao,'=', nova_pos)
+                print('Esquerda da pos',posicao,'=', nova_pos, ' coordenadas:',  xy_nova_pos)
                 if(percepcoes[posicao]['Brisa'] == True):
                         percepcoes[nova_pos]['Poço'] = 'Talvez'
-                        percepcoes = TELL_aux(percepcoes, nova_pos)
+                        #percepcoes = TELL_aux(percepcoes, nova_pos)
                 if(percepcoes[posicao]['Fedor'] == True):
                         percepcoes[nova_pos]['Wumpus'] = 'Talvez'
                         percepcoes = TELL_aux(percepcoes, nova_pos)
         # Abaixo da posição
         nova_pos = coord_to_pos(xy_pos, (0,1))
         xy_nova_pos = get_coord(nova_pos)
-        if(xy_nova_pos[1]+1 <= 4 and nova_pos >= 0 and nova_pos <= 15):
-                print('Abaixo da pos',posicao,'=', nova_pos)
+        if(xy_nova_pos[1]+1 <= 3 and nova_pos >= 0 and nova_pos <= 15):
+                print('Abaixo da pos',posicao,'=', nova_pos, ' coordenadas:',  xy_nova_pos)
                 if(percepcoes[posicao]['Brisa'] == True):
                         percepcoes[nova_pos]['Poço'] = 'Talvez'
-                        percepcoes = TELL_aux(percepcoes, nova_pos)
+                        #percepcoes = TELL_aux(percepcoes, nova_pos)
                 if(percepcoes[posicao]['Fedor'] == True):
                         percepcoes[nova_pos]['Wumpus'] = 'Talvez'
                         percepcoes = TELL_aux(percepcoes, nova_pos)
@@ -193,10 +194,10 @@ def TELL(ambiente, percepcoes, posicao):
         nova_pos = coord_to_pos(xy_pos, (0, -1))
         xy_nova_pos = get_coord(nova_pos)
         if(xy_nova_pos[1]-1 >= 0 and nova_pos >= 0 and nova_pos <= 15):
-                print('Acima da pos',posicao,'=', nova_pos)
+                print('Acima da pos',posicao,'=', nova_pos, ' coordenadas:',  xy_nova_pos)
                 if(percepcoes[posicao]['Brisa'] == True):
                         percepcoes[nova_pos]['Poço'] = 'Talvez'
-                        percepcoes = TELL_aux(percepcoes, nova_pos)
+                        #percepcoes = TELL_aux(percepcoes, nova_pos)
                 if(percepcoes[posicao]['Fedor'] == True):
                         percepcoes[nova_pos]['Wumpus'] = 'Talvez'
                         percepcoes = TELL_aux(percepcoes, nova_pos)
@@ -211,8 +212,9 @@ def ASK(ambiente, percepcoes, posicao):
         if(ambiente[posicao]['Fedor'] == True):
                 percepcoes[posicao]['Wumpus'] = False
                 percepcoes[posicao]['Fedor'] = True
-                print('Fedor na posição', posicao)
+                print('Fedor na posição', posicao,'\nTELL:')
                 percepcoes = TELL(ambiente, percepcoes, posicao)
+                print()
         else:
                 percepcoes[posicao]['Fedor'] = False
                 percepcoes[posicao]['Wumpus'] = False
@@ -220,7 +222,7 @@ def ASK(ambiente, percepcoes, posicao):
         if(ambiente[posicao]['Brisa'] == True):
                 percepcoes[posicao]['Poço'] = False
                 percepcoes[posicao]['Brisa'] = True
-                percepcoes = TELL(ambiente, percepcoes, posicao)
+                #percepcoes = TELL(ambiente, percepcoes, posicao)
         else:
                 percepcoes[posicao]['Poço'] = False
                 percepcoes[posicao]['Brisa'] = False
