@@ -88,11 +88,15 @@ def main():
     pos = vert = hor = 0
     while(ouro == False and wumpus == False and poco == False):
         clock.tick(1)
+        screen.fill(BLACK)
+        View.menu()
 
         # Keyboard events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                sys.exit()
+                pygame.mixer.music.stop()
+                ai.print_ambiente(percepcoes)
+                pygame.quit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_F1:
                     iaKey = True
@@ -123,8 +127,6 @@ def main():
             pos = (4 * vert) + (hor)
             pos, ouro, poco, wumpus = ai.jogo(pos, ambiente, percepcoes)
 
-        screen.fill(BLACK)
-        View.menu()
         #MenuWump.menu_lateral()
         if (TheEnd):
             MenuWump.view_rect(99, ambiente)
@@ -135,8 +137,8 @@ def main():
             MenuWump.draw(j, ambiente, False)
         pygame.display.update()
 
+    
     ai.end_game(percepcoes, pos)
-    pygame.mixer.music.stop()
 
 if __name__ == '__main__':
     main()
