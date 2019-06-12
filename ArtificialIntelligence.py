@@ -77,7 +77,7 @@ def gera_ambiente():
                         wumpus = posicao
                         break
                         
-        # gerando a posição dos fedores
+        # gerando as posições dos fedores
         x = wumpus%4
         y = wumpus//4
         
@@ -103,7 +103,7 @@ def gera_ambiente():
 
         # Gerando a posição do ouro
         while True:
-                posicao = random.choices(quadrado, None).pop(0)
+                posicao = random.choice(quadrado)
                 if(ambiente[posicao]['Poço'] == None):
                 #Caso Wumpus e Ouro não puderem ocupar mesmo espaço 'and ambiente[posicao[0]]['Wumpus'] == False'
                         ambiente[posicao]['Ouro'] = True
@@ -112,6 +112,7 @@ def gera_ambiente():
         return ambiente
 
 def TELL_aux(percepcoes, posicao):
+        # Inferindo conhecimento na BC sobre as informações das posições adjacentes
         wumpus_cont = 0
         xy_pos = get_coord(posicao)
         #print('Posição =', posicao, 'coordenadas = ', xy_pos)
@@ -166,6 +167,7 @@ def TELL_aux(percepcoes, posicao):
         return percepcoes, wumpus_cont
 
 def TELL(ambiente, percepcoes, posicao):
+        # Inferindo conhecimento na BC sobre as informações de cada posição
         xy_pos = get_coord(posicao)
         wumpus_cont = 0
         x = posicao%4
@@ -229,21 +231,19 @@ def TELL(ambiente, percepcoes, posicao):
 def ASK(ambiente, percepcoes, posicao):
         # Consultando a base de conhecimento sobre as informações
         #a cerca do ambiente
-        # A mesma coisa para Brisa/Poço
         
         if(ambiente[posicao]['Fedor'] == True):
-                percepcoes[posicao]['Wumpus'] = False
                 percepcoes[posicao]['Fedor'] = True
-                print('Fedor na posição', posicao)
+                percepcoes[posicao]['Wumpus'] = False
                 percepcoes = TELL(ambiente, percepcoes, posicao)
         else:
                 percepcoes[posicao]['Fedor'] = False
                 percepcoes[posicao]['Wumpus'] = False
 
         if(ambiente[posicao]['Brisa'] == True):
-                percepcoes[posicao]['Poço'] = False
                 percepcoes[posicao]['Brisa'] = True
-                #percepcoes = TELL(ambiente, percepcoes, posicao)
+                percepcoes[posicao]['Poço'] = False
+                percepcoes = TELL(ambiente, percepcoes, posicao)
         else:
                 percepcoes[posicao]['Poço'] = False
                 percepcoes[posicao]['Brisa'] = False
@@ -255,9 +255,13 @@ def ASK(ambiente, percepcoes, posicao):
         
         if(ambiente[posicao]['Poço'] == True):
                 percepcoes[posicao]['Poço'] = True
+        else:
+                percepcoes[posicao]['Poço'] = False
         
         if(ambiente[posicao]['Wumpus'] == True):
                 percepcoes[posicao]['Wumpus'] = True
+        else:
+                percepcoes[posicao]['Wumpus'] = False
         
         return percepcoes
 
@@ -302,18 +306,6 @@ def mov_valido(coord_direcao, posicao, percepcoes):
                 return True
         return False
 
-def string_direcao(movimento):
-        if(movimento == -1):
-                        string = 'esquerda'
-        elif(movimento == 1):
-                        string = 'direita'
-        elif(movimento == 4):
-                        string = 'cima'
-        elif(movimento == -4):
-                        string = 'baixo'
-
-        return string
-
 def end_game(percepcoes, posicao):
         if(percepcoes[posicao]['Ouro'] == True):
                 print('O personagem encontrou o Ouro!')
@@ -340,6 +332,10 @@ def print_ambiente(ambiente):
         for att, value in pos_dict.items():
             print(att, value, ' ',end='')
         print('}')
+
+def escolhe_movimento(percepcoes):
+        li_movimentos = [-1, 1, 4, -4] # esquerda, direita, cima, baixo
+        
 
 def jogo(posicao_atual, ambiente, percepcoes):
         ouro = False
