@@ -66,7 +66,7 @@ def gera_ambiente():
     loop = True
     while loop:
         x = random.randrange(0, 15, 1)
-        if tabuleiro[x]['Wumpus'] == False and (tabuleiro[x]['Poço'] == False and x != 0):
+        if tabuleiro[x]['Wumpus'] == False and (tabuleiro[x]['Poço'] == False and x != 0 and x !=1 and x != 4):
             tabuleiro[x]['Ouro'] = True
             loop = False
 

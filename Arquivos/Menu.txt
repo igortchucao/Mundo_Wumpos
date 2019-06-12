@@ -1,6 +1,10 @@
+<<<<<<< HEAD
+
+=======
 O personagem foi devorado pelo Wumpos
 O personagem foi devorado pelo Wumpos
 O personagem foi devorado pelo Wumpos
 Contém Brisa na posição
 O personagem caiu no poço
 Contém Brisa na posição
+>>>>>>> 4707824ad388d875f456e0a3e0675bec982788cb
