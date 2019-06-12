@@ -86,7 +86,7 @@ def main():
     #ai.print_ambiente(ambiente)
 
     pos = vert = hor = 0
-    while(ouro == False and wumpus == False and poco == False):
+    while(1):
         clock.tick(1)
         screen.fill(BLACK)
         View.menu()

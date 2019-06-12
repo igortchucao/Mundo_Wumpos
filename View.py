@@ -102,9 +102,9 @@ class Menu():
                 screen.blit(Imagem_buraco, (x - 74, y - 74))
             else:
                 if ambiente[ref]['Brisa']:
-                    screen.blit(font.render('Brisa', True, BLACK), [x - 42, y])
+                    screen.blit(font.render('Brisa', True, BLACK), [870, 100])
                 if ambiente[ref]['Fedor']:
-                    screen.blit(font.render('Fedor', True, MARROM_c), [x - 42, y - 40])
+                    screen.blit(font.render('Fedor', True, MARROM_c), [1020, 100])
 
     def menu_lateral(self):
         texto = self.menu.readlines()
