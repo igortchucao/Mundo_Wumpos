@@ -87,7 +87,7 @@ def main():
 
     pos = vert = hor = 0
     while(1):
-        clock.tick(1)
+        clock.tick(10)
         screen.fill(BLACK)
         View.menu()
 

@@ -11,7 +11,6 @@ font = pygame.font.SysFont(None, 49)
 Imagem_buraco = pygame.image.load(os.path.join('Imagens', 'buraco1.png'))
 Imagem_wumpus = pygame.image.load(os.path.join('Imagens', 'Wumpus1.png'))
 Imagem_Ouro = pygame.image.load(os.path.join('Imagens', 'Ouro.png'))
-Imagem_Personagem = pygame.transform.scale(pygame.image.load(os.path.join('Imagens', 'Diego.png')), (130,130))
 
 '''Cores'''
 BLACK = 0, 0, 0
@@ -26,11 +25,20 @@ size = width, height
 
 '''Cria a tela do pygamegame'''
 screen = pygame.display.set_mode(size)
+class Person():
+    def __init__(self, ref):
+        self.frames = [pygame.image.load(os.path.join('Imagens', 'Personagem_Frente1.png')), pygame.image.load(os.path.join('Imagens', 'Personagem_Frente2.png'))]
+        self.image = self.frames[0]
+
+    def updatePerson(self, i):
+        self.image = self.frames[i%2]
 
 class Menu():
     def __init__(self, tm):
         self.tm = tm
         self.menu = open('Arquivos/Menu.txt', 'r')
+        self.personagem = Person([100,100])
+        self.i = 0
     
     '''FUNÇÃO QUE DESENHA O TABULEIRO'''
     def draw(self, ref, ambiente, show_amb):
@@ -91,7 +99,9 @@ class Menu():
             pygame.draw.circle(screen, BLACK, (x, y), 88, 1)
             pygame.draw.circle(screen, BLACK, (x, y), 85, 2)
             
-            screen.blit(Imagem_Personagem, (x - 65, y  - 65))
+            self.i += 1
+            screen.blit(self.personagem.image, (x-60,y-60))
+            self.personagem.updatePerson(self.i)
 
             '''CRIA OS TEXTOS A PARTIR DA VARIAVEL'''
             if ambiente[ref]['Wumpus']:
