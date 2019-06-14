@@ -63,7 +63,42 @@ class Person():
             desenha_tabuleiro(200)
             screen.blit(self.image, pos_atual)
             pygame.display.update()
+
+    def uppdateDireita(self, pos_atual):
+        pos_final = (pos_atual[0] + 150, pos_atual[1]) 
+        while(pos_atual != pos_final):
+            clock.tick(10)
+            pos_atual = (pos_atual[0] + 10, pos_atual[1])
+            self.image = self.frames[2 + (self.i%2)]
+            self.i += 1
+            screen.fill(BLACK)
+            desenha_tabuleiro(200)
+            screen.blit(self.image, pos_atual)
+            pygame.display.update()
         
+    def uppdateDown(self, pos_atual):
+        pos_final = (pos_atual[0], pos_atual[1] + 150) 
+        while(pos_atual != pos_final):
+            clock.tick(10)
+            pos_atual = (pos_atual[0], pos_atual[1] + 15)
+            self.image = self.frames[(self.i%2)]
+            self.i += 1
+            screen.fill(BLACK)
+            desenha_tabuleiro(200)
+            screen.blit(self.image, pos_atual)
+            pygame.display.update()
+    
+    def uppdateUp(self, pos_atual):
+        pos_final = (pos_atual[0], pos_atual[1] - 150) 
+        while(pos_atual != pos_final):
+            clock.tick(10)
+            pos_atual = (pos_atual[0], pos_atual[1] - 15)
+            self.image = self.frames[(self.i%2)]
+            self.i += 1
+            screen.fill(BLACK)
+            desenha_tabuleiro(200)
+            screen.blit(self.image, pos_atual)
+            pygame.display.update()
 
 '''Cria a tela do pygamegame'''
 class Menu():

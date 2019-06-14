@@ -107,9 +107,11 @@ def main():
                 # Comandos para usuário jogar
                 if event.key == pygame.K_UP:
                     if 0 <= vert - 1:
+                        MenuWump.personagem.uppdateUp(((hor * 185 + 50), (vert * 185 + 50)))
                         vert -= 1
                 elif event.key == pygame.K_DOWN:
                     if vert + 1 < 4:
+                        MenuWump.personagem.uppdateDown(((hor * 185 + 50), (vert * 185 + 50)))
                         vert += 1
                 elif event.key == pygame.K_LEFT:
                     if 0 <= hor - 1:
@@ -117,6 +119,7 @@ def main():
                         hor -= 1
                 elif event.key == pygame.K_RIGHT:
                     if hor + 1 < 4:
+                        MenuWump.personagem.uppdateDireita(((hor * 185 + 50), (vert * 185 + 50)))
                         hor += 1
         
         # Se 'iaKey' == True, a posição depende do ai.jogo()
