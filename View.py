@@ -23,16 +23,49 @@ MARROM_c = 184, 134, 11
 '''Tamanho da janela'''
 size = width, height
 
-'''Cria a tela do pygamegame'''
+'''Personagem do Jogo'''
 screen = pygame.display.set_mode(size)
+
+def desenha_tabuleiro(tm):
+    for ref in range(0, 16, +1):
+        x = ((ref % 4) * tm)
+        y = ((ref // 4) * tm)
+        pygame.draw.rect(screen, WHITE, pygame.Rect(x, y, tm, tm), 5)
+
+        pygame.draw.rect(screen, WHITE, pygame.Rect(x + 8, y + 8, tm - 15, tm - 15), 5)
+
 class Person():
     def __init__(self, ref):
-        self.frames = [pygame.image.load(os.path.join('Imagens', 'Personagem_Frente1.png')), pygame.image.load(os.path.join('Imagens', 'Personagem_Frente2.png'))]
+        '''IMAGENS DISTINTAS QUE FAZEM OS FRAMES DO JOGO'''
+        self.frames = [pygame.image.load(os.path.join('Imagens', 'Personagem_Frente1.png')), 
+                       pygame.image.load(os.path.join('Imagens', 'Personagem_Frente2.png')),
+
+                       pygame.image.load(os.path.join('Imagens', 'Personagem_Lado1.png')),
+                       pygame.image.load(os.path.join('Imagens', 'Personagem_Lado2.png')),
+
+                       pygame.image.load(os.path.join('Imagens', 'Personagem_Esquerda1.png')),
+                       pygame.image.load(os.path.join('Imagens', 'Personagem_Esquerda2.png'))]
         self.image = self.frames[0]
+        self.i = 0
 
-    def updatePerson(self, i):
-        self.image = self.frames[i%2]
+    def updatePerson(self):
+        self.image = self.frames[self.i%2]
+        self.i += 1
 
+    def uppdateEsquerda(self, pos_atual):
+        pos_final = (pos_atual[0] - 150, pos_atual[1]) 
+        while(pos_atual != pos_final):
+            clock.tick(10)
+            pos_atual = (pos_atual[0] - 10, pos_atual[1])
+            self.image = self.frames[4 + (self.i%2)]
+            self.i += 1
+            screen.fill(BLACK)
+            desenha_tabuleiro(200)
+            screen.blit(self.image, pos_atual)
+            pygame.display.update()
+        
+
+'''Cria a tela do pygamegame'''
 class Menu():
     def __init__(self, tm):
         self.tm = tm
@@ -41,12 +74,8 @@ class Menu():
         self.i = 0
     
     '''FUNÇÃO QUE DESENHA O TABULEIRO'''
-    def draw(self, ref, ambiente, show_amb):
-        x = ((ref % 4) * self.tm)
-        y = ((ref // 4) * self.tm)
-        pygame.draw.rect(screen, WHITE, pygame.Rect(x, y, self.tm, self.tm), 5)
-
-        pygame.draw.rect(screen, WHITE, pygame.Rect(x + 8, y + 8, self.tm - 15, self.tm - 15), 5)
+    def draw(self):
+        desenha_tabuleiro(self.tm)
 
     '''FUNÇÃO QUE MOSTRA UM DETERMINADO QUADRADO'''
     def view_rect(self, ref, ambiente):
@@ -99,9 +128,8 @@ class Menu():
             pygame.draw.circle(screen, BLACK, (x, y), 88, 1)
             pygame.draw.circle(screen, BLACK, (x, y), 85, 2)
             
-            self.i += 1
             screen.blit(self.personagem.image, (x-60,y-60))
-            self.personagem.updatePerson(self.i)
+            self.personagem.updatePerson()
 
             '''CRIA OS TEXTOS A PARTIR DA VARIAVEL'''
             if ambiente[ref]['Wumpus']:
