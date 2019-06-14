@@ -59,7 +59,7 @@ RIGHT = 4
 
 def main():
     # Definições de variáveis
-    ouro = poco = wumpus = False
+    ouro = poco = wumpus = arrow = False
     loop = True
     
     '''TELA DE INICIO'''
@@ -124,12 +124,12 @@ def main():
         
         # Se 'iaKey' == True, a posição depende do ai.jogo()
         if(iaKey):
-            pos, ouro, poco, wumpus = ai.jogo(pos, ambiente, percepcoes)
+            pos, ouro, poco, wumpus, arrow = ai.jogo(pos, ambiente, percepcoes)
             #print('\nOuro:', ouro, '\nWumpus:', wumpus, '\nPoço:', poco)
             time.sleep(0.25)
         else:
             pos = (4 * vert) + (hor)
-            pos, ouro, poco, wumpus = ai.jogo(pos, ambiente, percepcoes)
+            pos, ouro, poco, wumpus, arrow = ai.jogo(pos, ambiente, percepcoes)
 
         #MenuWump.menu_lateral()
         if (TheEnd):
