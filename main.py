@@ -113,6 +113,7 @@ def main():
                         vert += 1
                 elif event.key == pygame.K_LEFT:
                     if 0 <= hor - 1:
+                        MenuWump.personagem.uppdateEsquerda(((hor * 185 + 50), (vert * 185 + 50)))
                         hor -= 1
                 elif event.key == pygame.K_RIGHT:
                     if hor + 1 < 4:
@@ -133,13 +134,8 @@ def main():
         else :
             MenuWump.view_rect(pos, ambiente)
 
-        if(arrow):
-            pos_wumpus = ai.atirar(percepcoes)
-            #print('Wumpus está em', pos_wumpus, 'ATIRAR!')
-            #arrow = False
-
-        for j in range(0, 16, +1):
-            MenuWump.draw(j, ambiente, False)
+        
+        MenuWump.draw()
         pygame.display.update()
 
     
