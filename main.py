@@ -141,8 +141,12 @@ def main():
         if(arrow == True and arrowAmount == 1):
             pos_wumpus, hit = ai.atirar(percepcoes, ambiente)
             print('Wumpus em', pos_wumpus,'ATIRAR!')
-            
             arrowAmount = 0
+            if(hit == True):
+                #Soltar grito do wumpus
+                print('Personagem:\n-No céu tem pão?\nWumpus:\n-E morreu!')
+            else:
+                print('Erroooou!')
         
         MenuWump.draw()
         pygame.display.update()
