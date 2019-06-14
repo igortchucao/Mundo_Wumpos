@@ -89,6 +89,7 @@ def main():
     while(1):
         clock.tick(10)
         screen.fill(BLACK)
+        MenuWump.draw()
         View.menu()
 
         # Keyboard events
@@ -107,19 +108,19 @@ def main():
                 # Comandos para usuário jogar
                 if event.key == pygame.K_UP:
                     if 0 <= vert - 1:
-                        MenuWump.personagem.uppdateUp(((hor * 185 + 50), (vert * 185 + 50)))
+                        MenuWump.personagem.uppdateUp(((hor * 197 + 24), (vert * 197 + 17)))
                         vert -= 1
                 elif event.key == pygame.K_DOWN:
                     if vert + 1 < 4:
-                        MenuWump.personagem.uppdateDown(((hor * 185 + 50), (vert * 185 + 50)))
+                        MenuWump.personagem.uppdateDown(((hor * 197 + 50), (vert * 197 + 17)))
                         vert += 1
                 elif event.key == pygame.K_LEFT:
                     if 0 <= hor - 1:
-                        MenuWump.personagem.uppdateEsquerda(((hor * 185 + 50), (vert * 185 + 50)))
+                        MenuWump.personagem.uppdateEsquerda(((hor * 197 + 50), (vert * 197 + 17)))
                         hor -= 1
                 elif event.key == pygame.K_RIGHT:
                     if hor + 1 < 4:
-                        MenuWump.personagem.uppdateDireita(((hor * 185 + 50), (vert * 185 + 50)))
+                        MenuWump.personagem.uppdateDireita(((hor * 197 + 50), (vert * 197 + 17)))
                         hor += 1
         
         # Se 'iaKey' == True, a posição depende do ai.jogo()
@@ -138,7 +139,6 @@ def main():
             MenuWump.view_rect(pos, ambiente)
 
         
-        MenuWump.draw()
         pygame.display.update()
 
     

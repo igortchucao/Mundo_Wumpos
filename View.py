@@ -34,6 +34,23 @@ def desenha_tabuleiro(tm):
 
         pygame.draw.rect(screen, WHITE, pygame.Rect(x + 8, y + 8, tm - 15, tm - 15), 5)
 
+    pygame.draw.rect(screen, BLACK, pygame.Rect(100, 60, 600, 75))
+    pygame.draw.rect(screen, BLACK, pygame.Rect(100, 260, 600, 75))
+    pygame.draw.rect(screen, BLACK, pygame.Rect(100, 460, 600, 75))
+    pygame.draw.rect(screen, BLACK, pygame.Rect(100, 660, 600, 75))
+
+    pygame.draw.rect(screen, BLACK, pygame.Rect(60, 100, 75, 600))
+    pygame.draw.rect(screen, BLACK, pygame.Rect(260, 100, 75, 600))
+    pygame.draw.rect(screen, BLACK, pygame.Rect(460, 100, 75, 600))
+    pygame.draw.rect(screen, BLACK, pygame.Rect(660, 100, 75, 600))
+    menu()
+
+def menu():
+    pygame.draw.rect(screen, WHITE, pygame.Rect(805, 0, 395, 800), 5)
+    pygame.draw.rect(screen, WHITE, pygame.Rect(815, 10, 375, 780))
+    text = font.render('MUNDO DO WUMPUS ', True, BLACK)
+    screen.blit(text, [832, 40])
+
 class Person():
     def __init__(self, ref):
         '''IMAGENS DISTINTAS QUE FAZEM OS FRAMES DO JOGO'''
@@ -187,8 +204,3 @@ class Menu():
         for linha in texto :
             screen.blit(font.render(linha, True, BLACK), [950, 200])
 
-def menu():
-    pygame.draw.rect(screen, WHITE, pygame.Rect(805, 0, 395, 800), 5)
-    pygame.draw.rect(screen, WHITE, pygame.Rect(815, 10, 375, 780))
-    text = font.render('MUNDO DO WUMPUS ', True, BLACK)
-    screen.blit(text, [832, 40])
