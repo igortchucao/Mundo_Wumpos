@@ -60,7 +60,8 @@ RIGHT = 4
 def main():
     # Definições de variáveis
     ouro = poco = wumpus = arrow = False
-    loop = True
+    arrowAmount = 1
+    loop = hit = True
     
     '''TELA DE INICIO'''
     pygame.mixer.music.play(-1)
@@ -137,6 +138,11 @@ def main():
         else :
             MenuWump.view_rect(pos, ambiente)
 
+        if(arrow == True and arrowAmount == 1):
+            pos_wumpus, hit = ai.atirar(percepcoes, ambiente)
+            print('Wumpus em', pos_wumpus,'ATIRAR!')
+            
+            arrowAmount = 0
         
         MenuWump.draw()
         pygame.display.update()
