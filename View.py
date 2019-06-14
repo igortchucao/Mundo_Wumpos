@@ -44,7 +44,10 @@ class Person():
                        pygame.image.load(os.path.join('Imagens', 'Personagem_Lado2.png')),
 
                        pygame.image.load(os.path.join('Imagens', 'Personagem_Esquerda1.png')),
-                       pygame.image.load(os.path.join('Imagens', 'Personagem_Esquerda2.png'))]
+                       pygame.image.load(os.path.join('Imagens', 'Personagem_Esquerda2.png')),
+
+                       pygame.image.load(os.path.join('Imagens', 'Personagem_Tras1.png')),
+                       pygame.image.load(os.path.join('Imagens', 'Personagem_Tras2.png'))]
         self.image = self.frames[0]
         self.i = 0
 
@@ -93,7 +96,7 @@ class Person():
         while(pos_atual != pos_final):
             clock.tick(10)
             pos_atual = (pos_atual[0], pos_atual[1] - 15)
-            self.image = self.frames[(self.i%2)]
+            self.image = self.frames[6 + (self.i%2)]
             self.i += 1
             screen.fill(BLACK)
             desenha_tabuleiro(200)
