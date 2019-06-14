@@ -56,12 +56,15 @@ class Person():
         '''IMAGENS DISTINTAS QUE FAZEM OS FRAMES DO JOGO'''
         self.frames = [pygame.image.load(os.path.join('Imagens', 'Personagem_Frente1.png')), 
                        pygame.image.load(os.path.join('Imagens', 'Personagem_Frente2.png')),
+                       pygame.image.load(os.path.join('Imagens', 'Personagem_Frente3.png')),
 
                        pygame.image.load(os.path.join('Imagens', 'Personagem_Lado1.png')),
                        pygame.image.load(os.path.join('Imagens', 'Personagem_Lado2.png')),
+                       pygame.image.load(os.path.join('Imagens', 'Personagem_Lado3.png')),
 
                        pygame.image.load(os.path.join('Imagens', 'Personagem_Esquerda1.png')),
                        pygame.image.load(os.path.join('Imagens', 'Personagem_Esquerda2.png')),
+                       pygame.image.load(os.path.join('Imagens', 'Personagem_Esquerda3.png')),
 
                        pygame.image.load(os.path.join('Imagens', 'Personagem_Tras1.png')),
                        pygame.image.load(os.path.join('Imagens', 'Personagem_Tras2.png'))]
@@ -77,7 +80,7 @@ class Person():
         while(pos_atual != pos_final):
             clock.tick(10)
             pos_atual = (pos_atual[0] - 15, pos_atual[1])
-            self.image = self.frames[4 + (self.i%2)]
+            self.image = self.frames[6 + (self.i%2)]
             self.i += 1
             screen.fill(BLACK)
             desenha_tabuleiro(200)
@@ -89,7 +92,7 @@ class Person():
         while(pos_atual != pos_final):
             clock.tick(10)
             pos_atual = (pos_atual[0] + 15, pos_atual[1])
-            self.image = self.frames[2 + (self.i%2)]
+            self.image = self.frames[3 + (self.i%2)]
             self.i += 1
             screen.fill(BLACK)
             desenha_tabuleiro(200)
@@ -113,12 +116,32 @@ class Person():
         while(pos_atual != pos_final):
             clock.tick(10)
             pos_atual = (pos_atual[0], pos_atual[1] - 15)
-            self.image = self.frames[6 + (self.i%2)]
+            self.image = self.frames[9 + (self.i%2)]
             self.i += 1
             screen.fill(BLACK)
             desenha_tabuleiro(200)
             screen.blit(self.image, pos_atual)
             pygame.display.update()
+
+    def tiro(self, lado, pos_atual):
+        pos_tiro = (pos_atual[0] + 120, pos_atual[1] + 60)
+        pos_final = (pos_tiro[0] + 150, pos_tiro[1])
+        if lado == 'direita':
+            while(pos_tiro != pos_final):
+                clock.tick(10)
+                pos_tiro = (pos_tiro[0] + 15, pos_tiro[1])
+                self.image = self.frames[5]
+                self.i += 1
+                screen.fill(BLACK)
+                desenha_tabuleiro(200)
+                screen.blit(self.image, pos_atual)
+                pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
+                pygame.display.update()
+            
+        if lado == 'esquerda':
+            self.image = self.frames[9]
+        if lado == 'baixo':
+            self.image = self.frames[3]
 
 '''Cria a tela do pygamegame'''
 class Menu():
