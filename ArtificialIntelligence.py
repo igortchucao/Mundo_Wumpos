@@ -184,10 +184,10 @@ def TELL(ambiente, percepcoes, posicao):
                 nova_pos = 4*y + (x+1)
                 if(nova_pos >= 0 and nova_pos <= 15):
                         #print('TELL::> Direita da pos',posicao,'=', nova_pos, ' coordenadas:',  get_coord(nova_pos))
-                        if(percepcoes[posicao]['Brisa'] == True):
+                        if(percepcoes[posicao]['Brisa'] == True and percepcoes[nova_pos]['Poço'] == None):
                                 percepcoes[nova_pos]['Poço'] = 'Talvez'
                                 #percepcoes = TELL_aux(percepcoes, nova_pos)
-                        if(percepcoes[posicao]['Fedor'] == True):
+                        if(percepcoes[posicao]['Fedor'] == True and percepcoes[nova_pos]['Wumpus'] == None):
                                 percepcoes[nova_pos]['Wumpus'] = 'Talvez'
                                 percepcoes, wumpus_cont = TELL_aux(percepcoes, nova_pos)  
                 if wumpus_cont >= 3 and percepcoes[nova_pos]['Wumpus'] == 'Talvez':
@@ -198,10 +198,10 @@ def TELL(ambiente, percepcoes, posicao):
                 nova_pos = 4*y + (x-1)
                 if(nova_pos >= 0 and nova_pos <= 15):
                         #print('TELL::> Esquerda da pos',posicao,'=', nova_pos, ' coordenadas:',  get_coord(nova_pos))
-                        if(percepcoes[posicao]['Brisa'] == True):
+                        if(percepcoes[posicao]['Brisa'] == True and percepcoes[nova_pos]['Poço'] == None):
                                 percepcoes[nova_pos]['Poço'] = 'Talvez'
                                 #percepcoes = TELL_aux(percepcoes, nova_pos)
-                        if(percepcoes[posicao]['Fedor'] == True):
+                        if(percepcoes[posicao]['Fedor'] == True and percepcoes[nova_pos]['Wumpus'] == None):
                                 percepcoes[nova_pos]['Wumpus'] = 'Talvez'
                                 percepcoes, wumpus_cont = TELL_aux(percepcoes, nova_pos)
                 if wumpus_cont >= 3 and percepcoes[nova_pos]['Wumpus'] == 'Talvez':
@@ -212,10 +212,10 @@ def TELL(ambiente, percepcoes, posicao):
                 nova_pos = 4*(y+1) + x
                 if(nova_pos >= 0 and nova_pos <= 15):
                         #print('TELL::> Abaixo da pos',posicao,'=', nova_pos, ' coordenadas:',  get_coord(nova_pos))
-                        if(percepcoes[posicao]['Brisa'] == True):
+                        if(percepcoes[posicao]['Brisa'] == True and percepcoes[nova_pos]['Poço'] == None):
                                 percepcoes[nova_pos]['Poço'] = 'Talvez'
                                 #percepcoes = TELL_aux(percepcoes, nova_pos)
-                        if(percepcoes[posicao]['Fedor'] == True):
+                        if(percepcoes[posicao]['Fedor'] == True and percepcoes[nova_pos]['Wumpus'] == None):
                                 percepcoes[nova_pos]['Wumpus'] = 'Talvez'
                                 percepcoes, wumpus_cont = TELL_aux(percepcoes, nova_pos)
                 if wumpus_cont >= 3 and percepcoes[nova_pos]['Wumpus'] == 'Talvez':
@@ -226,10 +226,10 @@ def TELL(ambiente, percepcoes, posicao):
                 nova_pos = 4*(y-1) + x
                 if(nova_pos >= 0 and nova_pos <= 15):
                         #print('TELL::> Acima da pos',posicao,'=', nova_pos, ' coordenadas:',  get_coord(nova_pos))
-                        if(percepcoes[posicao]['Brisa'] == True):
+                        if(percepcoes[posicao]['Brisa'] == True and percepcoes[nova_pos]['Poço'] == None):
                                 percepcoes[nova_pos]['Poço'] = 'Talvez'
                                 #percepcoes = TELL_aux(percepcoes, nova_pos)
-                        if(percepcoes[posicao]['Fedor'] == True):
+                        if(percepcoes[posicao]['Fedor'] == True and percepcoes[nova_pos]['Wumpus'] == None):
                                 percepcoes[nova_pos]['Wumpus'] = 'Talvez'
                                 percepcoes, wumpus_cont = TELL_aux(percepcoes, nova_pos)
                 if wumpus_cont >= 3 and percepcoes[nova_pos]['Wumpus'] == 'Talvez':
