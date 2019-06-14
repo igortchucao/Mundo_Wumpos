@@ -338,11 +338,21 @@ def show_info(ambiente, perc_do_ambiente):
                 print()
 
 def print_ambiente(ambiente):
-    for pos, pos_dict in ambiente.items():
-        print(pos,':\n{', end='')
-        for att, value in pos_dict.items():
-            print(att, value, ' ',end='')
-        print('}')
+        print('----------------PERCEPÇÕES DO AMBIENTE------------------')
+        print('Posição |  Poço   |  Brisa  | Wumpus  |  Fedor  |  Ouro')
+        print('--------------------------------------------------------')
+        for pos, pos_dict in ambiente.items():
+                print('{:^8}'.format(pos), end='')
+                for att, value in pos_dict.items():
+                        if(value == None):
+                                print('|  None  ',end=' ')
+                        elif(value == True):
+                                print('|  True  ',end=' ')
+                        elif(value == False):
+                                print('|  False ',end=' ')
+                        elif(value == 'Talvez'):
+                                print('| Talvez ',end=' ')
+                print()
 
 def atirar(percepcoes, ambiente):
         # Essa função só é chamada quando o Wumpus é supostamente encontrado
