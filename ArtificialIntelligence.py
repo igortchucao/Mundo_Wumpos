@@ -344,11 +344,21 @@ def print_ambiente(ambiente):
             print(att, value, ' ',end='')
         print('}')
 
-def atirar(percepcoes):
+def atirar(percepcoes, ambiente):
+        # Essa função só é chamada quando o Wumpus é supostamente encontrado
+        pos = None
+        hit = False
         for i in range(0, 16):
                 if(percepcoes[i]['Wumpus'] == True):
-                        return i
-        return None
+                        pos = i
+        if(ambiente[pos]['Wumpus'] == True):
+                hit = True
+                ambiente[pos]['Wumpus'] = False
+                percepcoes[pos]['Wumpus'] = False
+                for i in range(0, 16):
+                        ambiente[i]['Fedor'] = False
+                        percepcoes[i]['Fedor'] = False
+        return pos, hit
 
 def jogo(posicao_atual, ambiente, percepcoes):
         ouro = False
