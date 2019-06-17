@@ -5,6 +5,8 @@ clock = pygame.time.Clock()
 pygame.display.set_caption('Mundo do Wumpus')
 width = 1200
 height = 800
+
+'''Fonte da Escrita'''
 font = pygame.font.SysFont(None, 49)
 
 '''Imagens'''
@@ -298,9 +300,9 @@ class Menu():
                 screen.blit(Imagem_buraco, (x - 74, y - 74))
             else:
                 if ambiente[ref]['Brisa']:
-                    screen.blit(font.render('Brisa', True, BLACK), [870, 100])
+                    screen.blit(pygame.font.SysFont(None, 150).render('BRISA', True, BLACK), [830, 100])
                 if ambiente[ref]['Fedor']:
-                    screen.blit(font.render('Fedor', True, MARROM_c), [1020, 100])
+                    screen.blit(pygame.font.SysFont(None, 150).render('FEDOR', True, MARROM_c), [820, 200])
 
   
 
