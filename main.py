@@ -143,6 +143,7 @@ def main():
                 MenuWump.personagem.updateDown(((hor * 197 + 50), (vert * 197 + 17)))
             elif (pos_ant == pos - 4):
                 MenuWump.personagem.updateUp(((hor * 197 + 24), (vert * 197 + 17)))
+
             time.sleep(1)
             desempenho -= 1
         else:
