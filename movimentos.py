@@ -50,17 +50,20 @@ def escolhe_movimento(percepcoes, posicao):
 		mov = random.choice(lista_movimentos)
 		prox_pos = mov+posicao
 		if(prox_pos <= 15 and prox_pos >= 0):
-			if(percepcoes[prox_pos]['Poço'] != True):
-				if(percepcoes[prox_pos]['Poço'] == None):
-					validade += 2
-			else:
+			if(percepcoes[prox_pos]['Poço'] == True):
 				validade -= 2
-			if(percepcoes[prox_pos]['Wumpus'] != True):
-				if(percepcoes[prox_pos]['Wumpus'] == None):
-					validade += 2
-				print('Sem wumpus aparente', prox_pos)
+				print('Poço em ', prox_pos)
+			elif(percepcoes[prox_pos]['Poço'] == 'Talvez'):
+				validade -= 1
 			else:
+				validade += 2
+			if(percepcoes[prox_pos]['Wumpus'] == True):
 				validade -= 2
-		if(validade > 2):
+				print('Wumpus em ', prox_pos)
+			elif(percepcoes[prox_pos]['Wumpus'] == 'Talvez'):
+				validade -= 1
+			else:
+				validade += 2
+		if(validade > 1):
 			mov_escolhido = True
 	return mov
