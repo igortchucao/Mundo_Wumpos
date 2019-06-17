@@ -1,1 +1,1 @@
-__all__ = ['View', 'Gerador', 'main']
+__all__ = ['View', 'Gerador', 'main', 'Musicas', 'movimento']

@@ -1,4 +1,4 @@
-import pygame, os
+import pygame, os, Musicas
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -195,6 +195,22 @@ class Person():
                 screen.blit(self.image, pos_atual)
                 pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
                 pygame.display.update()
+
+    '''ANIMAÇÂO DE CAIR NO BURACO'''
+    def cairBuraco(self, ref):
+        aux = 0
+        pos_atual = (ref % 4 * 197 + 75, ref // 4 * 197 + 75)
+        while(aux < 5):
+            x_poco = ((ref % 4) * 200) + 100
+            y_poco = ((ref // 4) * 200) + 100
+            clock.tick(10)
+            self.image = pygame.transform.smoothscale(self.image, (100 - aux * 15, 100 - aux * 15) )
+            aux += 1
+            screen.fill(BLACK)
+            desenha_tabuleiro(200)
+            screen.blit(Imagem_buraco, (x_poco - 74, y_poco - 74))
+            screen.blit(self.image,pos_atual)
+            pygame.display.update()
 
 '''Cria a tela do pygamegame'''
 class Menu():
