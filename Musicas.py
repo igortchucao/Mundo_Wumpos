@@ -6,6 +6,7 @@ wumpusSound = pygame.mixer.Sound(os.path.join('Musicas',"Wumpus.wav"))
 brisaSound = pygame.mixer.Sound(os.path.join('Musicas',"Brisateste.wav"))
 pocoSound = pygame.mixer.Sound(os.path.join('Musicas',"Wilhelm-Scream.wav"))
 tiroSound = pygame.mixer.Sound(os.path.join('Musicas',"Som-de-Tiro.wav"))
+morreuSound = pygame.mixer.Sound(os.path.join('Musicas',"E_morreu.wav"))
 
 def somWumpus():
     pygame.mixer.Sound.play(wumpusSound)
@@ -18,3 +19,6 @@ def somPoco():
 
 def somTiro():
     pygame.mixer.Sound.play(tiroSound)
+
+def somMorreu():
+    pygame.mixer.Sound.play(morreuSound)

@@ -140,6 +140,7 @@ class Person():
         hor = ref % 4
         vert = ref // 4
         pos_atual = ((hor * 197 + 50), (vert * 197 + 17))  
+
         '''DISPARO PRA DIREITA'''
         if(hor + 1 < 4 and ambiente[ref + 1]['Wumpus']):
             Musicas.somTiro()     
@@ -155,6 +156,7 @@ class Person():
                 screen.blit(self.image, pos_atual)
                 pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
                 pygame.display.update()
+            Musicas.somMorreu()
         '''DISPARO PRA ESQUERDA'''
         if(hor - 1 >= 0 and ambiente[ref - 1]['Wumpus']):
             Musicas.somTiro()     
@@ -170,6 +172,7 @@ class Person():
                 screen.blit(self.image, pos_atual)
                 pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
                 pygame.display.update()
+            Musicas.somMorreu()
         '''DISPARO PRA BAIXO'''
         if(vert + 1 < 4 and ambiente[ref + 4]['Wumpus']):
             Musicas.somTiro()     
@@ -185,6 +188,7 @@ class Person():
                 screen.blit(self.image, pos_atual)
                 pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
                 pygame.display.update()
+            Musicas.somMorreu()
         '''DISPARO PRA CIMA'''
         if(vert - 1 >= 0 and ambiente[ref - 4]['Wumpus']):
             Musicas.somTiro()     
@@ -200,6 +204,7 @@ class Person():
                 screen.blit(self.image, pos_atual)
                 pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
                 pygame.display.update()
+            Musicas.somMorreu()
 
     '''ANIMAÇÂO DE CAIR NO BURACO'''
     def cairBuraco(self, ref):
