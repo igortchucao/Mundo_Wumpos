@@ -12,22 +12,22 @@ font2 = pygame.font.SysFont(None, 30)
 
 # Percepções do ambiente
 percepcoes = {
-        0: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        1: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        2: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        3: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        4: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        5: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        6: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        7: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        8: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        9: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        10: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        11: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        12: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        13: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        14: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        15: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None}
+    0: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    1: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    2: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    3: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    4: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    5: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    6: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    7: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    8: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    9: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    10: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    11: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    12: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    13: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    14: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    15: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None}
 }
 
 '''Imagens'''
@@ -58,10 +58,11 @@ LEFT = 3
 RIGHT = 4
 
 def main():
-    # Definições de variáveis
+    # Definições de variáveis importantes
     ouro = poco = wumpus = arrow = False
     arrowAmount = 1
     loop = hit = True
+    desempenho = 0
     
     '''TELA DE INICIO'''
     pygame.mixer.music.play(-1)
@@ -84,7 +85,6 @@ def main():
     TheEnd = False
     iaKey = False
     ambiente = ai.gera_ambiente()
-    #ai.print_ambiente(ambiente)
 
     pos = vert = hor = 0
     while(1):
@@ -101,7 +101,10 @@ def main():
                 pygame.quit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_F1:
-                    iaKey = True
+                    if(iaKey == True):
+                        iaKey = False
+                    else:
+                        iaKey = True
                 if event.key == pygame.K_F2:
                     TheEnd = True
                 if event.key == pygame.K_F3:
@@ -109,19 +112,19 @@ def main():
                 # Comandos para usuário jogar
                 if event.key == pygame.K_UP:
                     if 0 <= vert - 1:
-                        MenuWump.personagem.uppdateUp(((hor * 197 + 24), (vert * 197 + 17)))
+                        MenuWump.personagem.updateUp(((hor * 197 + 24), (vert * 197 + 17)))
                         vert -= 1
                 elif event.key == pygame.K_DOWN:
                     if vert + 1 < 4:
-                        MenuWump.personagem.uppdateDown(((hor * 197 + 50), (vert * 197 + 17)))
+                        MenuWump.personagem.updateDown(((hor * 197 + 50), (vert * 197 + 17)))
                         vert += 1
                 elif event.key == pygame.K_LEFT:
                     if 0 <= hor - 1:
-                        MenuWump.personagem.uppdateEsquerda(((hor * 197 + 50), (vert * 197 + 17)))
+                        MenuWump.personagem.updateEsquerda(((hor * 197 + 50), (vert * 197 + 17)))
                         hor -= 1
                 elif event.key == pygame.K_RIGHT:
                     if hor + 1 < 4:
-                        MenuWump.personagem.uppdateDireita(((hor * 197 + 50), (vert * 197 + 17)))
+                        MenuWump.personagem.updateDireita(((hor * 197 + 50), (vert * 197 + 17)))
                         hor += 1
                 elif event.key == pygame.K_SPACE:
                     MenuWump.personagem.tiro(ambiente, hor, vert)
@@ -129,24 +132,25 @@ def main():
         # Se 'iaKey' == True, a posição depende do ai.jogo()
         if(iaKey):
             pos, ouro, poco, wumpus, arrow = ai.jogo(pos, ambiente, percepcoes)
-            #print('\nOuro:', ouro, '\nWumpus:', wumpus, '\nPoço:', poco)
-            time.sleep(0.25)
+            time.sleep(1)
+            desempenho -= 1
         else:
             pos = (4 * vert) + (hor)
-            pos, ouro, poco, wumpus, arrow = ai.jogo(pos, ambiente, percepcoes)
+            #pos, ouro, poco, wumpus, arrow = ai.jogo(pos, ambiente, percepcoes)
+            desempenho -= 1
 
-        #MenuWump.menu_lateral()
         if (TheEnd):
             MenuWump.view_rect(99, ambiente)
         else :
             MenuWump.view_rect(pos, ambiente)
 
         if(arrow == True and arrowAmount == 1):
-            pos_wumpus, hit = ai.atirar(percepcoes, ambiente)
+            pos_wumpus, hit = ai.atirar(ambiente, percepcoes)
             print('Wumpus em', pos_wumpus,'ATIRAR!')
+            desempenho -= 10
             arrowAmount = 0
             if(hit == True):
-                #Soltar grito do wumpus
+                # Animação de emcontro do Wumpus
                 print('Personagem:\n-No céu tem pão?\nWumpus:\n-E morreu!')
             else:
                 print('Erroooou!')

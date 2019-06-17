@@ -75,7 +75,7 @@ class Person():
         self.image = self.frames[self.i%2]
         self.i += 1
 
-    def uppdateEsquerda(self, pos_atual):
+    def updateEsquerda(self, pos_atual):
         pos_final = (pos_atual[0] - 150, pos_atual[1]) 
         while(pos_atual != pos_final):
             clock.tick(10)
@@ -87,7 +87,7 @@ class Person():
             screen.blit(self.image, pos_atual)
             pygame.display.update()
 
-    def uppdateDireita(self, pos_atual):
+    def updateDireita(self, pos_atual):
         pos_final = (pos_atual[0] + 150, pos_atual[1]) 
         while(pos_atual != pos_final):
             clock.tick(10)
@@ -99,7 +99,7 @@ class Person():
             screen.blit(self.image, pos_atual)
             pygame.display.update()
         
-    def uppdateDown(self, pos_atual):
+    def updateDown(self, pos_atual):
         pos_final = (pos_atual[0], pos_atual[1] + 150) 
         while(pos_atual != pos_final):
             clock.tick(10)
@@ -111,7 +111,7 @@ class Person():
             screen.blit(self.image, pos_atual)
             pygame.display.update()
     
-    def uppdateUp(self, pos_atual):
+    def updateUp(self, pos_atual):
         pos_final = (pos_atual[0], pos_atual[1] - 150) 
         while(pos_atual != pos_final):
             clock.tick(10)
