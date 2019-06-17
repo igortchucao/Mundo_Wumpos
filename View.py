@@ -5,6 +5,8 @@ clock = pygame.time.Clock()
 pygame.display.set_caption('Mundo do Wumpus')
 width = 1200
 height = 800
+
+'''Fonte da Escrita'''
 font = pygame.font.SysFont(None, 49)
 
 '''Imagens'''
@@ -19,6 +21,7 @@ YELLOW = 238, 221, 130
 ROSA = 255, 0, 255
 ROSA_c = 238, 130, 238
 MARROM_c = 184, 134, 11
+RED = 255, 0, 0
 
 '''Tamanho da janela'''
 size = width, height
@@ -28,12 +31,14 @@ screen = pygame.display.set_mode(size)
 
 '''DESENHA O TABULEIRO'''
 def desenha_tabuleiro(tm):
+    textRef = ""
     for ref in range(0, 16, +1):
         x = ((ref % 4) * tm)
         y = ((ref // 4) * tm)
         pygame.draw.rect(screen, WHITE, pygame.Rect(x, y, tm, tm), 5)
-
         pygame.draw.rect(screen, WHITE, pygame.Rect(x + 8, y + 8, tm - 15, tm - 15), 5)
+        textRef = ref
+        screen.blit(pygame.font.SysFont(None, 40).render(str(ref + 1), True, RED), [x + 20, y + 20])
 
     pygame.draw.rect(screen, BLACK, pygame.Rect(100, 60, 600, 75))
     pygame.draw.rect(screen, BLACK, pygame.Rect(100, 260, 600, 75))
@@ -134,10 +139,11 @@ class Person():
     def tiro(self, ambiente, ref):
         hor = ref % 4
         vert = ref // 4
-        pos_atual = ((hor * 197 + 50), (vert * 197 + 17))
+        pos_atual = ((hor * 197 + 50), (vert * 197 + 17))  
+
         '''DISPARO PRA DIREITA'''
         if(hor + 1 < 4 and ambiente[ref + 1]['Wumpus']):
-            print('tiro')
+            Musicas.somTiro()     
             pos_tiro = (pos_atual[0] + 120, pos_atual[1] + 60)
             pos_final = (pos_tiro[0] + 150, pos_tiro[1])
             while(pos_tiro != pos_final):
@@ -150,9 +156,10 @@ class Person():
                 screen.blit(self.image, pos_atual)
                 pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
                 pygame.display.update()
+            Musicas.somMorreu()
         '''DISPARO PRA ESQUERDA'''
         if(hor - 1 >= 0 and ambiente[ref - 1]['Wumpus']):
-            print('tiro')
+            Musicas.somTiro()     
             pos_tiro = (pos_atual[0], pos_atual[1] + 60)
             pos_final = (pos_tiro[0] - 150, pos_tiro[1])
             while(pos_tiro != pos_final):
@@ -165,9 +172,10 @@ class Person():
                 screen.blit(self.image, pos_atual)
                 pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
                 pygame.display.update()
+            Musicas.somMorreu()
         '''DISPARO PRA BAIXO'''
         if(vert + 1 < 4 and ambiente[ref + 4]['Wumpus']):
-            print('tiro')
+            Musicas.somTiro()     
             pos_tiro = (pos_atual[0] + 90, pos_atual[1] + 90)
             pos_final = (pos_tiro[0], pos_tiro[1] + 150)
             while(pos_tiro != pos_final):
@@ -180,9 +188,10 @@ class Person():
                 screen.blit(self.image, pos_atual)
                 pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
                 pygame.display.update()
+            Musicas.somMorreu()
         '''DISPARO PRA CIMA'''
         if(vert - 1 >= 0 and ambiente[ref - 4]['Wumpus']):
-            print('tiro')
+            Musicas.somTiro()     
             pos_tiro = (pos_atual[0] + 100, pos_atual[1] + 40)
             pos_final = (pos_tiro[0], pos_tiro[1] - 150)
             while(pos_tiro != pos_final):
@@ -195,6 +204,7 @@ class Person():
                 screen.blit(self.image, pos_atual)
                 pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
                 pygame.display.update()
+            Musicas.somMorreu()
 
     '''ANIMAÇÂO DE CAIR NO BURACO'''
     def cairBuraco(self, ref):
@@ -295,9 +305,9 @@ class Menu():
                 screen.blit(Imagem_buraco, (x - 74, y - 74))
             else:
                 if ambiente[ref]['Brisa']:
-                    screen.blit(font.render('Brisa', True, BLACK), [870, 100])
+                    screen.blit(pygame.font.SysFont(None, 150).render('BRISA', True, BLACK), [830, 100])
                 if ambiente[ref]['Fedor']:
-                    screen.blit(font.render('Fedor', True, MARROM_c), [1020, 100])
+                    screen.blit(pygame.font.SysFont(None, 150).render('FEDOR', True, MARROM_c), [820, 200])
 
   
 
