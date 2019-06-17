@@ -127,6 +127,7 @@ def main():
                         MenuWump.personagem.updateDireita(((hor * 197 + 50), (vert * 197 + 17)))
                         hor += 1
                 elif event.key == pygame.K_SPACE:
+                    #ai.print_ambiente(percepcoes)
                     MenuWump.personagem.tiro(ambiente, (vert * 4 + hor))
                     MenuWump.personagem.cairBuraco((vert * 4 + hor))
         
@@ -137,7 +138,7 @@ def main():
             desempenho -= 1
         else:
             pos = (4 * vert) + (hor)
-            #pos, ouro, poco, wumpus, arrow = ai.jogo(pos, ambiente, percepcoes)
+            pos, ouro, poco, wumpus, arrow = ai.jogoUser(pos, ambiente, percepcoes)
             desempenho -= 1
 
         if (TheEnd):

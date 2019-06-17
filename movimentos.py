@@ -43,14 +43,26 @@ def mov_valido(coord_direcao, posicao, percepcoes):
 
 def escolhe_movimento(percepcoes, posicao):
 	lista_movimentos = [1, 4, -1, -4] # direita, baixo, esquerda, cima
-	
 	mov_escolhido = False
-
+	mov = 0
+	validade = 0
+	prox_pos = posicao
 	while mov_escolhido == False:
 		mov = random.choice(lista_movimentos)
 		prox_pos = posicao + mov
-		if(0 <= prox_pos and 15 >= prox_pos):
-			if(percepcoes[prox_pos]['Poço'] != True):
-				mov_escolhido = True
-
+		if(prox_pos <= 15 and prox_pos >= 0):
+			if(percepcoes[prox_pos]['Poço'] == True):
+				validade -= 2
+			elif(percepcoes[prox_pos]['Poço'] == 'Talvez'):
+				validade -= 1
+			else:
+				validade += 2
+			if(percepcoes[prox_pos]['Wumpus'] == True):
+				validade -= 2
+			elif(percepcoes[prox_pos]['Wumpus'] == 'Talvez'):
+				validade -= 1
+			else:
+				validade += 2
+		if(validade > 1):
+			mov_escolhido = True
 	return mov
