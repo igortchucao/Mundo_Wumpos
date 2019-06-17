@@ -123,10 +123,14 @@ class Person():
             screen.blit(self.image, pos_atual)
             pygame.display.update()
 
-    def tiro(self, lado, pos_atual):
-        pos_tiro = (pos_atual[0] + 120, pos_atual[1] + 60)
-        pos_final = (pos_tiro[0] + 150, pos_tiro[1])
-        if lado == 'direita':
+    def tiro(self, ambiente, hor, vert):
+        ref = 4 * vert + hor
+        pos_atual = ((hor * 197 + 50), (vert * 197 + 17))
+        '''DISPARO PRA DIREITA'''
+        if(hor + 1 < 4 and ambiente[ref + 1]['Wumpus']):
+            print('tiro')
+            pos_tiro = (pos_atual[0] + 120, pos_atual[1] + 60)
+            pos_final = (pos_tiro[0] + 150, pos_tiro[1])
             while(pos_tiro != pos_final):
                 clock.tick(10)
                 pos_tiro = (pos_tiro[0] + 15, pos_tiro[1])
@@ -137,11 +141,51 @@ class Person():
                 screen.blit(self.image, pos_atual)
                 pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
                 pygame.display.update()
-            
-        if lado == 'esquerda':
-            self.image = self.frames[9]
-        if lado == 'baixo':
-            self.image = self.frames[3]
+        '''DISPARO PRA ESQUERDA'''
+        if(hor - 1 >= 0 and ambiente[ref - 1]['Wumpus']):
+            print('tiro')
+            pos_tiro = (pos_atual[0], pos_atual[1] + 60)
+            pos_final = (pos_tiro[0] - 150, pos_tiro[1])
+            while(pos_tiro != pos_final):
+                clock.tick(10)
+                pos_tiro = (pos_tiro[0] - 15, pos_tiro[1])
+                self.image = self.frames[8]
+                self.i += 1
+                screen.fill(BLACK)
+                desenha_tabuleiro(200)
+                screen.blit(self.image, pos_atual)
+                pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
+                pygame.display.update()
+        '''DISPARO PRA BAIXO'''
+        if(vert + 1 < 4 and ambiente[ref + 4]['Wumpus']):
+            print('tiro')
+            pos_tiro = (pos_atual[0] + 90, pos_atual[1] + 90)
+            pos_final = (pos_tiro[0], pos_tiro[1] + 150)
+            while(pos_tiro != pos_final):
+                clock.tick(10)
+                pos_tiro = (pos_tiro[0], pos_tiro[1] + 15)
+                self.image = self.frames[2]
+                self.i += 1
+                screen.fill(BLACK)
+                desenha_tabuleiro(200)
+                screen.blit(self.image, pos_atual)
+                pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
+                pygame.display.update()
+        '''DISPARO PRA CIMA'''
+        if(vert - 1 >= 0 and ambiente[ref - 4]['Wumpus']):
+            print('tiro')
+            pos_tiro = (pos_atual[0] + 100, pos_atual[1] + 40)
+            pos_final = (pos_tiro[0], pos_tiro[1] - 150)
+            while(pos_tiro != pos_final):
+                clock.tick(10)
+                pos_tiro = (pos_tiro[0], pos_tiro[1] - 15)
+                self.image = self.frames[10]
+                self.i += 1
+                screen.fill(BLACK)
+                desenha_tabuleiro(200)
+                screen.blit(self.image, pos_atual)
+                pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
+                pygame.display.update()
 
 '''Cria a tela do pygamegame'''
 class Menu():
