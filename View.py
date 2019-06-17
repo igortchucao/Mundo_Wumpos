@@ -19,6 +19,7 @@ YELLOW = 238, 221, 130
 ROSA = 255, 0, 255
 ROSA_c = 238, 130, 238
 MARROM_c = 184, 134, 11
+RED = 255, 0, 0
 
 '''Tamanho da janela'''
 size = width, height
@@ -35,7 +36,7 @@ def desenha_tabuleiro(tm):
         pygame.draw.rect(screen, WHITE, pygame.Rect(x, y, tm, tm), 5)
         pygame.draw.rect(screen, WHITE, pygame.Rect(x + 8, y + 8, tm - 15, tm - 15), 5)
         textRef = ref
-        screen.blit(pygame.font.SysFont(None, 40).render(str(ref + 1), True, WHITE), [x + 20, y + 20])
+        screen.blit(pygame.font.SysFont(None, 40).render(str(ref + 1), True, RED), [x + 20, y + 20])
 
     pygame.draw.rect(screen, BLACK, pygame.Rect(100, 60, 600, 75))
     pygame.draw.rect(screen, BLACK, pygame.Rect(100, 260, 600, 75))
