@@ -47,14 +47,10 @@ def escolhe_movimento(percepcoes, posicao):
 	mov_escolhido = False
 
 	while mov_escolhido == False:
-		if(len(lista_movimentos) > 0):
-			mov = random.choice(lista_movimentos)
-			lista_movimentos.pop(lista_movimentos.index(mov))
-		else:
-			mov = 0
-		prox_pos = mov + posicao
-		if(0 <= prox_pos and prox_pos <= 15):
-			if(percepcoes[prox_pos]['Poço'] == None or False):
+		mov = random.choice(lista_movimentos)
+		prox_pos = posicao + mov
+		if(0 <= prox_pos and 15 >= prox_pos):
+			if(percepcoes[prox_pos]['Poço'] != True):
 				mov_escolhido = True
 
 	return mov
