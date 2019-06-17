@@ -12,22 +12,22 @@ font2 = pygame.font.SysFont(None, 30)
 
 # Percepções do ambiente
 percepcoes = {
-        0: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        1: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        2: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        3: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        4: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        5: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        6: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        7: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        8: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        9: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        10: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        11: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        12: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        13: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        14: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
-        15: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None}
+    0: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    1: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    2: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    3: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    4: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    5: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    6: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    7: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    8: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    9: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    10: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    11: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    12: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    13: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    14: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None},
+    15: {'Poço': None, 'Brisa': None, 'Wumpus': None, 'Fedor': None, 'Ouro': None}
 }
 
 '''Imagens'''
@@ -85,7 +85,6 @@ def main():
     TheEnd = False
     iaKey = False
     ambiente = ai.gera_ambiente()
-    #ai.print_ambiente(ambiente)
 
     pos = vert = hor = 0
     while(1):
@@ -102,7 +101,10 @@ def main():
                 pygame.quit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_F1:
-                    iaKey = True
+                    if(iaKey == True):
+                        iaKey = False
+                    else:
+                        iaKey = True
                 if event.key == pygame.K_F2:
                     TheEnd = True
                 if event.key == pygame.K_F3:
@@ -129,16 +131,14 @@ def main():
         
         # Se 'iaKey' == True, a posição depende do ai.jogo()
         if(iaKey):
-            print('IAKEY = TRUE')
             pos, ouro, poco, wumpus, arrow = ai.jogo(pos, ambiente, percepcoes)
             time.sleep(1)
-            desempenho = -1
+            desempenho -= 1
         else:
             pos = (4 * vert) + (hor)
             #pos, ouro, poco, wumpus, arrow = ai.jogo(pos, ambiente, percepcoes)
-            desempenho = -1
+            desempenho -= 1
 
-        #MenuWump.menu_lateral()
         if (TheEnd):
             MenuWump.view_rect(99, ambiente)
         else :
@@ -147,7 +147,7 @@ def main():
         if(arrow == True and arrowAmount == 1):
             pos_wumpus, hit = ai.atirar(ambiente, percepcoes)
             print('Wumpus em', pos_wumpus,'ATIRAR!')
-            desempenho = -10
+            desempenho -= 10
             arrowAmount = 0
             if(hit == True):
                 # Animação de emcontro do Wumpus

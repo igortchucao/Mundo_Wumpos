@@ -45,12 +45,22 @@ def escolhe_movimento(percepcoes, posicao):
 	lista_movimentos = [1, 4, -1, -4] # direita, baixo, esquerda, cima
 	mov_escolhido = False
 	mov = 0
+	validade = 0
 	while mov_escolhido == False:
 		mov = random.choice(lista_movimentos)
 		prox_pos = mov+posicao
 		if(prox_pos <= 15 and prox_pos >= 0):
-			for att in percepcoes[prox_pos].keys():
-				if(percepcoes[prox_pos]['Wumpus'] != 'Talvez'):
-					mov_escolhido = True
-	print('Movimento escolhido:',mov)
+			if(percepcoes[prox_pos]['Poço'] != True):
+				if(percepcoes[prox_pos]['Poço'] == None):
+					validade += 2
+			else:
+				validade -= 2
+			if(percepcoes[prox_pos]['Wumpus'] != True):
+				if(percepcoes[prox_pos]['Wumpus'] == None):
+					validade += 2
+				print('Sem wumpus aparente', prox_pos)
+			else:
+				validade -= 2
+		if(validade > 2):
+			mov_escolhido = True
 	return mov
