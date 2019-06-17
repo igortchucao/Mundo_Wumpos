@@ -26,6 +26,7 @@ size = width, height
 '''Personagem do Jogo'''
 screen = pygame.display.set_mode(size)
 
+'''DESENHA O TABULEIRO'''
 def desenha_tabuleiro(tm):
     for ref in range(0, 16, +1):
         x = ((ref % 4) * tm)
@@ -45,6 +46,7 @@ def desenha_tabuleiro(tm):
     pygame.draw.rect(screen, BLACK, pygame.Rect(660, 100, 75, 600))
     menu()
 
+'''DESENHA O MENU LATERAL'''
 def menu():
     pygame.draw.rect(screen, WHITE, pygame.Rect(805, 0, 395, 800), 5)
     pygame.draw.rect(screen, WHITE, pygame.Rect(815, 10, 375, 780))
@@ -71,10 +73,12 @@ class Person():
         self.image = self.frames[0]
         self.i = 0
 
+    '''ANIMAÇÃO DO PERSONAGEM PARADO'''
     def updatePerson(self):
         self.image = self.frames[self.i%2]
         self.i += 1
 
+    '''ANIMAÇÃO PARA PERSONAGEM IR PARA ESQUERDA'''
     def updateEsquerda(self, pos_atual):
         pos_final = (pos_atual[0] - 150, pos_atual[1]) 
         while(pos_atual != pos_final):
@@ -87,6 +91,7 @@ class Person():
             screen.blit(self.image, pos_atual)
             pygame.display.update()
 
+    '''ANIMAÇÃO PARA PERSONAGEM IR PARA DIREITA'''
     def updateDireita(self, pos_atual):
         pos_final = (pos_atual[0] + 150, pos_atual[1]) 
         while(pos_atual != pos_final):
@@ -98,7 +103,8 @@ class Person():
             desenha_tabuleiro(200)
             screen.blit(self.image, pos_atual)
             pygame.display.update()
-        
+
+    '''ANIMAÇÃO PARA PERSONAGEM IR PARA BAIXO'''    
     def updateDown(self, pos_atual):
         pos_final = (pos_atual[0], pos_atual[1] + 150) 
         while(pos_atual != pos_final):
@@ -111,6 +117,7 @@ class Person():
             screen.blit(self.image, pos_atual)
             pygame.display.update()
     
+    '''ANIMAÇÃO PARA PERSONAGEM IR PARA CIMA'''
     def updateUp(self, pos_atual):
         pos_final = (pos_atual[0], pos_atual[1] - 150) 
         while(pos_atual != pos_final):
@@ -123,8 +130,10 @@ class Person():
             screen.blit(self.image, pos_atual)
             pygame.display.update()
 
-    def tiro(self, ambiente, hor, vert):
-        ref = 4 * vert + hor
+    '''FUNÇÃO DO TIRO'''
+    def tiro(self, ambiente, ref):
+        hor = ref % 4
+        vert = ref // 4
         pos_atual = ((hor * 197 + 50), (vert * 197 + 17))
         '''DISPARO PRA DIREITA'''
         if(hor + 1 < 4 and ambiente[ref + 1]['Wumpus']):
@@ -266,6 +275,7 @@ class Menu():
                 if ambiente[ref]['Fedor']:
                     screen.blit(font.render('Fedor', True, MARROM_c), [1020, 100])
 
+    '''MENU LATERAL PARA RESUMO'''
     def menu_lateral(self):
         texto = self.menu.readlines()
         for linha in texto :
