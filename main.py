@@ -127,7 +127,7 @@ def main():
                         MenuWump.personagem.updateDireita(((hor * 197 + 50), (vert * 197 + 17)))
                         hor += 1
                 elif event.key == pygame.K_SPACE:
-                    MenuWump.personagem.tiro('direita', ((hor * 197 + 50), (vert * 197 + 17)))
+                    MenuWump.personagem.tiro(ambiente, (vert * 4 + hor))
         
         # Se 'iaKey' == True, a posição depende do ai.jogo()
         if(iaKey):

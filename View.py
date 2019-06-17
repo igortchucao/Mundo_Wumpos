@@ -26,6 +26,7 @@ size = width, height
 '''Personagem do Jogo'''
 screen = pygame.display.set_mode(size)
 
+'''DESENHA O TABULEIRO'''
 def desenha_tabuleiro(tm):
     for ref in range(0, 16, +1):
         x = ((ref % 4) * tm)
@@ -45,6 +46,7 @@ def desenha_tabuleiro(tm):
     pygame.draw.rect(screen, BLACK, pygame.Rect(660, 100, 75, 600))
     menu()
 
+'''DESENHA O MENU LATERAL'''
 def menu():
     pygame.draw.rect(screen, WHITE, pygame.Rect(805, 0, 395, 800), 5)
     pygame.draw.rect(screen, WHITE, pygame.Rect(815, 10, 375, 780))
@@ -71,10 +73,12 @@ class Person():
         self.image = self.frames[0]
         self.i = 0
 
+    '''ANIMAÇÃO DO PERSONAGEM PARADO'''
     def updatePerson(self):
         self.image = self.frames[self.i%2]
         self.i += 1
 
+    '''ANIMAÇÃO PARA PERSONAGEM IR PARA ESQUERDA'''
     def updateEsquerda(self, pos_atual):
         pos_final = (pos_atual[0] - 150, pos_atual[1]) 
         while(pos_atual != pos_final):
@@ -87,6 +91,7 @@ class Person():
             screen.blit(self.image, pos_atual)
             pygame.display.update()
 
+    '''ANIMAÇÃO PARA PERSONAGEM IR PARA DIREITA'''
     def updateDireita(self, pos_atual):
         pos_final = (pos_atual[0] + 150, pos_atual[1]) 
         while(pos_atual != pos_final):
@@ -98,7 +103,8 @@ class Person():
             desenha_tabuleiro(200)
             screen.blit(self.image, pos_atual)
             pygame.display.update()
-        
+
+    '''ANIMAÇÃO PARA PERSONAGEM IR PARA BAIXO'''    
     def updateDown(self, pos_atual):
         pos_final = (pos_atual[0], pos_atual[1] + 150) 
         while(pos_atual != pos_final):
@@ -111,6 +117,7 @@ class Person():
             screen.blit(self.image, pos_atual)
             pygame.display.update()
     
+    '''ANIMAÇÃO PARA PERSONAGEM IR PARA CIMA'''
     def updateUp(self, pos_atual):
         pos_final = (pos_atual[0], pos_atual[1] - 150) 
         while(pos_atual != pos_final):
@@ -123,10 +130,16 @@ class Person():
             screen.blit(self.image, pos_atual)
             pygame.display.update()
 
-    def tiro(self, lado, pos_atual):
-        pos_tiro = (pos_atual[0] + 120, pos_atual[1] + 60)
-        pos_final = (pos_tiro[0] + 150, pos_tiro[1])
-        if lado == 'direita':
+    '''FUNÇÃO DO TIRO'''
+    def tiro(self, ambiente, ref):
+        hor = ref % 4
+        vert = ref // 4
+        pos_atual = ((hor * 197 + 50), (vert * 197 + 17))
+        '''DISPARO PRA DIREITA'''
+        if(hor + 1 < 4 and ambiente[ref + 1]['Wumpus']):
+            print('tiro')
+            pos_tiro = (pos_atual[0] + 120, pos_atual[1] + 60)
+            pos_final = (pos_tiro[0] + 150, pos_tiro[1])
             while(pos_tiro != pos_final):
                 clock.tick(10)
                 pos_tiro = (pos_tiro[0] + 15, pos_tiro[1])
@@ -137,11 +150,51 @@ class Person():
                 screen.blit(self.image, pos_atual)
                 pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
                 pygame.display.update()
-            
-        if lado == 'esquerda':
-            self.image = self.frames[9]
-        if lado == 'baixo':
-            self.image = self.frames[3]
+        '''DISPARO PRA ESQUERDA'''
+        if(hor - 1 >= 0 and ambiente[ref - 1]['Wumpus']):
+            print('tiro')
+            pos_tiro = (pos_atual[0], pos_atual[1] + 60)
+            pos_final = (pos_tiro[0] - 150, pos_tiro[1])
+            while(pos_tiro != pos_final):
+                clock.tick(10)
+                pos_tiro = (pos_tiro[0] - 15, pos_tiro[1])
+                self.image = self.frames[8]
+                self.i += 1
+                screen.fill(BLACK)
+                desenha_tabuleiro(200)
+                screen.blit(self.image, pos_atual)
+                pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
+                pygame.display.update()
+        '''DISPARO PRA BAIXO'''
+        if(vert + 1 < 4 and ambiente[ref + 4]['Wumpus']):
+            print('tiro')
+            pos_tiro = (pos_atual[0] + 90, pos_atual[1] + 90)
+            pos_final = (pos_tiro[0], pos_tiro[1] + 150)
+            while(pos_tiro != pos_final):
+                clock.tick(10)
+                pos_tiro = (pos_tiro[0], pos_tiro[1] + 15)
+                self.image = self.frames[2]
+                self.i += 1
+                screen.fill(BLACK)
+                desenha_tabuleiro(200)
+                screen.blit(self.image, pos_atual)
+                pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
+                pygame.display.update()
+        '''DISPARO PRA CIMA'''
+        if(vert - 1 >= 0 and ambiente[ref - 4]['Wumpus']):
+            print('tiro')
+            pos_tiro = (pos_atual[0] + 100, pos_atual[1] + 40)
+            pos_final = (pos_tiro[0], pos_tiro[1] - 150)
+            while(pos_tiro != pos_final):
+                clock.tick(10)
+                pos_tiro = (pos_tiro[0], pos_tiro[1] - 15)
+                self.image = self.frames[10]
+                self.i += 1
+                screen.fill(BLACK)
+                desenha_tabuleiro(200)
+                screen.blit(self.image, pos_atual)
+                pygame.draw.rect(screen, YELLOW, pygame.Rect(pos_tiro[0], pos_tiro[1], 10, 10))
+                pygame.display.update()
 
 '''Cria a tela do pygamegame'''
 class Menu():
@@ -151,9 +204,16 @@ class Menu():
         self.personagem = Person([100,100])
         self.i = 0
     
+    '''MENU LATERAL PARA RESUMO'''
+    def menuLateral(self):
+        texto = self.menu.readlines()
+        for linha in texto :
+            screen.blit(font.render(linha, True, BLACK), [950, 200])
+            
     '''FUNÇÃO QUE DESENHA O TABULEIRO'''
     def draw(self):
         desenha_tabuleiro(self.tm)
+        self.menuLateral()
 
     '''FUNÇÃO QUE MOSTRA UM DETERMINADO QUADRADO'''
     def view_rect(self, ref, ambiente):
@@ -222,8 +282,5 @@ class Menu():
                 if ambiente[ref]['Fedor']:
                     screen.blit(font.render('Fedor', True, MARROM_c), [1020, 100])
 
-    def menu_lateral(self):
-        texto = self.menu.readlines()
-        for linha in texto :
-            screen.blit(font.render(linha, True, BLACK), [950, 200])
+  
 
