@@ -58,10 +58,11 @@ LEFT = 3
 RIGHT = 4
 
 def main():
-    # Definições de variáveis
+    # Definições de variáveis importantes
     ouro = poco = wumpus = arrow = False
     arrowAmount = 1
     loop = hit = True
+    desempenho = 0
     
     '''TELA DE INICIO'''
     pygame.mixer.music.play(-1)
@@ -109,31 +110,33 @@ def main():
                 # Comandos para usuário jogar
                 if event.key == pygame.K_UP:
                     if 0 <= vert - 1:
-                        MenuWump.personagem.uppdateUp(((hor * 197 + 24), (vert * 197 + 17)))
+                        MenuWump.personagem.updateUp(((hor * 197 + 24), (vert * 197 + 17)))
                         vert -= 1
                 elif event.key == pygame.K_DOWN:
                     if vert + 1 < 4:
-                        MenuWump.personagem.uppdateDown(((hor * 197 + 50), (vert * 197 + 17)))
+                        MenuWump.personagem.updateDown(((hor * 197 + 50), (vert * 197 + 17)))
                         vert += 1
                 elif event.key == pygame.K_LEFT:
                     if 0 <= hor - 1:
-                        MenuWump.personagem.uppdateEsquerda(((hor * 197 + 50), (vert * 197 + 17)))
+                        MenuWump.personagem.updateEsquerda(((hor * 197 + 50), (vert * 197 + 17)))
                         hor -= 1
                 elif event.key == pygame.K_RIGHT:
                     if hor + 1 < 4:
-                        MenuWump.personagem.uppdateDireita(((hor * 197 + 50), (vert * 197 + 17)))
+                        MenuWump.personagem.updateDireita(((hor * 197 + 50), (vert * 197 + 17)))
                         hor += 1
                 elif event.key == pygame.K_SPACE:
                     MenuWump.personagem.tiro('direita', ((hor * 197 + 50), (vert * 197 + 17)))
         
         # Se 'iaKey' == True, a posição depende do ai.jogo()
         if(iaKey):
+            print('IAKEY = TRUE')
             pos, ouro, poco, wumpus, arrow = ai.jogo(pos, ambiente, percepcoes)
-            #print('\nOuro:', ouro, '\nWumpus:', wumpus, '\nPoço:', poco)
-            time.sleep(0.25)
+            time.sleep(1)
+            desempenho = -1
         else:
             pos = (4 * vert) + (hor)
-            pos, ouro, poco, wumpus, arrow = ai.jogo(pos, ambiente, percepcoes)
+            #pos, ouro, poco, wumpus, arrow = ai.jogo(pos, ambiente, percepcoes)
+            desempenho = -1
 
         #MenuWump.menu_lateral()
         if (TheEnd):
@@ -142,11 +145,12 @@ def main():
             MenuWump.view_rect(pos, ambiente)
 
         if(arrow == True and arrowAmount == 1):
-            pos_wumpus, hit = ai.atirar(percepcoes, ambiente)
+            pos_wumpus, hit = ai.atirar(ambiente, percepcoes)
             print('Wumpus em', pos_wumpus,'ATIRAR!')
+            desempenho = -10
             arrowAmount = 0
             if(hit == True):
-                #Soltar grito do wumpus
+                # Animação de emcontro do Wumpus
                 print('Personagem:\n-No céu tem pão?\nWumpus:\n-E morreu!')
             else:
                 print('Erroooou!')
