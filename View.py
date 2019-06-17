@@ -200,6 +200,7 @@ class Person():
     def cairBuraco(self, ref):
         aux = 0
         pos_atual = (ref % 4 * 197 + 75, ref // 4 * 197 + 75)
+        Musicas.somPoco()
         while(aux < 5):
             x_poco = ((ref % 4) * 200) + 100
             y_poco = ((ref // 4) * 200) + 100
