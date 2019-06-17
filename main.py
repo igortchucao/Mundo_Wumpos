@@ -128,7 +128,6 @@ def main():
                         hor += 1
                 elif event.key == pygame.K_SPACE:
                     MenuWump.personagem.tiro(ambiente, (vert * 4 + hor))
-                    MenuWump.personagem.cairBuraco((vert * 4 + hor))
         
         # Se 'iaKey' == True, a posição depende do ai.jogo()
         if(iaKey):

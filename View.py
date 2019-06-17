@@ -134,10 +134,10 @@ class Person():
     def tiro(self, ambiente, ref):
         hor = ref % 4
         vert = ref // 4
-        pos_atual = ((hor * 197 + 50), (vert * 197 + 17))
+        pos_atual = ((hor * 197 + 50), (vert * 197 + 17))  
         '''DISPARO PRA DIREITA'''
         if(hor + 1 < 4 and ambiente[ref + 1]['Wumpus']):
-            print('tiro')
+            Musicas.somTiro()     
             pos_tiro = (pos_atual[0] + 120, pos_atual[1] + 60)
             pos_final = (pos_tiro[0] + 150, pos_tiro[1])
             while(pos_tiro != pos_final):
@@ -152,7 +152,7 @@ class Person():
                 pygame.display.update()
         '''DISPARO PRA ESQUERDA'''
         if(hor - 1 >= 0 and ambiente[ref - 1]['Wumpus']):
-            print('tiro')
+            Musicas.somTiro()     
             pos_tiro = (pos_atual[0], pos_atual[1] + 60)
             pos_final = (pos_tiro[0] - 150, pos_tiro[1])
             while(pos_tiro != pos_final):
@@ -167,7 +167,7 @@ class Person():
                 pygame.display.update()
         '''DISPARO PRA BAIXO'''
         if(vert + 1 < 4 and ambiente[ref + 4]['Wumpus']):
-            print('tiro')
+            Musicas.somTiro()     
             pos_tiro = (pos_atual[0] + 90, pos_atual[1] + 90)
             pos_final = (pos_tiro[0], pos_tiro[1] + 150)
             while(pos_tiro != pos_final):
@@ -182,7 +182,7 @@ class Person():
                 pygame.display.update()
         '''DISPARO PRA CIMA'''
         if(vert - 1 >= 0 and ambiente[ref - 4]['Wumpus']):
-            print('tiro')
+            Musicas.somTiro()     
             pos_tiro = (pos_atual[0] + 100, pos_atual[1] + 40)
             pos_final = (pos_tiro[0], pos_tiro[1] - 150)
             while(pos_tiro != pos_final):
