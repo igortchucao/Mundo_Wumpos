@@ -28,12 +28,14 @@ screen = pygame.display.set_mode(size)
 
 '''DESENHA O TABULEIRO'''
 def desenha_tabuleiro(tm):
+    textRef = ""
     for ref in range(0, 16, +1):
         x = ((ref % 4) * tm)
         y = ((ref // 4) * tm)
         pygame.draw.rect(screen, WHITE, pygame.Rect(x, y, tm, tm), 5)
-
         pygame.draw.rect(screen, WHITE, pygame.Rect(x + 8, y + 8, tm - 15, tm - 15), 5)
+        textRef = ref
+        screen.blit(pygame.font.SysFont(None, 40).render(str(ref + 1), True, WHITE), [x + 20, y + 20])
 
     pygame.draw.rect(screen, BLACK, pygame.Rect(100, 60, 600, 75))
     pygame.draw.rect(screen, BLACK, pygame.Rect(100, 260, 600, 75))
