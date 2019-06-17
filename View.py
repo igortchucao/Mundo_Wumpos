@@ -204,9 +204,16 @@ class Menu():
         self.personagem = Person([100,100])
         self.i = 0
     
+    '''MENU LATERAL PARA RESUMO'''
+    def menuLateral(self):
+        texto = self.menu.readlines()
+        for linha in texto :
+            screen.blit(font.render(linha, True, BLACK), [950, 200])
+            
     '''FUNÇÃO QUE DESENHA O TABULEIRO'''
     def draw(self):
         desenha_tabuleiro(self.tm)
+        self.menuLateral()
 
     '''FUNÇÃO QUE MOSTRA UM DETERMINADO QUADRADO'''
     def view_rect(self, ref, ambiente):
@@ -275,9 +282,5 @@ class Menu():
                 if ambiente[ref]['Fedor']:
                     screen.blit(font.render('Fedor', True, MARROM_c), [1020, 100])
 
-    '''MENU LATERAL PARA RESUMO'''
-    def menu_lateral(self):
-        texto = self.menu.readlines()
-        for linha in texto :
-            screen.blit(font.render(linha, True, BLACK), [950, 200])
+  
 
