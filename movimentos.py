@@ -42,6 +42,7 @@ def mov_valido(coord_direcao, posicao, percepcoes):
 	return False
 
 def escolhe_movimento(percepcoes, posicao):
+	#teste de comentário
 	lista_movimentos = [1, 4, -1, -4] # direita, baixo, esquerda, cima
 	mov_escolhido = False
 	mov = 0
