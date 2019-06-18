@@ -416,13 +416,13 @@ def jogo(posicao_atual, ambiente, percepcoes, caminho):
 	percepcoes, arrow = ASK(ambiente, percepcoes, posicao_atual)
 	if(percepcoes[posicao_atual]['Wumpus'] == True):
 		wumpus = True
-	if(percepcoes[posicao_atual]['Poço'] == True):
+	elif(percepcoes[posicao_atual]['Poço'] == True):
 		buraco = True
-	if(percepcoes[posicao_atual]['Ouro'] == True):
+	elif(percepcoes[posicao_atual]['Ouro'] == True):
 		ouro = True
-
-	# Escolhe aleatoriamente um movimento todos com probabilidades iguais
-	movimento = Mov.escolhe_movimento(percepcoes, posicao_atual, caminho)
+	else:
+		# Escolhe aleatoriamente um movimento todos com probabilidades iguais
+		movimento = Mov.escolhe_movimento(percepcoes, posicao_atual, caminho)
 
 	# tupla com as coordenadas do movimento escolhido
 	
