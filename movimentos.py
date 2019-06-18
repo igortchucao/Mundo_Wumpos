@@ -84,8 +84,7 @@ def escolhe_movimento(percepcoes, posicao, caminho):
 				mov_possiveis.append(-4)
 				probabilidade.append(25)
 	
-	# se as posições adjacentes não são certezas (i.e Poço/Wumpus = True ou Talvez)
-	# a escolha do movimento terá que ser aleatória
+	# se as posições adjacentes não são certezas (i.e Poço/Wumpus = True ou Talvez) a escolha do movimento terá que ser aleatória
 	
 	if(len(mov_possiveis) == 0):
 		mov = random.choice(movimentos)
