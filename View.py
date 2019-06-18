@@ -313,6 +313,3 @@ class Menu():
                     screen.blit(pygame.font.SysFont(None, 150).render('BRISA', True, BLACK), [830, 100])
                 if ambiente[ref]['Fedor']:
                     screen.blit(pygame.font.SysFont(None, 150).render('FEDOR', True, MARROM_c), [820, 200])
-
-  
-

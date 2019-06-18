@@ -6,6 +6,7 @@ pygame.init()
 clock = pygame.time.Clock()
 pygame.display.set_caption('Mundo do Wumpus')
 width = 1200
+
 height = 800
 font = pygame.font.SysFont(None, 49)
 font2 = pygame.font.SysFont(None, 30)
