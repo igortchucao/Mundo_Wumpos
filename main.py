@@ -140,14 +140,14 @@ def main():
             pos, ouro, poco, wumpus, arrow = ai.jogo(pos, ambiente, percepcoes)
             hor = pos % 4
             vert = pos // 4
-            if (pos_ant - 1 == pos):
+            '''if (pos_ant - 1 == pos):
                 MenuWump.personagem.updateEsquerda(((hor * 197 + 50), (vert * 197 + 17)))
             elif (pos_ant + 1 == pos):
                 MenuWump.personagem.updateDireita(((hor * 197 + 50), (vert * 197 + 17)))
             elif (pos_ant + 4 == pos):
                 MenuWump.personagem.updateDown(((hor * 197 + 50), (vert * 197 + 17)))
             elif (pos_ant - 4 == pos):
-                MenuWump.personagem.updateUp(((hor * 197 + 24), (vert * 197 + 17)))
+                MenuWump.personagem.updateUp(((hor * 197 + 24), (vert * 197 + 17)))'''
 
             time.sleep(1)
             desempenho -= 1

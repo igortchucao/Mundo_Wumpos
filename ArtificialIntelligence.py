@@ -185,48 +185,59 @@ def TELL(ambiente, percepcoes, posicao):
 	if(x+1 <= 3):
 		nova_pos = 4*y + (x+1)
 		if(nova_pos >= 0 and nova_pos <= 15):
-			if((percepcoes[posicao]['Brisa'] == True and (percepcoes[nova_pos]['Poço'] == None) or percepcoes[nova_pos]['Poço'] == 'Talvez')):
+			if(percepcoes[posicao]['Brisa'] == True and (percepcoes[nova_pos]['Poço'] == None or percepcoes[nova_pos]['Poço'] == 'Talvez')):
 				percepcoes[nova_pos]['Poço'] = 'Talvez'
 				percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
                                 
-			if((percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None) or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
+			elif(percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
 				percepcoes[nova_pos]['Wumpus'] = 'Talvez'
 				percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
+
 		if wumpus_cont >= 2:
 			percepcoes[nova_pos]['Wumpus'] = True
 			arrow = True
+
 		if poco_cont == 4:
 			percepcoes[nova_pos]['Poço'] = True
+
 	# Esquerda da posição
 	if(x-1 >= 0):
 		nova_pos = 4*y + (x-1)
 		if(nova_pos >= 0 and nova_pos <= 15):
-			if((percepcoes[posicao]['Brisa'] == True and (percepcoes[nova_pos]['Poço'] == None) or percepcoes[nova_pos]['Poço'] == 'Talvez')):
+			if(percepcoes[posicao]['Brisa'] == True and (percepcoes[nova_pos]['Poço'] == None or percepcoes[nova_pos]['Poço'] == 'Talvez')):
 				percepcoes[nova_pos]['Poço'] = 'Talvez'
 				percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
-			if((percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None) or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
+
+			elif(percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
 				percepcoes[nova_pos]['Wumpus'] = 'Talvez'
 				percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
+
 		if wumpus_cont >= 2:
 			percepcoes[nova_pos]['Wumpus'] = True
 			arrow = True
+
 		if poco_cont == 4:
 			percepcoes[nova_pos]['Poço'] = True
+
 	# Abaixo da posição
 	if(y+1 <= 3):
 		nova_pos = 4*(y+1) + x
 		if(nova_pos >= 0 and nova_pos <= 15):
-			if((percepcoes[posicao]['Brisa'] == True and (percepcoes[nova_pos]['Poço'] == None) or percepcoes[nova_pos]['Poço'] == 'Talvez')):
+			if(percepcoes[posicao]['Brisa'] == True and (percepcoes[nova_pos]['Poço'] == None or percepcoes[nova_pos]['Poço'] == 'Talvez')):
 				percepcoes[nova_pos]['Poço'] = 'Talvez'
 				percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
-			if((percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None) or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
+
+			elif(percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
 				percepcoes[nova_pos]['Wumpus'] = 'Talvez'
 				percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
+
 		if wumpus_cont >= 2:
 			percepcoes[nova_pos]['Wumpus'] = True
 			arrow = True
+
 		if poco_cont == 4:
 			percepcoes[nova_pos]['Poço'] = True
+
 	# Acima da posição
 	if(y-1 >= 0):
 		nova_pos = 4*(y-1) + x
@@ -234,12 +245,15 @@ def TELL(ambiente, percepcoes, posicao):
 			if(percepcoes[posicao]['Brisa'] == True and (percepcoes[nova_pos]['Poço'] == None or percepcoes[nova_pos]['Poço'] == 'Talvez')):
 				percepcoes[nova_pos]['Poço'] = 'Talvez'
 				percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
-			if(percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
+
+			elif(percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
 				percepcoes[nova_pos]['Wumpus'] = 'Talvez'
 				percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
+
 		if wumpus_cont >= 2:
 			percepcoes[nova_pos]['Wumpus'] = True
 			arrow = True
+
 		if poco_cont == 4:
 			percepcoes[nova_pos]['Poço'] = True
 	
