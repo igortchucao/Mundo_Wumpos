@@ -424,12 +424,12 @@ def jogo(posicao_atual, ambiente, percepcoes, caminho):
 		# Escolhe aleatoriamente um movimento todos com probabilidades iguais
 		movimento = Mov.escolhe_movimento(percepcoes, posicao_atual, caminho)
 
-	# tupla com as coordenadas do movimento escolhido
-	
+		# tupla com as coordenadas do movimento escolhido
+		
 
-	# Verifica se o movimento é possível
-	#validade = Mov.mov_valido(coord_porx_mov, posicao_atual, percepcoes)
-	posicao_atual += movimento
+		# Verifica se o movimento é possível
+		#validade = Mov.mov_valido(coord_porx_mov, posicao_atual, percepcoes)
+		posicao_atual += movimento
 
 	return posicao_atual, ouro, buraco, wumpus, arrow, caminho
 
