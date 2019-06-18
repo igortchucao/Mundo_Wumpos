@@ -403,10 +403,14 @@ def atirar(ambiente, percepcoes):
                         percepcoes[i]['Fedor'] = False
         return pos, hit
 
-def jogo(posicao_atual, ambiente, percepcoes):
+def jogo(posicao_atual, ambiente, percepcoes, caminho):
 	ouro = False
 	buraco = False
 	wumpus = False
+
+	if caminho.count(posicao_atual) == 0:
+		caminho.append(posicao_atual)
+	print('\nposições percorridas', caminho)
 
 	# Verificando posição atual se existe algum problema
 	percepcoes, arrow = ASK(ambiente, percepcoes, posicao_atual)
@@ -418,7 +422,7 @@ def jogo(posicao_atual, ambiente, percepcoes):
 		ouro = True
 
 	# Escolhe aleatoriamente um movimento todos com probabilidades iguais
-	movimento = Mov.escolhe_movimento(percepcoes, posicao_atual)
+	movimento = Mov.escolhe_movimento(percepcoes, posicao_atual, caminho)
 
 	# tupla com as coordenadas do movimento escolhido
 	
@@ -427,7 +431,7 @@ def jogo(posicao_atual, ambiente, percepcoes):
 	#validade = Mov.mov_valido(coord_porx_mov, posicao_atual, percepcoes)
 	posicao_atual += movimento
 
-	return posicao_atual, ouro, buraco, wumpus, arrow
+	return posicao_atual, ouro, buraco, wumpus, arrow, caminho
 
 def jogoUser(posicao_atual, ambiente, percepcoes):
 	ouro = False

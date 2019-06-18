@@ -41,40 +41,59 @@ def mov_valido(coord_direcao, posicao, percepcoes):
 		return True
 	return False
 
-def escolhe_movimento(percepcoes, posicao):
+def escolhe_movimento(percepcoes, posicao, caminho):
 	movimentos = [1, 4, -1, -4] # direita, baixo, esquerda, cima
 	mov_escolhido = False
 	mov = 0
 	validade = 0
 	prox_pos = posicao
 
-	caminho = open(os.path.join('Arquivos', 'caminho.txt'), 'a')
-	
 	mov_possiveis = []
+	probabilidade = []
 
-	#verificando as posições adjacentes
+	# verificando as posições adjacentes
+	# caso alguma delas apresente caminho livre (false ou none para poço/wumpus) 
+	# adicionar o movimento à lista de movimentos possíveis.
+	# se a posição não tiver sido percorrida anteriormente, adicionar peso 50 à ela
+	# senão, removê-la da lista.
 	if(0 <= posicao + 1 <= 15):
 		if((percepcoes[posicao+1]['Poço'] == False or None) and (percepcoes[posicao+1]['Wumpus'] == False or None)):
 			mov_possiveis.append(1)
+			if caminho.count(posicao+1) != 0:
+				mov_possiveis.pop(mov_possiveis.index(1))
+			else:
+				probabilidade.append(50)
 	
 	if(0 <= posicao - 1 <= 15):
 		if((percepcoes[posicao-1]['Poço'] == False or None) and (percepcoes[posicao-1]['Wumpus'] == False or None)):
 			mov_possiveis.append(-1)
+			if caminho.count(posicao-1) != 0:
+				mov_possiveis.pop(mov_possiveis.index(-1))
+			else:
+				probabilidade.append(25)
 
 	if(0 <= posicao + 4 <= 15):
 		if((percepcoes[posicao+4]['Poço'] == False or None) and (percepcoes[posicao+4]['Wumpus'] == False or None)):
 			mov_possiveis.append(4)
+			if caminho.count(posicao+4) != 0:
+				mov_possiveis.pop(mov_possiveis.index(+4))
+			else:
+				probabilidade.append(50)
 
 	if(0 <= posicao - 4 <= 15):
 		if((percepcoes[posicao-4]['Poço'] == False or None) and (percepcoes[posicao-4]['Wumpus'] == False or None)):
 			mov_possiveis.append(-4)
-		
+			if caminho.count(posicao-4) != 0:
+				mov_possiveis.pop(mov_possiveis.index(-4))
+			else:
+				probabilidade.append(25)
+	
+	# se as posições adjacentes não são certezas (i.e Poço/Wumpus = True ou Talvez)
+	# a escolha do movimento terá que ser aleatória
 	if(len(mov_possiveis) == 0):
 		mov = random.choice(movimentos)
-		caminho.write(str(posicao + mov) +'\n')
+		print('Chute')
 	else:
-		mov = random.choice(mov_possiveis)
-		caminho.write(str(posicao + mov) + '\n')
+		mov = random.choices(mov_possiveis, probabilidade).pop()
 
-	caminho.close()
 	return mov

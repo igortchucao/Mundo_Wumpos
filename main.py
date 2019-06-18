@@ -63,6 +63,7 @@ def main():
     ouro = poco = wumpus = arrow = False
     arrowAmount = 1
     loop = hit = True
+    caminho = []
     desempenho = 0
     
     '''TELA DE INICIO'''
@@ -217,7 +218,7 @@ def main():
         # Se 'iaKey' == True, a posição depende do ai.jogo()
         if(iaKey):
             pos_ant = pos
-            pos, ouro, poco, wumpus, arrow = ai.jogo(pos, ambiente, percepcoes)
+            pos, ouro, poco, wumpus, arrow, caminho = ai.jogo(pos, ambiente, percepcoes, caminho)
             hor = pos % 4
             vert = pos // 4
             '''if (pos_ant - 1 == pos):
@@ -240,15 +241,6 @@ def main():
             MenuWump.view_rect(99, ambiente)
         else :
             MenuWump.view_rect(pos, ambiente)
-
-        # Encontro com Wumpus
-        if(arrow == True and arrowAmount == 1):
-            pos_wumpus, hit = ai.atirar(ambiente, percepcoes)
-            print('Wumpus em', pos_wumpus,'ATIRAR!')
-            desempenho -= 10
-            arrowAmount = 0
-            
-            MenuWump.personagem.tiro(ambiente, (pos_wumpus))
         
         # Atualização do valor de desempenho para ouro/wumpus/poço
         if ouro == True:
