@@ -59,45 +59,29 @@ def escolhe_movimento(percepcoes, posicao, caminho):
 	if(0 <= (posicao % 4) + 1 < 4):
 		
 		if((percepcoes[posicao + 1]['Poço'] == False or None) and (percepcoes[posicao + 1]['Wumpus'] == False or None)):
-			mov_possiveis.append(1)
-			
-			if caminho.count(posicao + 1) != 0:
-				mov_possiveis.pop(mov_possiveis.index(1))
-			
-			else:
+			if caminho.count(posicao + 1) == 0:
+				mov_possiveis.append(1)
 				probabilidade.append(50)
 	
 	if(0 <= (posicao % 4) - 1 < 4):
 		
 		if((percepcoes[posicao - 1]['Poço'] == False or None) and (percepcoes[posicao - 1]['Wumpus'] == False or None)):
-			mov_possiveis.append(-1)
-			
-			if caminho.count(posicao - 1) != 0:
-				mov_possiveis.pop(mov_possiveis.index(-1))
-			
-			else:
+			if caminho.count(posicao - 1) == 0:
+				mov_possiveis.append(-1)
 				probabilidade.append(25)
 
 	if(0 <= posicao + 4 <= 15):
 		
 		if((percepcoes[posicao + 4]['Poço'] == False or None) and (percepcoes[posicao + 4]['Wumpus'] == False or None)):
-			mov_possiveis.append(4)
-			
-			if caminho.count(posicao + 4) != 0:
-				mov_possiveis.pop(mov_possiveis.index(+4))
-			
-			else:
+			if caminho.count(posicao + 4) == 0:
+				mov_possiveis.append(4)
 				probabilidade.append(50)
 
 	if(0 <= posicao - 4 <= 15):
 		
 		if((percepcoes[posicao - 4]['Poço'] == False 	or None) and (percepcoes[posicao - 4]['Wumpus'] == False or None)):
-			mov_possiveis.append(-4)
-			
-			if caminho.count(posicao - 4) != 0:
-				mov_possiveis.pop(mov_possiveis.index(-4))
-			
-			else:
+			if caminho.count(posicao - 4) == 0:
+				mov_possiveis.append(-4)
 				probabilidade.append(25)
 	
 	# se as posições adjacentes não são certezas (i.e Poço/Wumpus = True ou Talvez)
