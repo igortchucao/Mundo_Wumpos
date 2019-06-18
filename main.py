@@ -157,6 +157,7 @@ def main():
         else :
             MenuWump.view_rect(pos, ambiente)
 
+        # Encontro com Wumpus
         if(arrow == True and arrowAmount == 1):
             pos_wumpus, hit = ai.atirar(ambiente, percepcoes)
             print('Wumpus em', pos_wumpus,'ATIRAR!')
@@ -165,9 +166,13 @@ def main():
             if(hit == True):
                 # Animação de emcontro do Wumpus
                 MenuWump.personagem.tiro(ambiente, (pos_wumpus))
-            else:
-                print('Erroooou!')
         
+        # Atualização do valor de desempenho para ouro/wumpus/poço
+        if ouro == True:
+            desempenho += 1000
+        if wumpus == True or poco == True:
+            desempenho -= 1000
+            
         if(ouro == True or wumpus == True or poco == True):
             iaKey = False
         
