@@ -1,6 +1,7 @@
 import pygame, os, Musicas
 
 pygame.init()
+pygame.font.init()
 clock = pygame.time.Clock()
 pygame.display.set_caption('Mundo do Wumpus')
 width = 1200
