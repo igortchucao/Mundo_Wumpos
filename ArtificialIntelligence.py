@@ -351,10 +351,6 @@ def jogo(posicao_atual, ambiente, percepcoes):
 
 	# Escolhe aleatoriamente um movimento todos com probabilidades iguais
 	movimento = Mov.escolhe_movimento(percepcoes, posicao_atual)
-	print_ambiente(percepcoes)
-	print('Movimento', posicao_atual)
-	input() 
-	#print('Movimento escolhido:',movimento)
 
 	# tupla com as coordenadas do movimento escolhido
 	coord_porx_mov = Mov.mov_to_coord(movimento)

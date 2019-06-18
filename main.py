@@ -127,8 +127,7 @@ def main():
                         MenuWump.personagem.updateDireita(((hor * 197 + 50), (vert * 197 + 17)))
                         hor += 1
                 elif event.key == pygame.K_SPACE:
-                    #ai.print_ambiente(percepcoes)
-                    MenuWump.personagem.tiro(ambiente, (vert * 4 + hor))
+                    ai.print_ambiente(percepcoes)
         
         # Se 'iaKey' == True, a posição depende do ai.jogo()
         if(iaKey):
@@ -136,14 +135,14 @@ def main():
             pos, ouro, poco, wumpus, arrow = ai.jogo(pos, ambiente, percepcoes)
             hor = pos % 4
             vert = pos // 4
-            if (pos_ant - 1 == pos):
-                MenuWump.personagem.updateEsquerda(((hor * 197 + 50), (vert * 197 + 17)))
-            elif (pos_ant + 1 == pos):
-                MenuWump.personagem.updateDireita(((hor * 197 + 50), (vert * 197 + 17)))
-            elif (pos_ant + 4 == pos):
-                MenuWump.personagem.updateDown(((hor * 197 + 50), (vert * 197 + 17)))
-            elif (pos_ant == pos - 4):
-                MenuWump.personagem.updateUp(((hor * 197 + 24), (vert * 197 + 17)))
+            #if (pos_ant== pos + 1):
+                #MenuWump.personagem.updateEsquerda(((hor * 197 + 50), (vert * 197 + 17)))
+            #elif (pos_ant == pos - 1):
+                #MenuWump.personagem.updateDireita(((hor * 197 + 50), (vert * 197 + 17)))
+            #elif (pos_ant == pos - 4):
+                #MenuWump.personagem.updateDown(((hor * 197 + 50), (vert * 197 + 17)))
+            #elif (pos_ant == pos + 4):
+                #MenuWump.personagem.updateUp(((hor * 197 + 24), (vert * 197 + 17)))
 
             time.sleep(1)
             desempenho -= 1
@@ -164,10 +163,12 @@ def main():
             arrowAmount = 0
             if(hit == True):
                 # Animação de emcontro do Wumpus
-                print('Personagem:\n-No céu tem pão?\nWumpus:\n-E morreu!')
+                MenuWump.personagem.tiro(ambiente, (pos_wumpus))
             else:
                 print('Erroooou!')
         
+        if(ouro == True or wumpus == True or poco == True):
+            iaKey = False
         pygame.display.update()
 
     
