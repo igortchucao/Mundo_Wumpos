@@ -91,10 +91,12 @@ def escolhe_movimento(percepcoes, posicao, caminho):
 	
 	# se as posições adjacentes não são certezas (i.e Poço/Wumpus = True ou Talvez)
 	# a escolha do movimento terá que ser aleatória
-	if(len(mov_possiveis) == 0):
-		mov = random.choice(movimentos)
-		print('Chute')
-	else:
+
+	if(len(mov_possiveis) != 0):
 		mov = random.choices(mov_possiveis, probabilidade).pop()
+	else:
+		print('posicao', posicao, '\tultima pos', caminho[-2], '\tmov', caminho[-2] - posicao)
+		mov = caminho[-2] - posicao
+		caminho.pop(-1)
 
 	return mov
