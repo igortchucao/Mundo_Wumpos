@@ -175,6 +175,9 @@ def main():
             
         if(ouro == True or wumpus == True or poco == True):
             iaKey = False
+        
+        screen.blit(pygame.font.SysFont(None, 50).render('DESEMPENHO:', True, BLACK), [830, 750])
+        screen.blit(pygame.font.SysFont(None, 50).render(str(desempenho), True, BLACK), [1130, 750])
         pygame.display.update()
 
     ai.end_game(percepcoes, pos)
