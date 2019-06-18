@@ -65,7 +65,7 @@ def escolhe_movimento(percepcoes, posicao, caminho):
 			else:
 				probabilidade.append(50)
 	
-	if(0 <= (posicao % 4) -1 < 4):
+	if(0 <= (posicao % 4) - 1 < 4):
 		if((percepcoes[posicao-1]['Poço'] == False or None) and (percepcoes[posicao-1]['Wumpus'] == False or None)):
 			mov_possiveis.append(-1)
 			if caminho.count(posicao-1) != 0:
