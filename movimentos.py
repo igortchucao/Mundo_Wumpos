@@ -36,8 +36,7 @@ def mov_valido(coord_direcao, posicao, percepcoes):
 	nova_pos =  coord_nova_pos[1]*4 + coord_nova_pos[0]
 
 	# Se a nova posição estiver no intervalo do campo então é válido
-	if((coord_nova_pos[0] < 4 and coord_nova_pos[0] > -1)
-	and (coord_nova_pos[1] < 4 and coord_nova_pos[1] > -1)):
+	if((coord_nova_pos[0] < 4 and coord_nova_pos[0] > -1) and (coord_nova_pos[1] < 4 and coord_nova_pos[1] > -1)):
 			return True
 	return False
 
