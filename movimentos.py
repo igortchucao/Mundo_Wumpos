@@ -51,6 +51,7 @@ def escolhe_movimento(percepcoes, posicao):
 		mov = random.choice(lista_movimentos)
 		prox_pos = posicao + mov
 		if(prox_pos <= 15 and prox_pos >= 0):
-			if(percepcoes[prox_pos]['Poço'] != True):
+			info = percepcoes[prox_pos]['Poço']
+			if(info == None or info == False):
 				mov_escolhido = True
 	return mov

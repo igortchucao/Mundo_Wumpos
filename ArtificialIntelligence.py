@@ -196,7 +196,7 @@ def TELL(ambiente, percepcoes, posicao):
 			percepcoes[nova_pos]['Wumpus'] = True
 			arrow = True
 
-		if poco_cont == 4:
+		if poco_cont >= 2:
 			percepcoes[nova_pos]['Poço'] = True
 
 	# Esquerda da posição
@@ -206,12 +206,7 @@ def TELL(ambiente, percepcoes, posicao):
 			if(percepcoes[posicao]['Brisa'] == True and (percepcoes[nova_pos]['Poço'] == None or percepcoes[nova_pos]['Poço'] == 'Talvez')):
 				percepcoes[nova_pos]['Poço'] = 'Talvez'
 				percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
-<<<<<<< HEAD
 			if(percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
-=======
-
-			elif(percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
->>>>>>> 753e2ef1bf5623611c2b1eefe2a639ced4f694fb
 				percepcoes[nova_pos]['Wumpus'] = 'Talvez'
 				percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
 
@@ -219,7 +214,7 @@ def TELL(ambiente, percepcoes, posicao):
 			percepcoes[nova_pos]['Wumpus'] = True
 			arrow = True
 
-		if poco_cont == 4:
+		if poco_cont >= 2:
 			percepcoes[nova_pos]['Poço'] = True
 
 	# Abaixo da posição
@@ -229,12 +224,7 @@ def TELL(ambiente, percepcoes, posicao):
 			if(percepcoes[posicao]['Brisa'] == True and (percepcoes[nova_pos]['Poço'] == None or percepcoes[nova_pos]['Poço'] == 'Talvez')):
 				percepcoes[nova_pos]['Poço'] = 'Talvez'
 				percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
-<<<<<<< HEAD
 			if(percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
-=======
-
-			elif(percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
->>>>>>> 753e2ef1bf5623611c2b1eefe2a639ced4f694fb
 				percepcoes[nova_pos]['Wumpus'] = 'Talvez'
 				percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
 
@@ -242,7 +232,7 @@ def TELL(ambiente, percepcoes, posicao):
 			percepcoes[nova_pos]['Wumpus'] = True
 			arrow = True
 
-		if poco_cont == 4:
+		if poco_cont >= 2:
 			percepcoes[nova_pos]['Poço'] = True
 
 	# Acima da posição
@@ -261,10 +251,38 @@ def TELL(ambiente, percepcoes, posicao):
 			percepcoes[nova_pos]['Wumpus'] = True
 			arrow = True
 
-		if poco_cont == 4:
+		if poco_cont >= 2:
 			percepcoes[nova_pos]['Poço'] = True
 	
 	return percepcoes, arrow
+
+def TELL_aux2(percepcoes, posicao):
+	pos = posicao - 1
+	if(pos >= 0 and pos <= 15):
+		if(percepcoes[posicao]['Brisa'] == False):
+			percepcoes[pos]['Poço'] = False
+		if(percepcoes[posicao]['Fedor'] == False):
+			percepcoes[pos]['Wumpus'] = False
+	pos = posicao - 4
+	if(pos >= 0 and pos <= 15):
+		if(percepcoes[posicao]['Brisa'] == False):
+			percepcoes[pos]['Poço'] = False
+		if(percepcoes[posicao]['Fedor'] == False):
+			percepcoes[pos]['Wumpus'] = False
+	pos = posicao + 1
+	if(pos >= 0 and pos <= 15):
+		if(percepcoes[posicao]['Brisa'] == False):
+			percepcoes[pos]['Poço'] = False
+		if(percepcoes[posicao]['Fedor'] == False):
+			percepcoes[pos]['Wumpus'] = False
+	pos = posicao + 4
+	if(pos >= 0 and pos <= 15):
+		if(percepcoes[posicao]['Brisa'] == False):
+			percepcoes[pos]['Poço'] = False
+		if(percepcoes[posicao]['Fedor'] == False):
+			percepcoes[pos]['Wumpus'] = False
+
+	return percepcoes
 
 def ASK(ambiente, percepcoes, posicao):
 	# Consultando a base de conhecimento sobre as informações
@@ -278,6 +296,7 @@ def ASK(ambiente, percepcoes, posicao):
 	else:
 		percepcoes[posicao]['Fedor'] = False
 		percepcoes[posicao]['Wumpus'] = False
+		percepcoes = TELL_aux2(percepcoes, posicao)
 
 	if(ambiente[posicao]['Brisa'] == True):
 		percepcoes[posicao]['Brisa'] = True
@@ -286,6 +305,7 @@ def ASK(ambiente, percepcoes, posicao):
 	else:
 		percepcoes[posicao]['Poço'] = False
 		percepcoes[posicao]['Brisa'] = False
+		percepcoes = TELL_aux2(percepcoes, posicao)
 
 	if(ambiente[posicao]['Ouro'] == True):
 		percepcoes[posicao]['Ouro'] = True
