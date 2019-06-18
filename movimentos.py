@@ -56,6 +56,7 @@ def escolhe_movimento(percepcoes, posicao, caminho):
 	# adicionar o movimento à lista de movimentos possíveis.
 	# se a posição não tiver sido percorrida anteriormente, adicionar peso 50 à ela
 	# senão, removê-la da lista.
+
 	if(0 <= posicao + 1 <= 15):
 		if((percepcoes[posicao+1]['Poço'] == False or None) and (percepcoes[posicao+1]['Wumpus'] == False or None)):
 			mov_possiveis.append(1)
