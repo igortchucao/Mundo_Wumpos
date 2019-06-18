@@ -249,7 +249,7 @@ class Menu():
     '''FUNÇÃO QUE MOSTRA UM DETERMINADO QUADRADO'''
     def view_rect(self, ref, ambiente):
         '''99 É A REFERENCIA PARA PRINTAR TODO TABULEIRO'''
-        if(ref == 99) or ambiente[ref]['Wumpus']:
+        if(ref == 99):
             for i in range(0, 16, +1):
                 if ambiente[i]['Wumpus']:
                     x_wumpus = ((i % 4) * self.tm) + 100
