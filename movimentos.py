@@ -89,6 +89,8 @@ def escolhe_movimento(percepcoes, posicao):
 		caminho.close()
 		return mov
 	
+	caminho.write(str(posicao) + '\n')
+	caminho.write(str(0) + '\n')
 	caminho.close()
 	return posicao
 	
