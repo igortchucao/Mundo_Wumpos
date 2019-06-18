@@ -66,7 +66,7 @@ def main():
     desempenho = 0
     
     '''TELA DE INICIO'''
-    #pygame.mixer.music.play(-1)
+    pygame.mixer.music.play(-1)
     
     while loop:
         screen.fill(BLACK)
@@ -90,6 +90,19 @@ def main():
     pos = vert = hor = 0
     while(1):
         clock.tick(10)
+        if(arrow == True and arrowAmount == 1):
+            pos_wumpus, hit = ai.atirar(ambiente, percepcoes)
+            print('Wumpus em', pos_wumpus,'ATIRAR!')
+            desempenho -= 10
+            arrowAmount = 0
+            
+            MenuWump.personagem.tiro(ambiente, (pos_wumpus))
+        
+        if(ouro == True):
+            iaKey = False
+            print('Pegou o ouro!')
+            MenuWump.view_rect(ambiente, 99)
+
         screen.fill(BLACK)
         MenuWump.draw()
         View.menu()
@@ -115,21 +128,92 @@ def main():
                     if 0 <= vert - 1:
                         MenuWump.personagem.updateUp(((hor * 197 + 24), (vert * 197 + 17)))
                         vert -= 1
+                        desempenho -= 1
+                        if(ambiente[vert*4+hor]['Poço']):
+                            MenuWump.personagem.cairBuraco(vert*4+hor)
+                            TheEnd = True
                 elif event.key == pygame.K_DOWN:
                     if vert + 1 < 4:
                         MenuWump.personagem.updateDown(((hor * 197 + 50), (vert * 197 + 17)))
                         vert += 1
+                        desempenho -= 1
+                        if(ambiente[vert*4+hor]['Poço']):
+                            MenuWump.personagem.cairBuraco(vert*4+hor)
+                            TheEnd = True
                 elif event.key == pygame.K_LEFT:
                     if 0 <= hor - 1:
                         MenuWump.personagem.updateEsquerda(((hor * 197 + 50), (vert * 197 + 17)))
                         hor -= 1
+                        desempenho -= 1
+                        if(ambiente[vert*4+hor]['Poço']):
+                            MenuWump.personagem.cairBuraco(vert*4+hor)
+                            TheEnd = True
                 elif event.key == pygame.K_RIGHT:
                     if hor + 1 < 4:
                         MenuWump.personagem.updateDireita(((hor * 197 + 50), (vert * 197 + 17)))
                         hor += 1
+                        desempenho -= 1
+                        if(ambiente[vert*4+hor]['Poço']):
+                            MenuWump.personagem.cairBuraco(vert*4+hor)
+                            TheEnd = True 
                 elif event.key == pygame.K_SPACE:
-                    ai.print_ambiente(percepcoes)
+
+                    MenuWump.personagem.tiro(ambiente, (vert*4)+hor)
+                    
+                    desempenho -= 10
+                    if(ambiente[(vert*4)+hor+1]['Wumpus']):
+                        ambiente[(vert*4)+hor+1]['Wumpus'] = False
+                        if(0 <= ((vert*4)+hor+2) < 15):
+                            ambiente[(vert*4)+hor+2]['Fedor'] = False
+                        if(0 <= ((vert*4)+hor) < 15):
+                            ambiente[(vert*4)+hor]['Fedor'] = False
+                        if(0 <= ((vert*4)+hor+5) < 15):
+                            ambiente[(vert*4)+hor+5]['Fedor'] = False
+                        if(0 <= ((vert*4)+hor-3) < 15):
+                            ambiente[(vert*4)+hor-3]['Fedor'] = False
+
+                    if(ambiente[(vert*4)+hor-1]['Wumpus']):
+                        ambiente[(vert*4)+hor-1]['Wumpus'] = False
+                        if(0 <= ((vert*4)+hor) < 15):
+                            ambiente[(vert*4)+hor]['Fedor'] = False
+                        if(0 <= ((vert*4)+hor-2) < 15):
+                            ambiente[(vert*4)+hor-2]['Fedor'] = False
+                        if(0 <= ((vert*4)+hor+3) < 15):
+                            ambiente[(vert*4)+hor+3]['Fedor'] = False
+                        if(0 <= ((vert*4)+hor-5) < 15):
+                            ambiente[(vert*4)+hor-5]['Fedor'] = False
+                    
+                    if(ambiente[(vert*4)+hor+4]['Wumpus']):
+                        ambiente[(vert*4)+hor+4]['Wumpus'] = False
+                        if(0 <= ((vert*4)+hor+5) < 15):
+                            ambiente[(vert*4)+hor+5]['Fedor'] = False
+                        if(0 <= ((vert*4)+hor+3) < 15):
+                            ambiente[(vert*4)+hor+3]['Fedor'] = False
+                        if(0 <= ((vert*4)+hor+8) < 15):
+                            ambiente[(vert*4)+hor+8]['Fedor'] = False
+                        if(0 <= ((vert*4)+hor) < 15):
+                            ambiente[(vert*4)+hor]['Fedor'] = False
+                    
+                    if(ambiente[(vert*4)+hor-4]['Wumpus']):
+                        ambiente[(vert*4)+hor-4]['Wumpus'] = False
+                        if(0 <= ((vert*4)+hor-3) < 15):
+                            ambiente[(vert*4)+hor-3]['Fedor'] = False
+                        if(0 <= ((vert*4)+hor-5) < 15):
+                            ambiente[(vert*4)+hor-5]['Fedor'] = False
+                        if(0 <= ((vert*4)+hor) < 15):
+                            ambiente[(vert*4)+hor]['Fedor'] = False
+                        if(0 <= ((vert*4)+hor-8) < 15):
+                            ambiente[(vert*4)+hor-8]['Fedor'] = False
+
+        if(ouro == True):
+            iaKey = False
+            print('Pegou o ouro!')
+            MenuWump.view_rect(ambiente, 99)
         
+        if(poco == True):
+            iaKey = False
+            MenuWump.personagem.cairBuraco(pos)
+
         # Se 'iaKey' == True, a posição depende do ai.jogo()
         if(iaKey):
             pos_ant = pos
@@ -163,18 +247,14 @@ def main():
             print('Wumpus em', pos_wumpus,'ATIRAR!')
             desempenho -= 10
             arrowAmount = 0
-            if(hit == True):
-                # Animação de emcontro do Wumpus
-                MenuWump.personagem.tiro(ambiente, (pos_wumpus))
+            
+            MenuWump.personagem.tiro(ambiente, (pos_wumpus))
         
         # Atualização do valor de desempenho para ouro/wumpus/poço
         if ouro == True:
             desempenho += 1000
         if wumpus == True or poco == True:
             desempenho -= 1000
-            
-        if(ouro == True or wumpus == True or poco == True):
-            iaKey = False
         
         screen.blit(pygame.font.SysFont(None, 50).render('DESEMPENHO:', True, BLACK), [width - 370, 750])
         screen.blit(pygame.font.SysFont(None, 50).render(str(desempenho), True, BLACK), [width - 75, 750])
