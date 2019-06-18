@@ -110,6 +110,10 @@ def main():
         # Keyboard events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                caminho = open(os.path.join('Arquivos', 'caminho.txt'), 'a')
+                caminho.write(str(0))
+                caminho.close()
+                os.remove(os.path.join('Arquivos', 'caminho.txt'))
                 pygame.mixer.music.stop()
                 ai.print_ambiente(percepcoes)
                 pygame.quit()
@@ -261,6 +265,7 @@ def main():
         pygame.display.update()
 
     ai.end_game(percepcoes, pos)
+    os.remove(os.path.join('Arquivos', 'caminho.txt'))
 
 if __name__ == '__main__':
     main()

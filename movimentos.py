@@ -49,32 +49,48 @@ def escolhe_movimento(percepcoes, posicao):
 	prox_pos = posicao
 
 	caminho = open(os.path.join('Arquivos', 'caminho.txt'), 'a')
-	
+	leituraCaminho = open(os.path.join('Arquivos', 'caminho.txt'), 'r')
+	listaCaminho = leituraCaminho.readlines()
+	print(listaCaminho)
 	mov_possiveis = []
 
 	#verificando as posições adjacentes
 	if(0 <= posicao + 1 <= 15):
-		if((percepcoes[posicao+1]['Poço'] == False or None) and (percepcoes[posicao+1]['Wumpus'] == False or None)):
+		if((percepcoes[posicao+1]['Poço'] == False or None) and (percepcoes[posicao+1]['Wumpus'] == False or None) 
+		and (not (posicao + 1) in listaCaminho)):
 			mov_possiveis.append(1)
 	
 	if(0 <= posicao - 1 <= 15):
-		if((percepcoes[posicao-1]['Poço'] == False or None) and (percepcoes[posicao-1]['Wumpus'] == False or None)):
+		if((percepcoes[posicao-1]['Poço'] == False or None) and (percepcoes[posicao-1]['Wumpus'] == False or None) 
+		and (not (posicao - 1) in listaCaminho)):
 			mov_possiveis.append(-1)
 
 	if(0 <= posicao + 4 <= 15):
-		if((percepcoes[posicao+4]['Poço'] == False or None) and (percepcoes[posicao+4]['Wumpus'] == False or None)):
+		if((percepcoes[posicao+4]['Poço'] == False or None) and (percepcoes[posicao+4]['Wumpus'] == False or None) 
+		and (not (posicao + 4) in listaCaminho)):
 			mov_possiveis.append(4)
 
 	if(0 <= posicao - 4 <= 15):
-		if((percepcoes[posicao-4]['Poço'] == False or None) and (percepcoes[posicao-4]['Wumpus'] == False or None)):
+		if((percepcoes[posicao-4]['Poço'] == False or None) and (percepcoes[posicao-4]['Wumpus'] == False or None) 
+		and (not (posicao - 4) in listaCaminho)):
 			mov_possiveis.append(-4)
 		
-	if(len(mov_possiveis) == 0):
+	'''if(len(mov_possiveis) == 0):
 		mov = random.choice(movimentos)
 		caminho.write(str(posicao + mov) +'\n')
-	else:
-		mov = random.choice(mov_possiveis)
+	else:'''
+		
+	mov = random.choice(mov_possiveis)
+	teste = posicao + mov
+	if not(str(teste) + '\n' in listaCaminho):
 		caminho.write(str(posicao + mov) + '\n')
-
+		caminho.write(str(0) + '\n')
+		print('ha!')
+		caminho.close()
+		return mov
+	
 	caminho.close()
-	return mov
+	return posicao
+	
+	
+	
