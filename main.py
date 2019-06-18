@@ -84,6 +84,7 @@ def main():
     MenuWump = View.Menu(200)
     TheEnd = False
     iaKey = False
+    Tiro = True
     ambiente = ai.gera_ambiente()
 
     pos = vert = hor = 0
@@ -127,23 +128,26 @@ def main():
                         MenuWump.personagem.updateDireita(((hor * 197 + 50), (vert * 197 + 17)))
                         hor += 1
                 elif event.key == pygame.K_SPACE:
-                    #ai.print_ambiente(percepcoes)
-                    MenuWump.personagem.tiro(ambiente, (vert * 4 + hor))
-        
+                    if(MenuWump.personagem.tiro(ambiente, (vert * 4 + hor)) and Tiro):
+                        screen.blit(pygame.font.SysFont(None, 50).render('WUMPOS MORTO!', True, BLACK), [850, 400])
+                    elif(Tiro):
+                        screen.blit(pygame.font.SysFont(None, 100).render('ERROU!', True, BLACK), [850, 400])
+                    Tiro = False
+
         # Se 'iaKey' == True, a posição depende do ai.jogo()
         if(iaKey):
             pos_ant = pos
             pos, ouro, poco, wumpus, arrow = ai.jogo(pos, ambiente, percepcoes)
             hor = pos % 4
             vert = pos // 4
-            if (pos_ant - 1 == pos):
+            '''if (pos_ant - 1 == pos):
                 MenuWump.personagem.updateEsquerda(((hor * 197 + 50), (vert * 197 + 17)))
             elif (pos_ant + 1 == pos):
                 MenuWump.personagem.updateDireita(((hor * 197 + 50), (vert * 197 + 17)))
             elif (pos_ant + 4 == pos):
                 MenuWump.personagem.updateDown(((hor * 197 + 50), (vert * 197 + 17)))
             elif (pos_ant == pos - 4):
-                MenuWump.personagem.updateUp(((hor * 197 + 24), (vert * 197 + 17)))
+                MenuWump.personagem.updateUp(((hor * 197 + 24), (vert * 197 + 17)))'''
 
             time.sleep(1)
             desempenho -= 1
