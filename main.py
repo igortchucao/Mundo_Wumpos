@@ -65,7 +65,7 @@ def main():
     desempenho = 0
     
     '''TELA DE INICIO'''
-    pygame.mixer.music.play(-1)
+    #pygame.mixer.music.play(-1)
     
     while loop:
         screen.fill(BLACK)
@@ -174,7 +174,6 @@ def main():
         
         pygame.display.update()
 
-    
     ai.end_game(percepcoes, pos)
 
 if __name__ == '__main__':
