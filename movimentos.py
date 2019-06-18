@@ -82,12 +82,12 @@ def escolhe_movimento(percepcoes, posicao):
 		
 	mov = random.choice(mov_possiveis)
 	teste = posicao + mov
-	if not(str(teste) + '\n' in listaCaminho):
+	'''if not(str(teste) + '\n' in listaCaminho):
 		caminho.write(str(posicao + mov) + '\n')
 		caminho.write(str(0) + '\n')
 		print('ha!')
 		caminho.close()
-		return mov
+		return mov'''
 	
 	caminho.write(str(posicao) + '\n')
 	caminho.write(str(0) + '\n')
