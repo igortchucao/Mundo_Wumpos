@@ -249,66 +249,67 @@ class Menu():
     '''FUNÇÃO QUE MOSTRA UM DETERMINADO QUADRADO'''
     def view_rect(self, ref, ambiente):
         '''99 É A REFERENCIA PARA PRINTAR TODO TABULEIRO'''
-        if(ref == 99):
-            for i in range(0, 16, +1):
-                if ambiente[i]['Wumpus']:
-                    x_wumpus = ((i % 4) * self.tm) + 100
-                    y_wumpus = ((i // 4) * self.tm) + 100
-                    screen.blit(Imagem_wumpus, (x_wumpus - 74, y_wumpus - 74))
-                else:
-
-                    if ambiente[i]['Poço']:
-                        x_poco = ((i % 4) * self.tm) + 100
-                        y_poco = ((i // 4) * self.tm) + 100
-                        screen.blit(Imagem_buraco, (x_poco - 74, y_poco - 74))
+        if(0 <= ref < 16):
+            if(ref == 99):
+                for i in range(0, 16, +1):
+                    if ambiente[i]['Wumpus']:
+                        x_wumpus = ((i % 4) * self.tm) + 100
+                        y_wumpus = ((i // 4) * self.tm) + 100
+                        screen.blit(Imagem_wumpus, (x_wumpus - 74, y_wumpus - 74))
                     else:
 
-                        if ambiente[i]['Ouro']:
-                            x_ouro = ((i % 4) * self.tm) + 100
-                            y_ouro = ((i // 4) * self.tm) + 100
-                            screen.blit(Imagem_Ouro, (x_ouro - 74, y_ouro - 74))
+                        if ambiente[i]['Poço']:
+                            x_poco = ((i % 4) * self.tm) + 100
+                            y_poco = ((i // 4) * self.tm) + 100
+                            screen.blit(Imagem_buraco, (x_poco - 74, y_poco - 74))
                         else:
 
-                            if ambiente[i]['Fedor']:
-                                fedor_text = font.render('Fedor', True, MARROM_c)
-                                x_Fedor = ((i % 4) * self.tm) + 40
-                                y_Fedor = ((i // 4) * self.tm) + 20
-                                screen.blit(fedor_text, [x_Fedor, y_Fedor])
+                            if ambiente[i]['Ouro']:
+                                x_ouro = ((i % 4) * self.tm) + 100
+                                y_ouro = ((i // 4) * self.tm) + 100
+                                screen.blit(Imagem_Ouro, (x_ouro - 74, y_ouro - 74))
+                            else:
 
-                            if ambiente[i]['Brisa']:
-                                brisa_text = font.render('Brisa', True, ROSA_c)
-                                x_brisa = ((i % 4) * self.tm) + 40
-                                y_brisa = ((i // 4) * self.tm) + 60
-                                screen.blit(brisa_text, [x_brisa, y_brisa])
+                                if ambiente[i]['Fedor']:
+                                    fedor_text = font.render('Fedor', True, MARROM_c)
+                                    x_Fedor = ((i % 4) * self.tm) + 40
+                                    y_Fedor = ((i // 4) * self.tm) + 20
+                                    screen.blit(fedor_text, [x_Fedor, y_Fedor])
 
-                screen.blit(pygame.font.SysFont(None, 150).render('G', True, BLACK), [970, 100])
-                screen.blit(pygame.font.SysFont(None, 150).render('A', True, BLACK), [970, 180])
-                screen.blit(pygame.font.SysFont(None, 150).render('M', True, BLACK), [970, 260])
-                screen.blit(pygame.font.SysFont(None, 150).render('E', True, BLACK), [970, 340])
-                screen.blit(pygame.font.SysFont(None, 150).render('O', True, BLACK), [970, 450])
-                screen.blit(pygame.font.SysFont(None, 150).render('V', True, BLACK), [970, 530])
-                screen.blit(pygame.font.SysFont(None, 150).render('E', True, BLACK), [970, 610])
-                screen.blit(pygame.font.SysFont(None, 150).render('R', True, BLACK), [970, 690])
+                                if ambiente[i]['Brisa']:
+                                    brisa_text = font.render('Brisa', True, ROSA_c)
+                                    x_brisa = ((i % 4) * self.tm) + 40
+                                    y_brisa = ((i // 4) * self.tm) + 60
+                                    screen.blit(brisa_text, [x_brisa, y_brisa])
 
-        else:
-            x = ((ref % 4) * self.tm) + 100
-            y = ((ref // 4) * self.tm) + 100
-            pygame.draw.circle(screen, YELLOW, (x, y), 90)
-            pygame.draw.circle(screen, BLACK, (x, y), 88, 1)
-            pygame.draw.circle(screen, BLACK, (x, y), 85, 2)
-            
-            screen.blit(self.personagem.image, (x-60,y-60))
-            self.personagem.updatePerson()
+                    screen.blit(pygame.font.SysFont(None, 150).render('G', True, BLACK), [970, 100])
+                    screen.blit(pygame.font.SysFont(None, 150).render('A', True, BLACK), [970, 180])
+                    screen.blit(pygame.font.SysFont(None, 150).render('M', True, BLACK), [970, 260])
+                    screen.blit(pygame.font.SysFont(None, 150).render('E', True, BLACK), [970, 340])
+                    screen.blit(pygame.font.SysFont(None, 150).render('O', True, BLACK), [970, 450])
+                    screen.blit(pygame.font.SysFont(None, 150).render('V', True, BLACK), [970, 530])
+                    screen.blit(pygame.font.SysFont(None, 150).render('E', True, BLACK), [970, 610])
+                    screen.blit(pygame.font.SysFont(None, 150).render('R', True, BLACK), [970, 690])
 
-            '''CRIA OS TEXTOS A PARTIR DA VARIAVEL'''
-            if ambiente[ref]['Wumpus']:
-                screen.blit(Imagem_wumpus, (x - 74, y - 74))
-            elif ambiente[ref]['Ouro']:
-                screen.blit(Imagem_Ouro, (x - 74, y - 74))
-            elif ambiente[ref]['Poço']:
-                screen.blit(Imagem_buraco, (x - 74, y - 74))
             else:
-                if ambiente[ref]['Brisa']:
-                    screen.blit(pygame.font.SysFont(None, 150).render('BRISA', True, BLACK), [830, 100])
-                if ambiente[ref]['Fedor']:
-                    screen.blit(pygame.font.SysFont(None, 150).render('FEDOR', True, MARROM_c), [820, 200])
+                x = ((ref % 4) * self.tm) + 100
+                y = ((ref // 4) * self.tm) + 100
+                pygame.draw.circle(screen, YELLOW, (x, y), 90)
+                pygame.draw.circle(screen, BLACK, (x, y), 88, 1)
+                pygame.draw.circle(screen, BLACK, (x, y), 85, 2)
+                
+                screen.blit(self.personagem.image, (x-60,y-60))
+                self.personagem.updatePerson()
+
+                '''CRIA OS TEXTOS A PARTIR DA VARIAVEL'''
+                if ambiente[ref]['Wumpus']:
+                    screen.blit(Imagem_wumpus, (x - 74, y - 74))
+                elif ambiente[ref]['Ouro']:
+                    screen.blit(Imagem_Ouro, (x - 74, y - 74))
+                elif ambiente[ref]['Poço']:
+                    screen.blit(Imagem_buraco, (x - 74, y - 74))
+                else:
+                    if ambiente[ref]['Brisa']:
+                        screen.blit(pygame.font.SysFont(None, 150).render('BRISA', True, BLACK), [830, 100])
+                    if ambiente[ref]['Fedor']:
+                        screen.blit(pygame.font.SysFont(None, 150).render('FEDOR', True, MARROM_c), [820, 200])
