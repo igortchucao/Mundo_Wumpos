@@ -26,6 +26,7 @@ def coord_to_pos(tu_posicao_atual, tu_movimento):
 	y = tu_posicao_atual[1]+tu_movimento[1]
 	return (4*y + x)
 
+'''CERTIFICA SE O MOVIMENTO ESCOLHIDO É VALIDO'''
 def mov_valido(coord_direcao, posicao, percepcoes):
 	# pegando as coordenadas da posição
 	coord_pos = get_coord(posicao)
@@ -41,12 +42,42 @@ def mov_valido(coord_direcao, posicao, percepcoes):
 		return True
 	return False
 
+def adjacentes(posicao, percepcoes):
+	# retorna uma lista com os vértices adjacentes daquela posição
+	lista_adj = []
+	x = posicao % 4
+	y = posicao // 4
+
+	if(x+1 <= 3):
+		nova_pos = 4*y + (x+1)
+		lista_adj.append(nova_pos)
+	if(x-1 >= 0):
+		nova_pos = 4*y + (x-1)
+		lista_adj.append(nova_pos)
+	if(y+1 <= 3):
+		nova_pos = 4*(y+1) + x
+		lista_adj.append(nova_pos)
+	if(y-1 >= 0):
+		nova_pos = 4*(y-1) + x
+		lista_adj.append(nova_pos)
+	
+	return lista_adj
+
+def posicao_segura(percepcoes, posicao):
+	val1 = percepcoes[posicao]['Wumpus']
+	val2 = percepcoes[posicao]['Poço']
+
+	if (val1 == None or val1 == False) and (val2 == None or val2 == False):
+		return True
+	return False
+
+'''FUNÇÃO QUE VAI ESCOLHER OS PROXIMOS PASSOS DADOS PELO PERSONAGEM'''
 def escolhe_movimento(percepcoes, posicao, caminho):
 	movimentos = [1, 4, -1, -4] # direita, baixo, esquerda, cima
-	mov_escolhido = False
 	mov = 0
-	validade = 0
-	prox_pos = posicao
+
+	x = posicao % 4
+	y = posicao // 4
 
 	mov_possiveis = []
 	probabilidade = []
@@ -57,46 +88,94 @@ def escolhe_movimento(percepcoes, posicao, caminho):
 	# se a posição não tiver sido percorrida anteriormente, adicionar peso 50 à ela
 	# senão, removê-la da lista.
 
-	if(0 <= posicao + 1 <= 15):
-		if((percepcoes[posicao+1]['Poço'] == False or None) and (percepcoes[posicao+1]['Wumpus'] == False or None)):
-			mov_possiveis.append(1)
-			if caminho.count(posicao+1) != 0:
-				mov_possiveis.pop(mov_possiveis.index(1))
-			else:
+	if(x+1 <= 3):
+		nova_pos = 4*y + (x+1)		
+		if((percepcoes[nova_pos]['Poço'] == False or None) and (percepcoes[nova_pos]['Wumpus'] == False or None)):
+			if caminho.count(nova_pos) == 0:
+				mov_possiveis.append(1)
 				probabilidade.append(50)
 	
-	if(0 <= posicao - 1 <= 15):
-		if((percepcoes[posicao-1]['Poço'] == False or None) and (percepcoes[posicao-1]['Wumpus'] == False or None)):
-			mov_possiveis.append(-1)
-			if caminho.count(posicao-1) != 0:
-				mov_possiveis.pop(mov_possiveis.index(-1))
-			else:
+	if(x-1 >= 0):
+		nova_pos = 4*y + (x-1)
+		if((percepcoes[nova_pos]['Poço'] == False or None) and (percepcoes[nova_pos]['Wumpus'] == False or None)):
+			if caminho.count(nova_pos) == 0:
+				mov_possiveis.append(-1)
 				probabilidade.append(25)
-
-	if(0 <= posicao + 4 <= 15):
-		if((percepcoes[posicao+4]['Poço'] == False or None) and (percepcoes[posicao+4]['Wumpus'] == False or None)):
-			mov_possiveis.append(4)
-			if caminho.count(posicao+4) != 0:
-				mov_possiveis.pop(mov_possiveis.index(+4))
-			else:
+		
+	if(y+1 <= 3):
+		nova_pos = 4*(y+1) + x
+		if((percepcoes[nova_pos]['Poço'] == False or None) and (percepcoes[nova_pos]['Wumpus'] == False or None)):
+			if caminho.count(nova_pos) == 0:
+				mov_possiveis.append(4)
 				probabilidade.append(50)
 
-	if(0 <= posicao - 4 <= 15):
-		if((percepcoes[posicao-4]['Poço'] == False 	or None) and (percepcoes[posicao-4]['Wumpus'] == False or None)):
-			mov_possiveis.append(-4)
-			if caminho.count(posicao-4) != 0:
-				mov_possiveis.pop(mov_possiveis.index(-4))
-			else:
+	if(y-1 >= 0):
+		nova_pos = 4*(y-1) + x
+		if((percepcoes[nova_pos]['Poço'] == False 	or None) and (percepcoes[nova_pos]['Wumpus'] == False or None)):
+			if caminho.count(nova_pos) == 0:
+				mov_possiveis.append(-4)
 				probabilidade.append(25)
-	
+		
 	# se as posições adjacentes não são certezas (i.e Poço/Wumpus = True ou Talvez)
 	# a escolha do movimento terá que ser aleatória
 
-	if(len(mov_possiveis) != 0):
-		mov = random.choices(mov_possiveis, probabilidade).pop()
+	# Se os movimentos possíveis forem 0, voltar um movimento e buscar
+	# a posição não visitada mais próxima
+	if(len(mov_possiveis) == 0):
+		print('Procurar posição não descoberta mais próxima')
+		'''
+		escolha uma raiz s de G
+		marque s
+		insira s em F
+		enquanto F não está vazia faça
+			seja v o primeiro vértice de F
+			para cada w ∈ listaDeAdjacência de v faça
+				se w não está marcado então
+					visite aresta entre v e w
+					marque w
+					insira w em F
+				senao se w ∈ F entao
+					visite aresta entre v e w
+				fim se
+			fim para
+			retira v de F
+		fim enquanto
+		'''
+		marcados = []
+		F = []
+		s = posicao
+		marcados.append(s)
+		F.append(s)
+		while len(F) != 0:
+			v = F[0]
+			for w in adjacentes(v, percepcoes):
+				# se não estiver marcado
+				if marcados.count(w) == 0:
+					marcados.append(w)
+					F.append(w)
+				elif F.count(w):
+					pass
+			F.pop(0)
+		print('posição atual', posicao)
+		print('posições percorridas', caminho)
+		print('marcados', marcados)
+		definido = False
+		for m in marcados:
+			if(caminho.count(m) == 0 and definido == False):
+				definido = True
+				prox_pos = m
+		print('Posição mais próxima não descoberta', prox_pos)
+		mov = 0
+		
+	# Senão, selecionar um dentre os possíveis
 	else:
-		print('posicao', posicao, '\tultima pos', caminho[-2], '\tmov', caminho[-2] - posicao)
-		mov = caminho[-2] - posicao
-		caminho.pop(-1)
+		mov = random.choices(mov_possiveis, probabilidade).pop()
 
 	return mov
+
+'''
+0  1  2  3
+4  5  6  7
+8  9  10 11
+12 13 14 15
+'''

@@ -167,48 +167,48 @@ def main():
                     
                     desempenho -= 10
                     if(ambiente[(vert*4)+hor+1]['Wumpus']):
-                        ambiente[(vert*4)+hor+1]['Wumpus'] = False
+                        percepcoes[(vert*4)+hor+1]['Wumpus'] = False
                         if(0 <= ((vert*4)+hor+2) < 15):
-                            ambiente[(vert*4)+hor+2]['Fedor'] = False
+                            percepcoes[(vert*4)+hor+2]['Fedor'] = False
                         if(0 <= ((vert*4)+hor) < 15):
-                            ambiente[(vert*4)+hor]['Fedor'] = False
+                            percepcoes[(vert*4)+hor]['Fedor'] = False
                         if(0 <= ((vert*4)+hor+5) < 15):
-                            ambiente[(vert*4)+hor+5]['Fedor'] = False
+                            percepcoes[(vert*4)+hor+5]['Fedor'] = False
                         if(0 <= ((vert*4)+hor-3) < 15):
-                            ambiente[(vert*4)+hor-3]['Fedor'] = False
+                            percepcoes[(vert*4)+hor-3]['Fedor'] = False
 
                     if(ambiente[(vert*4)+hor-1]['Wumpus']):
-                        ambiente[(vert*4)+hor-1]['Wumpus'] = False
+                        percepcoes[(vert*4)+hor-1]['Wumpus'] = False
                         if(0 <= ((vert*4)+hor) < 15):
-                            ambiente[(vert*4)+hor]['Fedor'] = False
+                            percepcoes[(vert*4)+hor]['Fedor'] = False
                         if(0 <= ((vert*4)+hor-2) < 15):
-                            ambiente[(vert*4)+hor-2]['Fedor'] = False
+                            percepcoes[(vert*4)+hor-2]['Fedor'] = False
                         if(0 <= ((vert*4)+hor+3) < 15):
-                            ambiente[(vert*4)+hor+3]['Fedor'] = False
+                            percepcoes[(vert*4)+hor+3]['Fedor'] = False
                         if(0 <= ((vert*4)+hor-5) < 15):
-                            ambiente[(vert*4)+hor-5]['Fedor'] = False
+                            percepcoes[(vert*4)+hor-5]['Fedor'] = False
                     
                     if(ambiente[(vert*4)+hor+4]['Wumpus']):
-                        ambiente[(vert*4)+hor+4]['Wumpus'] = False
+                        percepcoes[(vert*4)+hor+4]['Wumpus'] = False
                         if(0 <= ((vert*4)+hor+5) < 15):
-                            ambiente[(vert*4)+hor+5]['Fedor'] = False
+                            percepcoes[(vert*4)+hor+5]['Fedor'] = False
                         if(0 <= ((vert*4)+hor+3) < 15):
-                            ambiente[(vert*4)+hor+3]['Fedor'] = False
+                            percepcoes[(vert*4)+hor+3]['Fedor'] = False
                         if(0 <= ((vert*4)+hor+8) < 15):
-                            ambiente[(vert*4)+hor+8]['Fedor'] = False
+                            percepcoes[(vert*4)+hor+8]['Fedor'] = False
                         if(0 <= ((vert*4)+hor) < 15):
-                            ambiente[(vert*4)+hor]['Fedor'] = False
+                            percepcoes[(vert*4)+hor]['Fedor'] = False
                     
                     if(ambiente[(vert*4)+hor-4]['Wumpus']):
-                        ambiente[(vert*4)+hor-4]['Wumpus'] = False
+                        percepcoes[(vert*4)+hor-4]['Wumpus'] = False
                         if(0 <= ((vert*4)+hor-3) < 15):
-                            ambiente[(vert*4)+hor-3]['Fedor'] = False
+                            percepcoes[(vert*4)+hor-3]['Fedor'] = False
                         if(0 <= ((vert*4)+hor-5) < 15):
-                            ambiente[(vert*4)+hor-5]['Fedor'] = False
+                            percepcoes[(vert*4)+hor-5]['Fedor'] = False
                         if(0 <= ((vert*4)+hor) < 15):
-                            ambiente[(vert*4)+hor]['Fedor'] = False
+                            percepcoes[(vert*4)+hor]['Fedor'] = False
                         if(0 <= ((vert*4)+hor-8) < 15):
-                            ambiente[(vert*4)+hor-8]['Fedor'] = False
+                            percepcoes[(vert*4)+hor-8]['Fedor'] = False
 
         if(ouro == True):
             iaKey = False

@@ -410,17 +410,15 @@ def jogo(posicao_atual, ambiente, percepcoes, caminho):
 
 	if caminho.count(posicao_atual) == 0:
 		caminho.append(posicao_atual)
-	print('\nposições percorridas', caminho)
 
 	# Verificando posição atual se existe algum problema
 	percepcoes, arrow = ASK(ambiente, percepcoes, posicao_atual)
 	if(percepcoes[posicao_atual]['Wumpus'] == True):
 		wumpus = True
-	if(percepcoes[posicao_atual]['Poço'] == True):
+	elif(percepcoes[posicao_atual]['Poço'] == True):
 		buraco = True
-	if(percepcoes[posicao_atual]['Ouro'] == True):
+	elif(percepcoes[posicao_atual]['Ouro'] == True):
 		ouro = True
-
 	# Escolhe aleatoriamente um movimento todos com probabilidades iguais
 	movimento = Mov.escolhe_movimento(percepcoes, posicao_atual, caminho)
 
