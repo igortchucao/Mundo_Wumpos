@@ -44,8 +44,9 @@ def mov_valido(coord_direcao, posicao, percepcoes):
 
 '''FUNÇÃO QUE VAI ESCOLHER OS PROXIMOS PASSOS DADOS PELO PERSONAGEM'''
 def escolhe_movimento(percepcoes, posicao, caminho):
-	movimentos = [1, 4, -1, -4] # direita, baixo, esquerda, cima
-	mov = 0
+	movimentos = [] # direita, baixo, esquerda, cima
+	contPos = 0
+	mov = posicao
 
 	mov_possiveis = []
 	probabilidade = []
@@ -55,42 +56,56 @@ def escolhe_movimento(percepcoes, posicao, caminho):
 	# adicionar o movimento à lista de movimentos possíveis.
 	# se a posição não tiver sido percorrida anteriormente, adicionar peso 50 à ela
 	# senão, removê-la da lista.
-
+	
 	if(0 <= (posicao % 4) + 1 < 4):
-		
-		if((percepcoes[posicao + 1]['Poço'] == False or None) and (percepcoes[posicao + 1]['Wumpus'] == False or None)):
+		movimentos.append(1)
+		if((percepcoes[posicao + 1]['Poço'] == False) and (percepcoes[posicao + 1]['Wumpus'] == False)):
 			if caminho.count(posicao + 1) == 0:
 				mov_possiveis.append(1)
-				probabilidade.append(50)
+				probabilidade.append(25)
+		if((percepcoes[posicao + 1]['Brisa'] == True) or (percepcoes[posicao + 1]['Fedor'] == True)):
+			contPos += 1
 	
 	if(0 <= (posicao % 4) - 1 < 4):
-		
-		if((percepcoes[posicao - 1]['Poço'] == False or None) and (percepcoes[posicao - 1]['Wumpus'] == False or None)):
+		movimentos.append(-1)
+		if((percepcoes[posicao - 1]['Poço'] == False) and (percepcoes[posicao - 1]['Wumpus'] == False)):
 			if caminho.count(posicao - 1) == 0:
 				mov_possiveis.append(-1)
 				probabilidade.append(25)
+		if((percepcoes[posicao - 1]['Brisa'] == True) or (percepcoes[posicao - 1]['Fedor'] == True)):
+			contPos += 1
 
 	if(0 <= posicao + 4 <= 15):
-		
-		if((percepcoes[posicao + 4]['Poço'] == False or None) and (percepcoes[posicao + 4]['Wumpus'] == False or None)):
+		movimentos.append(4)
+		if((percepcoes[posicao + 4]['Poço'] == False) and (percepcoes[posicao + 4]['Wumpus'] == False)):
 			if caminho.count(posicao + 4) == 0:
 				mov_possiveis.append(4)
-				probabilidade.append(50)
+				probabilidade.append(25)
+		if((percepcoes[posicao + 4]['Brisa'] == True) or (percepcoes[posicao + 4]['Fedor'] == True)):
+			contPos += 1
 
 	if(0 <= posicao - 4 <= 15):
-		
-		if((percepcoes[posicao - 4]['Poço'] == False 	or None) and (percepcoes[posicao - 4]['Wumpus'] == False or None)):
+		movimentos.append(-4)
+		if((percepcoes[posicao - 4]['Poço'] == False) and (percepcoes[posicao - 4]['Wumpus'] == False)):
 			if caminho.count(posicao - 4) == 0:
 				mov_possiveis.append(-4)
 				probabilidade.append(25)
+		if((percepcoes[posicao - 4]['Brisa'] == True) or (percepcoes[posicao - 4]['Fedor'] == True)):
+			contPos += 1
 	
+	if(percepcoes[mov]['Cor'] == 'Cinza'):
+		mov = posicao + random.choice(movimentos)
 	# se as posições adjacentes não são certezas (i.e Poço/Wumpus = True ou Talvez) a escolha do movimento terá que ser aleatória
-	
-	if(len(mov_possiveis) == 0):
-		mov = random.choice(movimentos)
-		print('Chute')
-	
-	else:
-		mov = random.choices(mov_possiveis, probabilidade).pop()
+	else:	
+		if(len(mov_possiveis) == 0):
+			if(percepcoes[mov]['Cor'] == 'Cinza'):
+				percepcoes[mov]['Cor'] = 'Preto'
+
+			elif(percepcoes[mov]['Cor'] == None):
+				percepcoes[mov]['Cor'] = 'Cinza'
+			del caminho[-1]
+			mov = caminho[-1]
+		else:
+			mov = posicao + random.choices(mov_possiveis, probabilidade).pop()
 
 	return mov

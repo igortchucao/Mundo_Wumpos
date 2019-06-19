@@ -123,59 +123,58 @@ def TELL_aux(percepcoes, posicao):
 		nova_pos = 4*y + (x+1)
 		if(nova_pos >= 0 and nova_pos <= 15):
 			#print('AUX::> Direita da pos',posicao,'=', nova_pos, ' coordenadas:',  Mov.get_coord(nova_pos))
-			if(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == False):
+			if(percepcoes[posicao]['Poço'] == True and percepcoes[nova_pos]['Brisa'] == False):
 				percepcoes[posicao]['Poço'] = False
-			elif(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == True):
+			elif(percepcoes[posicao]['Poço'] == True and percepcoes[nova_pos]['Brisa'] == True):
 				poco_cont += 1
-			if(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == False):
+			if(percepcoes[posicao]['Wumpus'] == True and percepcoes[nova_pos]['Fedor'] == False):
 				percepcoes[posicao]['Wumpus'] = False
-			elif(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == True):
+			elif(percepcoes[posicao]['Wumpus'] == True and percepcoes[nova_pos]['Fedor'] == True):
 				wumpus_cont += 1
 	# Esquerda da posição
 	if(x-1 >= 0):
 		nova_pos = 4*y + (x-1)
 		if(nova_pos >= 0 and nova_pos <= 15):
 			#print('AUX::> Esquerda da pos',posicao,'=', nova_pos, ' coordenadas:',  Mov.get_coord(nova_pos))
-			if(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == False):
+			if(percepcoes[posicao]['Poço'] == True and percepcoes[nova_pos]['Brisa'] == False):
 				percepcoes[posicao]['Poço'] = False
-			elif(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == True):
+			elif(percepcoes[posicao]['Poço'] == True and percepcoes[nova_pos]['Brisa'] == True):
 				poco_cont += 1
-			if(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == False):
+			if(percepcoes[posicao]['Wumpus'] == True and percepcoes[nova_pos]['Fedor'] == False):
 				percepcoes[posicao]['Wumpus'] = False
-			elif(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == True):
+			elif(percepcoes[posicao]['Wumpus'] == True and percepcoes[nova_pos]['Fedor'] == True):
 				wumpus_cont += 1
 	# Abaixo da posição
 	if(y+1 <= 3):
 		nova_pos = 4*(y+1) + x
 		if(nova_pos >= 0 and nova_pos <= 15):
 			#print('AUX::> Abaixo da pos',posicao,'=', nova_pos, ' coordenadas:',  Mov.get_coord(nova_pos))
-			if(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == False):
+			if(percepcoes[posicao]['Poço'] == True and percepcoes[nova_pos]['Brisa'] == False):
 				percepcoes[posicao]['Poço'] = False
-			elif(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == True):
+			elif(percepcoes[posicao]['Poço'] == True and percepcoes[nova_pos]['Brisa'] == True):
 				poco_cont += 1
-			if(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == False):
+			if(percepcoes[posicao]['Wumpus'] == True and percepcoes[nova_pos]['Fedor'] == False):
 				percepcoes[posicao]['Wumpus'] = False
-			elif(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == True):
+			elif(percepcoes[posicao]['Wumpus'] == True and percepcoes[nova_pos]['Fedor'] == True):
 				wumpus_cont += 1
 	# Acima da posição
 	if(y-1 >= 0):
 		nova_pos = 4*(y-1) + x
 		if(nova_pos >= 0 and nova_pos <= 15):
 			#print('AUX::> Acima da pos',posicao,'=', nova_pos, ' coordenadas:',  Mov.get_coord(nova_pos))
-			if(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == False):
+			if(percepcoes[posicao]['Poço'] == True and percepcoes[nova_pos]['Brisa'] == False):
 				percepcoes[posicao]['Poço'] = False
-			elif(percepcoes[posicao]['Poço'] == 'Talvez' and percepcoes[nova_pos]['Brisa'] == True):
+			elif(percepcoes[posicao]['Poço'] == True and percepcoes[nova_pos]['Brisa'] == True):
 				poco_cont += 1
-			if(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == False):
+			if(percepcoes[posicao]['Wumpus'] == True and percepcoes[nova_pos]['Fedor'] == False):
 				percepcoes[posicao]['Wumpus'] = False
-			elif(percepcoes[posicao]['Wumpus'] == 'Talvez' and percepcoes[nova_pos]['Fedor'] == True):
+			elif(percepcoes[posicao]['Wumpus'] == True and percepcoes[nova_pos]['Fedor'] == True):
 				wumpus_cont += 1
         
 	return percepcoes, wumpus_cont, poco_cont
 
 def TELL(ambiente, percepcoes, posicao, arrow):
 	# Inferindo conhecimento na BC sobre as informações de cada posição
-	xy_pos = Mov.get_coord(posicao)
 	wumpus_cont = poco_cont = 0
 	x = posicao%4
 	y = posicao//4
@@ -183,52 +182,41 @@ def TELL(ambiente, percepcoes, posicao, arrow):
 	# Direita da posição
 	if(x+1 <= 3):
 		nova_pos = 4*y + (x+1)
-		if(nova_pos >= 0 and nova_pos <= 15):
+		if(0 <= nova_pos % 4 <= 3):
 			if(percepcoes[posicao]['Brisa'] == False):
 					percepcoes[nova_pos]['Poço'] = False
 			
-			elif(percepcoes[posicao]['Brisa'] == True and (percepcoes[nova_pos]['Poço'] == None or percepcoes[nova_pos]['Poço'] == 'Talvez')):
-					percepcoes[nova_pos]['Poço'] = 'Talvez'
-					percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
+			elif(percepcoes[posicao]['Brisa'] == True):
+					percepcoes[nova_pos]['Poço'] = True
 
-			elif(percepcoes[posicao]['Fedor'] == False):
+			if(percepcoes[posicao]['Fedor'] == False):
 					percepcoes[nova_pos]['Wumpus'] = False
 					
-			elif(percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
-					percepcoes[nova_pos]['Wumpus'] = 'Talvez'
-					percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
+			elif(percepcoes[posicao]['Fedor'] == True):
+					if(percepcoes[nova_pos]['Wumpus']):
+						for i in range(16, 0):
+							percepcoes[i]['Wumpus'] = False
+							percepcoes[i]['Fedor'] = False
+					percepcoes[nova_pos]['Wumpus'] = True
 
-		if wumpus_cont >= 2:
-			percepcoes[nova_pos]['Wumpus'] = True
-			arrow = True
-
-		if poco_cont >= 2:
-			percepcoes[nova_pos]['Poço'] = True
+			percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
 
 	# Esquerda da posição
 	if(x-1 >= 0):
 		nova_pos = 4*y + (x-1)
-		if(nova_pos >= 0 and nova_pos <= 15):
+		if(0 <= nova_pos % 4 <= 3):
 			if(percepcoes[posicao]['Brisa'] == False):
 					percepcoes[nova_pos]['Poço'] = False
 			
-			elif(percepcoes[posicao]['Brisa'] == True and (percepcoes[nova_pos]['Poço'] == None or percepcoes[nova_pos]['Poço'] == 'Talvez')):
-					percepcoes[nova_pos]['Poço'] = 'Talvez'
-					percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
+			elif(percepcoes[posicao]['Brisa'] == True):
+					percepcoes[nova_pos]['Poço'] = True
 
-			elif(percepcoes[posicao]['Fedor'] == False):
+			if(percepcoes[posicao]['Fedor'] == False):
 					percepcoes[nova_pos]['Wumpus'] = False
 					
-			elif(percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
-					percepcoes[nova_pos]['Wumpus'] = 'Talvez'
-					percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
-
-		if wumpus_cont >= 2:
-			percepcoes[nova_pos]['Wumpus'] = True
-			arrow = True
-
-		if poco_cont >= 2:
-			percepcoes[nova_pos]['Poço'] = True
+			elif(percepcoes[posicao]['Fedor'] == True):
+					percepcoes[nova_pos]['Wumpus'] = True
+			percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
 
 	# Abaixo da posição
 	if(y+1 <= 3):
@@ -236,24 +224,16 @@ def TELL(ambiente, percepcoes, posicao, arrow):
 		if(nova_pos >= 0 and nova_pos <= 15):
 			if(percepcoes[posicao]['Brisa'] == False):
 					percepcoes[nova_pos]['Poço'] = False
-					
-			elif(percepcoes[posicao]['Brisa'] == True and (percepcoes[nova_pos]['Poço'] == None or percepcoes[nova_pos]['Poço'] == 'Talvez')):
-					percepcoes[nova_pos]['Poço'] = 'Talvez'
-					percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
+			
+			elif(percepcoes[posicao]['Brisa'] == True):
+					percepcoes[nova_pos]['Poço'] = True
 
-			elif(percepcoes[posicao]['Fedor'] == False):
+			if(percepcoes[posicao]['Fedor'] == False):
 					percepcoes[nova_pos]['Wumpus'] = False
 					
-			elif(percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
-					percepcoes[nova_pos]['Wumpus'] = 'Talvez'
-					percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
-			
-		if wumpus_cont >= 2:
-			percepcoes[nova_pos]['Wumpus'] = True
-			arrow = True
-
-		if poco_cont >= 2:
-			percepcoes[nova_pos]['Poço'] = True
+			elif(percepcoes[posicao]['Fedor'] == True):
+					percepcoes[nova_pos]['Wumpus'] = True
+			percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
 
 	# Acima da posição
 	if(y-1 >= 0):
@@ -261,26 +241,18 @@ def TELL(ambiente, percepcoes, posicao, arrow):
 		if(nova_pos >= 0 and nova_pos <= 15):
 			if(percepcoes[posicao]['Brisa'] == False):
 					percepcoes[nova_pos]['Poço'] = False
-					
-			elif(percepcoes[posicao]['Brisa'] == True and (percepcoes[nova_pos]['Poço'] == None or percepcoes[nova_pos]['Poço'] == 'Talvez')):
-					percepcoes[nova_pos]['Poço'] = 'Talvez'
-					percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
+			
+			elif(percepcoes[posicao]['Brisa'] == True):
+					percepcoes[nova_pos]['Poço'] = True
 
-			elif(percepcoes[posicao]['Fedor'] == False):
+			if(percepcoes[posicao]['Fedor'] == False):
 					percepcoes[nova_pos]['Wumpus'] = False
 					
-			elif(percepcoes[posicao]['Fedor'] == True and (percepcoes[nova_pos]['Wumpus'] == None or percepcoes[nova_pos]['Wumpus'] == 'Talvez')):
-					percepcoes[nova_pos]['Wumpus'] = 'Talvez'
-					percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
-
-		if wumpus_cont >= 2:
-			percepcoes[nova_pos]['Wumpus'] = True
-			arrow = True
-
-		if poco_cont >= 2:
-			percepcoes[nova_pos]['Poço'] = True
+			elif(percepcoes[posicao]['Fedor'] == True):
+					percepcoes[nova_pos]['Wumpus'] = True
+			percepcoes, wumpus_cont, poco_cont = TELL_aux(percepcoes, nova_pos)
 	
-	return percepcoes, arrow
+	return percepcoes
 
 def TELL_aux2(percepcoes, posicao):
 	pos = posicao - 1
@@ -318,20 +290,16 @@ def ASK(ambiente, percepcoes, posicao):
 	if(ambiente[posicao]['Fedor'] == True):
 		percepcoes[posicao]['Fedor'] = True
 		percepcoes[posicao]['Wumpus'] = False
-		percepcoes, arrow = TELL(ambiente, percepcoes, posicao, arrow)
 	else:
 		percepcoes[posicao]['Fedor'] = False
 		percepcoes[posicao]['Wumpus'] = False
-		percepcoes, arrow = TELL(ambiente, percepcoes, posicao, arrow)
 
 	if(ambiente[posicao]['Brisa'] == True):
 		percepcoes[posicao]['Brisa'] = True
 		percepcoes[posicao]['Poço'] = False
-		percepcoes, arrow = TELL(ambiente, percepcoes, posicao, arrow)
 	else:
 		percepcoes[posicao]['Poço'] = False
 		percepcoes[posicao]['Brisa'] = False
-		percepcoes, arrow = TELL(ambiente, percepcoes, posicao, arrow)
 
 	if(ambiente[posicao]['Ouro'] == True):
 		percepcoes[posicao]['Ouro'] = True
@@ -347,6 +315,8 @@ def ASK(ambiente, percepcoes, posicao):
 		percepcoes[posicao]['Wumpus'] = True
 	else:
 		percepcoes[posicao]['Wumpus'] = False
+
+	percepcoes = TELL(ambiente, percepcoes, posicao, arrow)
 	
 	return percepcoes, arrow
 
@@ -422,14 +392,14 @@ def jogo(posicao_atual, ambiente, percepcoes, caminho):
 		ouro = True
 	else:
 		# Escolhe aleatoriamente um movimento todos com probabilidades iguais
-		movimento = Mov.escolhe_movimento(percepcoes, posicao_atual, caminho)
+		posicao_atual = Mov.escolhe_movimento(percepcoes, posicao_atual, caminho)
 
 		# tupla com as coordenadas do movimento escolhido
 		
 
 		# Verifica se o movimento é possível
 		#validade = Mov.mov_valido(coord_porx_mov, posicao_atual, percepcoes)
-		posicao_atual += movimento
+		#posicao_atual += movimento
 
 	return posicao_atual, ouro, buraco, wumpus, arrow, caminho
 
