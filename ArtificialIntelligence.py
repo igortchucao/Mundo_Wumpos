@@ -427,7 +427,7 @@ def jogo(posicao_atual, ambiente, percepcoes, caminho):
 
 		# Verifica se o movimento é possível
 		#validade = Mov.mov_valido(coord_porx_mov, posicao_atual, percepcoes)
-		posicao_atual += movimento
+	posicao_atual += movimento
 
 	return posicao_atual, ouro, buraco, wumpus, arrow, caminho
 

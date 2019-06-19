@@ -122,25 +122,6 @@ def escolhe_movimento(percepcoes, posicao, caminho):
 	# Se os movimentos possíveis forem 0, voltar um movimento e buscar
 	# a posição não visitada mais próxima
 	if(len(mov_possiveis) == 0):
-		print('Procurar posição não descoberta mais próxima')
-		'''
-		escolha uma raiz s de G
-		marque s
-		insira s em F
-		enquanto F não está vazia faça
-			seja v o primeiro vértice de F
-			para cada w ∈ listaDeAdjacência de v faça
-				se w não está marcado então
-					visite aresta entre v e w
-					marque w
-					insira w em F
-				senao se w ∈ F entao
-					visite aresta entre v e w
-				fim se
-			fim para
-			retira v de F
-		fim enquanto
-		'''
 		marcados = []
 		F = []
 		s = posicao
@@ -156,16 +137,14 @@ def escolhe_movimento(percepcoes, posicao, caminho):
 				elif F.count(w):
 					pass
 			F.pop(0)
-		print('posição atual', posicao)
-		print('posições percorridas', caminho)
-		print('marcados', marcados)
 		definido = False
 		for m in marcados:
 			if(caminho.count(m) == 0 and definido == False):
 				definido = True
 				prox_pos = m
 		print('Posição mais próxima não descoberta', prox_pos)
-		mov = 0
+		mov = prox_pos - posicao
+		print('movimento', mov)
 		
 	# Senão, selecionar um dentre os possíveis
 	else:
