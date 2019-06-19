@@ -42,11 +42,43 @@ def mov_valido(coord_direcao, posicao, percepcoes):
 		return True
 	return False
 
+def adjacentes(posicao, percepcoes):
+	# retorna uma lista com os vértices adjacentes daquela posição
+	lista_adj = []
+	x = posicao % 4
+	y = posicao // 4
+
+	if(x+1 <= 3):
+		nova_pos = 4*y + (x+1)
+		lista_adj.append(nova_pos)
+	if(x-1 >= 0):
+		nova_pos = 4*y + (x-1)
+		lista_adj.append(nova_pos)
+	if(y+1 <= 3):
+		nova_pos = 4*(y+1) + x
+		lista_adj.append(nova_pos)
+	if(y-1 >= 0):
+		nova_pos = 4*(y-1) + x
+		lista_adj.append(nova_pos)
+	
+	return lista_adj
+
+def posicao_segura(percepcoes, posicao):
+	val1 = percepcoes[posicao]['Wumpus']
+	val2 = percepcoes[posicao]['Poço']
+
+	if (val1 == None or val1 == False) and (val2 == None or val2 == False):
+		return True
+	return False
+
 '''FUNÇÃO QUE VAI ESCOLHER OS PROXIMOS PASSOS DADOS PELO PERSONAGEM'''
 def escolhe_movimento(percepcoes, posicao, caminho):
 	movimentos = [] # direita, baixo, esquerda, cima
 	contPos = 0
 	mov = posicao
+
+	x = posicao % 4
+	y = posicao // 4
 
 	mov_possiveis = []
 	probabilidade = []
@@ -109,3 +141,10 @@ def escolhe_movimento(percepcoes, posicao, caminho):
 			mov = posicao + random.choices(mov_possiveis, probabilidade).pop()
 
 	return mov
+
+'''
+0  1  2  3
+4  5  6  7
+8  9  10 11
+12 13 14 15
+'''

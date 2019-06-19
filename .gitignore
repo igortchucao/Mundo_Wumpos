@@ -7,3 +7,6 @@ __pycache__
 
 #ignora pasta vscode
 .vscode
+
+#ignora mainConsole.py
+mainConsole.py
